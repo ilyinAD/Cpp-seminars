@@ -9,10 +9,13 @@ int main () {
     treap.insert(0, 1);
     treap.erase(1);
     treap.erase(3);
-    treap.traverse();
+    //treap.traverse();
     std::cout << '\n';
-    for (auto i = treap.begin(); i != treap.end(); ++i) {
-        std::cout << *i << ' ' << treap.find(*i) << std::endl;
-        //treap.traverse();
-    }
+//    for (auto i = treap.begin(); i != treap.end(); ++i) {
+//        std::cout << i->first << ' ' << i->second << std::endl;
+//        std::cout << (*i).first << ' ' << (*i).second << std::endl;
+//    }
+//    for (const auto& [k, v] : treap) {
+//        std::cout << k << ' ' << v <<std::endl;
+//    }
 }

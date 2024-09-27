@@ -5,10 +5,11 @@
 #ifndef CPP_SEMINARS_TREAP_H
 #define CPP_SEMINARS_TREAP_H
 
-#endif //CPP_SEMINARS_TREAP_H
+
 #include <random>
 #include <ctime>
 #include <iostream>
+#include <memory>
 const int INF = 1e9;
 //std::mt19937 rng(time(0));
 //std::uniform_int_distribution<int> uid(-INF, INF);
@@ -24,13 +25,17 @@ template<class K, class V>
 class Treap {
 public:
     struct Node {
-
-        int key, prior, value;
+        int prior;
+        K key;
+        V value;
+        std::pair<K, V>* p;
         Node *l, *r;
         Node(K key, V value) : key(key), value(value) {
             prior = rand();
             l = nullptr;
             r = nullptr;
+
+            p = new std::pair<K, V>{key, value};
         }
     };
     Node* root;
@@ -58,8 +63,13 @@ public:
         Iterator(Node* _it) {
             goLeft(_it);
         }
-        K& operator*() {
-            return prev.back()->key;
+        std::pair<K, V>& operator*() {
+            return *(prev.back()->p);
+        }
+
+        std::pair<K, V>* operator->() {
+            std::pair<K, V>* pointer = new std::pair<K, V>(prev.back()->key, prev.back()->value);
+            return pointer;
         }
 
         void goLeft(Node* node) {
@@ -222,3 +232,5 @@ template<class K, class V>
 void Treap<K, V>::traverse() {
     traverse(root);
 }
+
+#endif //CPP_SEMINARS_TREAP_H
