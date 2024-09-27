@@ -68,8 +68,7 @@ public:
         }
 
         std::pair<K, V>* operator->() {
-            std::pair<K, V>* pointer = new std::pair<K, V>(prev.back()->key, prev.back()->value);
-            return pointer;
+            return prev.back()->p;
         }
 
         void goLeft(Node* node) {
@@ -93,7 +92,7 @@ public:
             Node* node = prev.back();
             prev.pop_back();
             if (node->r) {
-                goLeft(node);
+                goLeft(node->r);
             }
             return temp;
         }
@@ -116,7 +115,8 @@ public:
 template<class K, class V>
 typename Treap<K, V>::Iterator Treap<K, V>::begin() {
     //return Iterator(*root);
-    return Iterator(getBegin(root));
+    return Iterator(root);
+    //Treap<K, V>::Iterator::prev
 }
 template<class K, class V>
 typename Treap<K, V>::Iterator Treap<K, V>::end() {

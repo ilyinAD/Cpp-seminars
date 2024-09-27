@@ -11,11 +11,11 @@ int main () {
     treap.erase(3);
     //treap.traverse();
     std::cout << '\n';
-//    for (auto i = treap.begin(); i != treap.end(); ++i) {
-//        std::cout << i->first << ' ' << i->second << std::endl;
-//        std::cout << (*i).first << ' ' << (*i).second << std::endl;
-//    }
-//    for (const auto& [k, v] : treap) {
-//        std::cout << k << ' ' << v <<std::endl;
-//    }
+    for (auto i = treap.begin(); i != treap.end(); ++i) {
+        std::cout << i->first << ' ' << i->second << std::endl;
+        std::cout << (*i).first << ' ' << (*i).second << std::endl;
+    }
+    for (const auto& [k, v] : treap) {
+        std::cout << k << ' ' << v <<std::endl;
+    }
 }

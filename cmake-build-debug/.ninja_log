@@ -1,18 +1,8 @@
 # ninja log v5
-4	717	7491310981284941	CMakeFiles/Cpp_seminars.dir/homework1/BinaryTreeSearch/Treap.cpp.obj	7c8092c1a5d694f
-16	1014	7491296016885614	CMakeFiles/Cpp_seminars.dir/homework1/BinaryTreeSearch/main.cpp.obj	d3994665e6827e84
-1014	1215	7491296018872598	Cpp_seminars.exe	8d8239a353d0000c
-4	676	7491311315979268	CMakeFiles/Cpp_seminars.dir/homework1/BinaryTreeSearch/Treap.cpp.obj	7c8092c1a5d694f
-5	676	7491312120971624	CMakeFiles/Cpp_seminars.dir/homework1/BinaryTreeSearch/Treap.cpp.obj	7c8092c1a5d694f
-5	705	7491312266464044	CMakeFiles/Cpp_seminars.dir/homework1/BinaryTreeSearch/Treap.cpp.obj	7c8092c1a5d694f
-14	958	7491312268972708	CMakeFiles/Cpp_seminars.dir/homework1/BinaryTreeSearch/main.cpp.obj	d3994665e6827e84
-959	1160	7491312270976442	Cpp_seminars.exe	8d8239a353d0000c
-5	660	7491312654902274	CMakeFiles/Cpp_seminars.dir/homework1/BinaryTreeSearch/Treap.cpp.obj	7c8092c1a5d694f
-6	815	7491312802715760	CMakeFiles/Cpp_seminars.dir/homework1/BinaryTreeSearch/Treap.cpp.obj	7c8092c1a5d694f
-15	950	7491312804087914	CMakeFiles/Cpp_seminars.dir/homework1/BinaryTreeSearch/main.cpp.obj	d3994665e6827e84
-951	1097	7491312805469723	Cpp_seminars.exe	8d8239a353d0000c
-5	754	7491313898564349	CMakeFiles/Cpp_seminars.dir/homework1/BinaryTreeSearch/Treap.cpp.obj	7c8092c1a5d694f
-16	883	7491313899874362	CMakeFiles/Cpp_seminars.dir/homework1/BinaryTreeSearch/main.cpp.obj	d3994665e6827e84
-883	1077	7491313901527066	Cpp_seminars.exe	8d8239a353d0000c
-5	950	7491314945346565	CMakeFiles/Cpp_seminars.dir/homework1/BinaryTreeSearch/main.cpp.obj	d3994665e6827e84
-951	1138	7491314947135036	Cpp_seminars.exe	8d8239a353d0000c
+3	782	7491492511232328	CMakeFiles/Cpp_seminars.dir/homework1/BinaryTreeSearch/Treap.cpp.obj	36021e6c8cc191a0
+3	70	7491491767297216	CMakeFiles/Cpp_seminars.dir/homework1/andrew/main.cpp.obj	8a1fa4481e125a5d
+11	915	7491492512542716	CMakeFiles/Cpp_seminars.dir/homework1/BinaryTreeSearch/main.cpp.obj	feebc3f2f4e9d0fb
+915	1017	7491492513539907	Cpp_seminars.exe	57c53a9ef7eb18ff
+1	189	7491497087222739	build.ninja	f0913d2e06b3a5a
+3	686	7491497095128765	CMakeFiles/Cpp_seminars.dir/homework1/BinaryTreeSearch/main.cpp.obj	feebc3f2f4e9d0fb
+687	807	7491497096305702	Cpp_seminars.exe	8d8239a353d0000c

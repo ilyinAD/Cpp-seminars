@@ -51,13 +51,13 @@ build cmake_object_order_depends_target_Cpp_seminars: phony || CMakeFiles/Cpp_se
 
 build CMakeFiles/Cpp_seminars.dir/homework1/BinaryTreeSearch/Treap.cpp.obj: CXX_COMPILER__Cpp_seminars_unscanned_Debug C$:/MyDoc/HSEprogramming/Cpp-seminars/homework1/BinaryTreeSearch/Treap.cpp || cmake_object_order_depends_target_Cpp_seminars
   DEP_FILE = CMakeFiles\Cpp_seminars.dir\homework1\BinaryTreeSearch\Treap.cpp.obj.d
-  FLAGS = -g -std=gnu++14 -fdiagnostics-color=always
+  FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles\Cpp_seminars.dir
   OBJECT_FILE_DIR = CMakeFiles\Cpp_seminars.dir\homework1\BinaryTreeSearch
 
 build CMakeFiles/Cpp_seminars.dir/homework1/BinaryTreeSearch/main.cpp.obj: CXX_COMPILER__Cpp_seminars_unscanned_Debug C$:/MyDoc/HSEprogramming/Cpp-seminars/homework1/BinaryTreeSearch/main.cpp || cmake_object_order_depends_target_Cpp_seminars
   DEP_FILE = CMakeFiles\Cpp_seminars.dir\homework1\BinaryTreeSearch\main.cpp.obj.d
-  FLAGS = -g -std=gnu++14 -fdiagnostics-color=always
+  FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles\Cpp_seminars.dir
   OBJECT_FILE_DIR = CMakeFiles\Cpp_seminars.dir\homework1\BinaryTreeSearch
 
