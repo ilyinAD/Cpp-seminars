@@ -43,7 +43,7 @@ public:
         root = 0;
     }
     Node* merge(Node*, Node*);
-    void split(Node* t, K x, Node*& a, Node*& b);
+    void split(Node* t, K x, Node*& a, Node*& b, bool flag = false);
     V find(const K &key);
     V get(Node* t, K key);
     void insert(const K &key, const V &value);
@@ -157,20 +157,32 @@ typename Treap<K, V>::Node* Treap<K, V>::merge(Node* l, Node* r) {
 }
 
 template<class K, class V>
-void Treap<K, V>::split(Node* t, K x, Node*& a, Node*& b) {
+void Treap<K, V>::split(Node* t, K x, Node*& a, Node*& b, bool flag) {
     if (!t) {
         a = 0;
         b = 0;
         return;
     }
-    if (t->key < x) {
-        split(t->r, x, t->r, b);
-        a = t;
+    if (!flag) {
+        if (t->key < x) {
+            split(t->r, x, t->r, b);
+            a = t;
+        }
+        else {
+            split(t->l, x, a, t->l);
+            b = t;
+        }
+    } else {
+        if (t->key <= x) {
+            split(t->r, x, t->r, b);
+            a = t;
+        }
+        else {
+            split(t->l, x, a, t->l);
+            b = t;
+        }
     }
-    else {
-        split(t->l, x, a, t->l);
-        b = t;
-    }
+
 }
 
 template<class K, class V>
@@ -214,7 +226,7 @@ template<class K, class V>
 void Treap<K, V>::erase(const K &key) {
     Node *a, *b, *cur;
     split(root, key, a, cur);
-    split(cur, key + 1, cur, b);
+    split(cur, key, cur, b, true);
     root = merge(a, b);
 }
 

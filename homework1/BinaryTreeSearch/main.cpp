@@ -8,6 +8,7 @@ int main () {
     treap.insert(10, -1);
     treap.insert(0, 1);
     treap.erase(1);
+    treap.insert(3, 2);
     treap.erase(3);
     //treap.traverse();
     std::cout << '\n';
