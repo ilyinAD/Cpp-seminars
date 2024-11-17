@@ -18,10 +18,6 @@
 #include "DataBase.h"
 using namespace std;
 
-class ExprChecker {
-
-};
-
 enum class TokenType {
     COLUMN,
     NUMBER,
@@ -116,11 +112,12 @@ shared_ptr<DataBaseType> evaluateAST(Node* node, const map<string, shared_ptr<Da
 
     if (node->left == nullptr && node->right == nullptr) {
         if (isdigit(node->value[0])) {
-            Int q = Int(stoi(node->value));
-            return make_shared<DataBaseType>(q);
+            Int* q = new Int(stoi(node->value));
+            shared_ptr<DataBaseType> sharedPtr(q);
+            return sharedPtr;
         } else {
-            auto it = columnValues.find(node->value);
-            if (it != columnValues.end()) {
+            auto it = row.find(node->value);
+            if (it != row.end()) {
                 return it->second;
             } else {
                 throw invalid_argument("Column not found: " + node->value);
@@ -128,30 +125,48 @@ shared_ptr<DataBaseType> evaluateAST(Node* node, const map<string, shared_ptr<Da
         }
     }
 
-    double leftVal = evaluateAST(node->left, columnValues);
-    double rightVal = evaluateAST(node->right, columnValues);
+    shared_ptr<DataBaseType> leftVal = evaluateAST(node->left, row);
+    shared_ptr<DataBaseType> rightVal = evaluateAST(node->right, row);
 
     if (node->value == "+") {
-        return leftVal + rightVal;
+        DataBaseType* d = ((*leftVal.get()) + (*rightVal.get()));
+        shared_ptr<DataBaseType> sharedPtr(d);
+        return sharedPtr;
     } else if (node->value == "-") {
-        return leftVal - rightVal;
+        DataBaseType* d = ((*leftVal.get()) - (*rightVal.get()));
+        shared_ptr<DataBaseType> sharedPtr(d);
+        return sharedPtr;
     } else if (node->value == "*") {
-        return leftVal * rightVal;
+        DataBaseType* d = ((*leftVal.get()) * (*rightVal.get()));
+        shared_ptr<DataBaseType> sharedPtr(d);
+        return sharedPtr;
     } else if (node->value == "/") {
         if (rightVal == 0) {
             throw runtime_error("Division by zero");
         }
-        return leftVal / rightVal;
+        DataBaseType* d = ((*leftVal.get()) / (*rightVal.get()));
+        shared_ptr<DataBaseType> sharedPtr(d);
+        return sharedPtr;
     } else if (node->value == "%") {
-        return fmod(leftVal, rightVal);
+        DataBaseType* d = ((*leftVal.get()) % (*rightVal.get()));
+        shared_ptr<DataBaseType> sharedPtr(d);
+        return sharedPtr;
     } else if (node->value == "==") {
-        return (leftVal == rightVal) ? 1 : 0;
+        DataBaseType* d = ((*leftVal.get()) == (*rightVal.get()));
+        shared_ptr<DataBaseType> sharedPtr(d);
+        return sharedPtr;
     } else if (node->value == "!=") {
-        return (leftVal != rightVal) ? 1 : 0;
+        DataBaseType* d = ((*leftVal.get()) != (*rightVal.get()));
+        shared_ptr<DataBaseType> sharedPtr(d);
+        return sharedPtr;
     } else if (node->value == "<") {
-        return (leftVal < rightVal) ? 1 : 0;
+        DataBaseType* d = ((*leftVal.get()) < (*rightVal.get()));
+        shared_ptr<DataBaseType> sharedPtr(d);
+        return sharedPtr;
     } else if (node->value == ">") {
-        return (leftVal > rightVal) ? 1 : 0;
+        DataBaseType* d = ((*leftVal.get()) > (*rightVal.get()));
+        shared_ptr<DataBaseType> sharedPtr(d);
+        return sharedPtr;
     } else {
         throw invalid_argument("Unknown operator: " + node->value);
     }
@@ -165,5 +180,26 @@ void deleteAST(Node* root) {
     }
 }
 
+
+class ExprChecker {
+    static bool check(const string& expr, map<string, shared_ptr<DataBaseType>> row) {
+        try {
+            std::vector<Token> tokens = tokenize(expr);
+
+            Node* root = buildAST(tokens);
+
+            shared_ptr<DataBaseType> result = evaluateAST(root, row);
+
+            deleteAST(root);
+            if (dynamic_pointer_cast<Bool>(result)) {
+                return *(static_cast<bool*>(result.get()->type));
+            }
+
+            throw invalid_argument("wrong expr");
+        } catch (const std::exception& e) {
+            std::cout << "Error: " << e.what() << std::endl;
+        }
+    }
+};
 
 #endif //CPP_SEMINARS_EXPRCHECKER_H
