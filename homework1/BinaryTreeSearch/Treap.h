@@ -5,7 +5,6 @@
 #ifndef CPP_SEMINARS_TREAP_H
 #define CPP_SEMINARS_TREAP_H
 
-
 #include <random>
 #include <ctime>
 #include <iostream>
@@ -14,7 +13,6 @@ const int INF = 1e9;
 //std::mt19937 rng(time(0));
 //std::uniform_int_distribution<int> uid(-INF, INF);
 
-
 class Pair {
 public:
     int first;
@@ -22,7 +20,7 @@ public:
     Pair(int first, int second) : first(first), second(second){};
 };
 template<class K, class V>
-class Treap {
+class SearchingTree {
 public:
     struct Node {
         int prior;
@@ -39,13 +37,12 @@ public:
         }
     };
     Node* root;
-    Treap() {
+    SearchingTree() {
         root = 0;
     }
     Node* merge(Node*, Node*);
     void split(Node* t, K x, Node*& a, Node*& b, bool flag = false);
-    V find(const K &key);
-    V get(Node* t, K key);
+    SearchingTree<K, V>::Node get(Node* t, K key);
     void insert(const K &key, const V &value);
     void erase(const K &key);
     void traverse(Node* t);
@@ -105,6 +102,9 @@ public:
             return prev.back() == other.prev.back();
         }
     };
+
+    SearchingTree<K, V>::Iterator find(const K &key);
+
     Iterator begin();
 
     Iterator end();
@@ -113,18 +113,18 @@ public:
 
 };
 template<class K, class V>
-typename Treap<K, V>::Iterator Treap<K, V>::begin() {
+typename SearchingTree<K, V>::Iterator SearchingTree<K, V>::begin() {
     //return Iterator(*root);
     return Iterator(root);
-    //Treap<K, V>::Iterator::prev
+    //SearchingTree<K, V>::Iterator::prev
 }
 template<class K, class V>
-typename Treap<K, V>::Iterator Treap<K, V>::end() {
+typename SearchingTree<K, V>::Iterator SearchingTree<K, V>::end() {
     return Iterator(nullptr);
 }
 
 template<class K, class V>
-typename Treap<K, V>::Node* Treap<K, V>::getBegin(Node* t) {
+typename SearchingTree<K, V>::Node* SearchingTree<K, V>::getBegin(Node* t) {
     if (!t->l) {
         return t;
     }
@@ -132,7 +132,7 @@ typename Treap<K, V>::Node* Treap<K, V>::getBegin(Node* t) {
 }
 
 template<class K, class V>
-typename Treap<K, V>::Node* Treap<K, V>::getEnd(Node* t) {
+typename SearchingTree<K, V>::Node* SearchingTree<K, V>::getEnd(Node* t) {
     if (!(t->r)) {
         return t;
     }
@@ -140,7 +140,7 @@ typename Treap<K, V>::Node* Treap<K, V>::getEnd(Node* t) {
 }
 
 template<class K, class V>
-typename Treap<K, V>::Node* Treap<K, V>::merge(Node* l, Node* r) {
+typename SearchingTree<K, V>::Node* SearchingTree<K, V>::merge(Node* l, Node* r) {
     if (!l) {
         return r;
     }
@@ -157,7 +157,7 @@ typename Treap<K, V>::Node* Treap<K, V>::merge(Node* l, Node* r) {
 }
 
 template<class K, class V>
-void Treap<K, V>::split(Node* t, K x, Node*& a, Node*& b, bool flag) {
+void SearchingTree<K, V>::split(Node* t, K x, Node*& a, Node*& b, bool flag) {
     if (!t) {
         a = 0;
         b = 0;
@@ -186,19 +186,19 @@ void Treap<K, V>::split(Node* t, K x, Node*& a, Node*& b, bool flag) {
 }
 
 template<class K, class V>
-V Treap<K, V>::find(const K &key) {
-    int val = get(root, key);
-    if (val == INF) {
-        return INF;
+SearchingTree<K, V>::Iterator SearchingTree<K, V>::find(const K &key) {
+    Node* q = get(root, key);
+    if (q->value == INF) {
+        return end();
     } else {
-        return val;
+        return Iterator(q);
     }
 }
 
 template<class K, class V>
-V Treap<K, V>::get(Node* t, K key) {
+SearchingTree<K, V>::Node SearchingTree<K, V>::get(Node* t, K key) {
     if (!t) {
-        return INF;
+        return Node(INF);
     }
     if (t->key == key) {
         return t->value;
@@ -211,8 +211,8 @@ V Treap<K, V>::get(Node* t, K key) {
 }
 
 template<class K, class V>
-void Treap<K, V>::insert(const K &key, const V &value) {
-    int val = get(root, key);
+void SearchingTree<K, V>::insert(const K &key, const V &value) {
+    int val = get(root, key).value;
     if (val != INF) {
         return;
     }
@@ -223,7 +223,7 @@ void Treap<K, V>::insert(const K &key, const V &value) {
 }
 
 template<class K, class V>
-void Treap<K, V>::erase(const K &key) {
+void SearchingTree<K, V>::erase(const K &key) {
     Node *a, *b, *cur;
     split(root, key, a, cur);
     split(cur, key, cur, b, true);
@@ -231,7 +231,7 @@ void Treap<K, V>::erase(const K &key) {
 }
 
 template<class K, class V>
-void Treap<K, V>::traverse(Node* t) {
+void SearchingTree<K, V>::traverse(Node* t) {
     if (!t) {
         return;
     }
@@ -241,7 +241,7 @@ void Treap<K, V>::traverse(Node* t) {
 }
 
 template<class K, class V>
-void Treap<K, V>::traverse() {
+void SearchingTree<K, V>::traverse() {
     traverse(root);
 }
 

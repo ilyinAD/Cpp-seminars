@@ -14,6 +14,15 @@
 # EXTERNAL cache entries
 ########################
 
+//Value Computed by CMake
+C++_BINARY_DIR:STATIC=C:/MyDoc/HSEprogramming/Cpp-seminars/cmake-build-debug
+
+//Value Computed by CMake
+C++_IS_TOP_LEVEL:STATIC=ON
+
+//Value Computed by CMake
+C++_SOURCE_DIR:STATIC=C:/MyDoc/HSEprogramming/Cpp-seminars
+
 //Path to a program.
 CMAKE_ADDR2LINE:FILEPATH=C:/Program Files/JetBrains/CLion 2023.3.3/bin/mingw/bin/addr2line.exe
 
@@ -157,7 +166,7 @@ CMAKE_PROJECT_DESCRIPTION:STATIC=
 CMAKE_PROJECT_HOMEPAGE_URL:STATIC=
 
 //Value Computed by CMake
-CMAKE_PROJECT_NAME:STATIC=Cpp_seminars
+CMAKE_PROJECT_NAME:STATIC=C++
 
 //Path to a program.
 CMAKE_RANLIB:FILEPATH=C:/Program Files/JetBrains/CLion 2023.3.3/bin/mingw/bin/ranlib.exe
@@ -354,7 +363,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=1
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=2
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP

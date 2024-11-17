@@ -1,7 +1,7 @@
 #include "Treap.h"
 
 int main () {
-    struct Treap<int, int> treap{};
+    struct SearchingTree<int, int> treap{};
     treap.insert(1, 2);
     treap.insert(2, 4);
     treap.insert(1, 4);

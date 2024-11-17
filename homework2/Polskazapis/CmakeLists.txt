@@ -1,0 +1,11 @@
+cmake_minimum_required(VERSION 3.13)
+project(hm2)
+set(CMAKE_CXX_STANDARD 20)
+
+set(SOURCE_FILES main.cpp
+        Statement.h
+        Statement.cpp
+        ../../homework5/myvector.h
+        ../../homework5/myvector.cpp)
+
+add_executable(hm2 ${SOURCE_FILES})

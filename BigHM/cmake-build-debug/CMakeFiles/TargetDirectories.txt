@@ -1,0 +1,3 @@
+/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/CMakeFiles/BigHM.dir
+/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/CMakeFiles/edit_cache.dir
+/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/CMakeFiles/rebuild_cache.dir

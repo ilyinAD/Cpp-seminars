@@ -1,0 +1,1 @@
+/usr/bin/c++ -g CMakeFiles/hm1.dir/main.cpp.o CMakeFiles/hm1.dir/treap.cpp.o -o hm1 
