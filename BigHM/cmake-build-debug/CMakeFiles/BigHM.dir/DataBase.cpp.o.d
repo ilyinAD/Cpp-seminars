@@ -248,4 +248,28 @@ CMakeFiles/BigHM.dir/DataBase.cpp.o: \
  /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/utils/../domain/DataBaseType.h \
  /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/domain/ColTable.h \
  /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/domain/DataBaseType.h \
- /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/./utils/utils.h
+ /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/ExprChecker.h \
+ /usr/include/c++/11/regex /usr/include/c++/11/bitset \
+ /usr/include/c++/11/locale \
+ /usr/include/c++/11/bits/locale_facets_nonio.h /usr/include/c++/11/ctime \
+ /usr/include/x86_64-linux-gnu/c++/11/bits/time_members.h \
+ /usr/include/x86_64-linux-gnu/c++/11/bits/messages_members.h \
+ /usr/include/libintl.h /usr/include/c++/11/bits/codecvt.h \
+ /usr/include/c++/11/bits/locale_facets_nonio.tcc \
+ /usr/include/c++/11/bits/locale_conv.h /usr/include/c++/11/stack \
+ /usr/include/c++/11/deque /usr/include/c++/11/bits/stl_deque.h \
+ /usr/include/c++/11/bits/deque.tcc /usr/include/c++/11/bits/stl_stack.h \
+ /usr/include/c++/11/cstring /usr/include/c++/11/bits/regex_constants.h \
+ /usr/include/c++/11/bits/regex_error.h \
+ /usr/include/c++/11/bits/regex_automaton.h \
+ /usr/include/c++/11/bits/regex_automaton.tcc \
+ /usr/include/c++/11/bits/regex_scanner.h \
+ /usr/include/c++/11/bits/regex_scanner.tcc \
+ /usr/include/c++/11/bits/regex_compiler.h \
+ /usr/include/c++/11/bits/regex_compiler.tcc \
+ /usr/include/c++/11/bits/regex.h /usr/include/c++/11/bits/regex.tcc \
+ /usr/include/c++/11/bits/regex_executor.h \
+ /usr/include/c++/11/bits/regex_executor.tcc /usr/include/c++/11/iomanip \
+ /usr/include/c++/11/bits/quoted_string.h \
+ /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/./domain/DataBaseType.h \
+ /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/./domain/ColTable.h

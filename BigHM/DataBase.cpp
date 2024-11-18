@@ -3,44 +3,31 @@
 //
 
 #include "DataBase.h"
-#include "./utils/utils.h"
+#include "ExprChecker.h"
 using namespace std;
 
 Table::Table(string name, map<string, string> m): name(name) {
-        int idx = 0;
-        for (auto i : m) {
-            string type = i.second;
-            string colName = i.first;
-            if (type == "int32") {
-                columns.push_back(Col(colName, Type(TypeName::Int, 1), idx));
-            } else if (type == "bool") {
-                columns.push_back(Col(colName, Type(TypeName::Bool, 1), idx));
-            } else {
-                size_t start = type.find('[');
-                size_t end = type.find(']');
+    int idx = 0;
+    for (auto i : m) {
+        string type = i.second;
+        string colName = i.first;
+        if (type == "int32") {
+            columns.push_back(Col(colName, Type(TypeName::Int, 1), idx));
+        } else if (type == "bool") {
+            columns.push_back(Col(colName, Type(TypeName::Bool, 1), idx));
+        } else {
+            size_t start = type.find('[');
+            size_t end = type.find(']');
 
-                string numberStr = type.substr(start + 1, end - start - 1);
-                int size = stoi(numberStr);
-                columns.push_back(Col(colName, Type(TypeName::String, size), idx));
-            }
-            ++idx;
+            string numberStr = type.substr(start + 1, end - start - 1);
+            int size = stoi(numberStr);
+            columns.push_back(Col(colName, Type(TypeName::String, size), idx));
         }
+        ++idx;
+    }
 }
 
-//shared_ptr<DataBaseType> Table::getTypeByCol(Type col, string value) {
-//    if (col.name == TypeName::Int) {
-//        return make_shared<Int>(Int(value));
-//    } else if (col.name == TypeName::Bool) {
-//        return make_shared<Bool>(Bool(value));
-//    } else {
-//        if (value.size() > col.size) {
-//            throw("Invalid size of string");
-//        }
-//        return make_shared<String>(String(value));
-//    }
-//}
-
-void Table::insert(map<string, string> m) {
+void Table::insert(const map<string, string>& m) {
     int idx = rows.size();
     rows.push_back({});
     for (int i = 0; i < columns.size(); ++i) {
@@ -73,44 +60,16 @@ Col Table::getColByName(string colName) {
     return Col();
 }
 
-//    bool isRowUnderCondition(string condition, vector<shared_ptr<DataBaseType>>& row) {
-//        std::regex condition_regex(R"((\"[a-zA-Z_][a-zA-Z0-9_]*\")\s*(==|<|>)\s*([^&]*))");
-//        std::smatch match;
-//
-//        std::istringstream condition_stream(condition);
-//        bool result = true;
-//
-//        while (std::getline(condition_stream, condition, '&')) {
-//            condition = condition.substr(condition.find_first_not_of(" ")); // Отрезаем пробелы с начала
-//            if (std::regex_search(condition, match, condition_regex)) {
-//                std::string columnName = match[1];
-//                std::string operation = match[2];
-//                std::string value = match[3];
-//
-//                shared_ptr<DataBaseType> val = row[this->getColByName(columnName).idx];
-//
-//
-//                if (operation == "==") {
-//                    result = (val.get()->type == value);
-//                } else if (operation == "<") {
-//                    result = (val < value);
-//                } else if (operation == ">") {
-//                    result = (val > value);
-//                }
-//            }
-//        }
-//
-//        return result;
-//    }
-
-void Table::update(map<string, string> m) {
-    for (auto& [colName, expr] : m) {
-        Col col = this->getColByName(colName);
-        if (col.name == "") {
-            throw ("invalid column name");
+void Table::update(const map<string, string>& m, const string& condExpr) {
+    for (int i = 0; i < rows.size(); ++ i) {
+        if (!ExprChecker::check(condExpr, rows[i], columns)) {
+            continue;
         }
-
-        for (int i = 0; i < rows.size(); ++ i) {
+        for (auto& [colName, expr] : m) {
+            Col col = this->getColByName(colName);
+            if (col.name == "") {
+                throw ("invalid column name");
+            }
             if (expr.find(colName) == string::npos) {
                 this->rows[i][col.idx] = getTypeByCol(col.type, expr);
             } else {
@@ -128,8 +87,64 @@ void Table::update(map<string, string> m) {
 
 void Table::deleteRows(string cond) {
     for (auto it = rows.begin(); it != rows.end();) {
+        if (!ExprChecker::check(cond, *it, columns)) {
+            ++it;
+            continue;
+        }
         it = rows.erase(it);
     }
+}
+
+Table Table::select(vector<std::string> namesCol, std::string cond, string tableName = "") {
+    vector<Col> newColumns;
+    for (int j = 0; j < namesCol.size(); ++j) {
+        Col col = getColByName(namesCol[j]);
+        newColumns.push_back(col);
+    }
+    Table newTable = Table(tableName != "" ? tableName : name + cond, newColumns);
+    for (int i = 0; i < rows.size(); ++i) {
+        if (!ExprChecker::check(cond, rows[i], columns)) {
+            continue;
+        }
+        newTable.rows.push_back({});
+        for (int j = 0; j < namesCol.size(); ++j) {
+            Col col = getColByName(namesCol[j]);
+            newTable.rows[newTable.rows.size() - 1].push_back(rows[i][col.idx]);
+        }
+    }
+
+    return newTable;
+}
+
+Table Table::join(const Table& left, const Table& right, string cond, string tableName) {
+    vector<Col> joinColumns;
+    for (auto i : left.columns) {
+        joinColumns.push_back(i);
+    }
+
+    for (auto i : right.columns) {
+        joinColumns.push_back(i);
+    }
+
+    Table joinTable = Table(tableName, joinColumns);
+    for (int i = 0; i < left.rows.size(); ++i) {
+        for (int j = 0; j < right.rows.size(); ++j) {
+            vector<shared_ptr<DataBaseType>> joinRow;
+            for (int k = 0; k < left.rows[i].size(); ++k) {
+                joinRow.push_back(left.rows[i][k]);
+            }
+            for (int k = 0; k < right.rows[j].size(); ++k) {
+                joinRow.push_back(right.rows[j][k]);
+            }
+            if (!ExprChecker::check(cond, joinRow, joinTable.columns)) {
+                continue;
+            }
+
+            joinTable.rows.push_back(joinRow);
+        }
+    }
+
+    return joinTable;
 }
 
 void Table::print() {
@@ -144,4 +159,12 @@ void Table::print() {
         cout << endl;
     }
     cout << endl;
+}
+
+Table::Iterator Table::begin() {
+    return Iterator(rows.begin());
+}
+
+Table::Iterator Table::end() {
+    return Iterator(rows.end());
 }

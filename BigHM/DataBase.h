@@ -24,15 +24,60 @@ public:
 
     Table(const Table& other) = default;
 
-    void insert(map<string, string> m);
+    Table(string name, vector<Col> newColumns) : name(name) {
+        int idx = 0;
+        for (auto i : newColumns) {
+            Col col = i;
+            col.idx = idx;
+            columns.push_back(col);
+            ++idx;
+        }
+    };
+
+    class Iterator {
+        typename vector<vector<shared_ptr<DataBaseType>>>::iterator it;
+    public:
+        Iterator(typename vector<vector<shared_ptr<DataBaseType>>>::iterator it): it(it) {};
+        Iterator& operator++() {
+            it++;
+            return *this;
+        }
+        Iterator& operator++(int) {
+            Iterator it1 = *this;
+            it++;
+            return it1;
+        }
+
+        vector<shared_ptr<DataBaseType>>& operator*() {
+            return *it;
+        }
+
+        bool operator!=(const Iterator& other) {
+            return it != other.it;
+        }
+
+        bool operator==(const Iterator& other) {
+            return it == other.it;
+        }
+    };
+
+    Iterator begin();
+
+    Iterator end();
+
+    void insert(const map<string, string>& m);
 
     Col getColByName(string colName);
 
-    void update(map<string, string> m);
+    void update(const map<string, string>& m, const string&);
 
     void deleteRows(string cond);
 
+    Table select(vector<string>namesCol, string cond, string);
+
     void print();
+
+    Table join(const Table&, const Table&, string, string);
 };
 
 class DataBase {

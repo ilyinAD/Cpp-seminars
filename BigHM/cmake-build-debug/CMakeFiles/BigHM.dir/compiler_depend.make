@@ -304,7 +304,40 @@ CMakeFiles/BigHM.dir/DataBase.cpp.o: ../DataBase.cpp \
   ../domain/DataBaseType.h \
   ../domain/ColTable.h \
   ../domain/DataBaseType.h \
-  ../utils/utils.h
+  ../ExprChecker.h \
+  /usr/include/c++/11/regex \
+  /usr/include/c++/11/bitset \
+  /usr/include/c++/11/locale \
+  /usr/include/c++/11/bits/locale_facets_nonio.h \
+  /usr/include/c++/11/ctime \
+  /usr/include/x86_64-linux-gnu/c++/11/bits/time_members.h \
+  /usr/include/x86_64-linux-gnu/c++/11/bits/messages_members.h \
+  /usr/include/libintl.h \
+  /usr/include/c++/11/bits/codecvt.h \
+  /usr/include/c++/11/bits/locale_facets_nonio.tcc \
+  /usr/include/c++/11/bits/locale_conv.h \
+  /usr/include/c++/11/stack \
+  /usr/include/c++/11/deque \
+  /usr/include/c++/11/bits/stl_deque.h \
+  /usr/include/c++/11/bits/deque.tcc \
+  /usr/include/c++/11/bits/stl_stack.h \
+  /usr/include/c++/11/cstring \
+  /usr/include/c++/11/bits/regex_constants.h \
+  /usr/include/c++/11/bits/regex_error.h \
+  /usr/include/c++/11/bits/regex_automaton.h \
+  /usr/include/c++/11/bits/regex_automaton.tcc \
+  /usr/include/c++/11/bits/regex_scanner.h \
+  /usr/include/c++/11/bits/regex_scanner.tcc \
+  /usr/include/c++/11/bits/regex_compiler.h \
+  /usr/include/c++/11/bits/regex_compiler.tcc \
+  /usr/include/c++/11/bits/regex.h \
+  /usr/include/c++/11/bits/regex.tcc \
+  /usr/include/c++/11/bits/regex_executor.h \
+  /usr/include/c++/11/bits/regex_executor.tcc \
+  /usr/include/c++/11/iomanip \
+  /usr/include/c++/11/bits/quoted_string.h \
+  ../domain/DataBaseType.h \
+  ../domain/ColTable.h
 
 CMakeFiles/BigHM.dir/ExprChecker.cpp.o: ../ExprChecker.cpp \
   /usr/include/stdc-predef.h \
@@ -633,7 +666,12 @@ CMakeFiles/BigHM.dir/ExprChecker.cpp.o: ../ExprChecker.cpp \
   /usr/include/c++/11/tr1/modified_bessel_func.tcc \
   /usr/include/c++/11/tr1/poly_hermite.tcc \
   /usr/include/c++/11/tr1/poly_laguerre.tcc \
-  /usr/include/c++/11/tr1/riemann_zeta.tcc
+  /usr/include/c++/11/tr1/riemann_zeta.tcc \
+  ../domain/DataBaseType.h \
+  ../domain/ColTable.h \
+  ../utils/utils.h \
+  ../domain/ColTable.h \
+  ../domain/DataBaseType.h
 
 CMakeFiles/BigHM.dir/domain/DataBaseType.cpp.o: ../domain/DataBaseType.cpp \
   /usr/include/stdc-predef.h \
@@ -1695,6 +1733,10 @@ CMakeFiles/BigHM.dir/utils/utils.cpp.o: ../utils/utils.cpp \
 
 ../domain/DataBaseType.cpp:
 
+/usr/include/c++/11/fenv.h:
+
+../ExprChecker.cpp:
+
 /usr/include/x86_64-linux-gnu/bits/signum-generic.h:
 
 /usr/include/c++/11/bits/quoted_string.h:
@@ -1738,10 +1780,6 @@ CMakeFiles/BigHM.dir/utils/utils.cpp.o: ../utils/utils.cpp \
 /usr/include/c++/11/bits/locale_facets_nonio.h:
 
 /usr/include/c++/11/bitset:
-
-/usr/include/c++/11/fenv.h:
-
-../ExprChecker.cpp:
 
 ../domain/DataBaseType.h:
 
