@@ -3,6 +3,7 @@
 using namespace std;
 
 int main() {
+    
     try {
         DataBase database = DataBase("my database");
         database.create("my table", {{"id", "int32"}, {"login", "string[32]"}, {"is_admin", "bool"}});
