@@ -6,22 +6,23 @@
 #include "ExprChecker.h"
 using namespace std;
 
-Table::Table(string name, map<string, string> m): name(name) {
+
+Table::Table(string name, vector<Element> m): name(name) {
     int idx = 0;
-    for (auto i : m) {
-        string type = i.second;
-        string colName = i.first;
+    for (auto& element : m) {
+        string type = element.value;
+        string colName = element.name;
         if (type == "int32") {
-            columns.push_back(Col(colName, Type(TypeName::Int, 1), idx));
+            columns.push_back(Col(colName, Type(TypeName::Int, 1), idx, element.attributes));
         } else if (type == "bool") {
-            columns.push_back(Col(colName, Type(TypeName::Bool, 1), idx));
+            columns.push_back(Col(colName, Type(TypeName::Bool, 1), idx, element.attributes));
         } else {
             size_t start = type.find('[');
             size_t end = type.find(']');
 
             string numberStr = type.substr(start + 1, end - start - 1);
             int size = stoi(numberStr);
-            columns.push_back(Col(colName, Type(TypeName::String, size), idx));
+            columns.push_back(Col(colName, Type(TypeName::String, size), idx, element.attributes));
         }
         ++idx;
     }
@@ -42,11 +43,25 @@ void Table::insert(const map<string, string>& m) {
             try {
                 type = getTypeByCol(columns[i].type, value);
                 rows[idx][i] = std::move(type);
-            } catch (string err) {
-                cerr << err << endl;
-                return;
+            } catch (const std::exception& e) {
+                cout << e.what() << endl;
+                throw;
             }
-
+        }
+    }
+    for (int i = 0; i < rows[idx].size(); ++i) {
+        if (rows[idx][i] == nullptr) {
+            try {
+                if (columns[i].attributes.is_autoincrement) {
+                    rows[idx][i] = getTypeByCol(columns[i].type, to_string(rows.size() - 1));
+                } else if (columns[i].attributes.default_value != "") {
+                    rows[idx][i] = getTypeByCol(columns[i].type, columns[i].attributes.default_value);
+                }
+            }
+            catch (const std::exception& e) {
+                std::cout << "Error" << e.what() << endl;
+                throw;
+            }
         }
     }
 }
@@ -60,6 +75,25 @@ Col Table::getColByName(string colName) {
     return Col();
 }
 
+bool checkType(shared_ptr<DataBaseType> type, Col needType) {
+    if (needType.type.name == TypeName::Int) {
+        if (!dynamic_pointer_cast<Int>(type)) {
+            return false;
+        }
+    }
+    if (needType.type.name == TypeName::Bool) {
+        if (!dynamic_pointer_cast<Bool>(type)) {
+            return false;
+        }
+    }
+    if (needType.type.name == TypeName::String) {
+        if (!dynamic_pointer_cast<String>(type)) {
+            return false;
+        }
+    }
+    return true;
+}
+
 void Table::update(const map<string, string>& m, const string& condExpr) {
     for (int i = 0; i < rows.size(); ++ i) {
         if (!ExprChecker::check(condExpr, rows[i], columns)) {
@@ -70,17 +104,22 @@ void Table::update(const map<string, string>& m, const string& condExpr) {
             if (col.name == "") {
                 throw ("invalid column name");
             }
-            if (expr.find(colName) == string::npos) {
-                this->rows[i][col.idx] = getTypeByCol(col.type, expr);
-            } else {
-                vector<string> v = splitString(expr, ' ');
-                if (v[1] == "+") {
-                    shared_ptr<DataBaseType> val = getTypeByCol(col.type, v[2]);
-                    DataBaseType* d = ((*this->rows[i][col.idx].get()) + (*val.get()));
-                    shared_ptr<DataBaseType> sharedPtr(d);
-                    this->rows[i][col.idx] = sharedPtr;
-                }
+//            if (expr.find(colName) == string::npos) {
+//                this->rows[i][col.idx] = getTypeByCol(col.type, expr);
+//            } else {
+//                vector<string> v = splitString(expr, ' ');
+//                if (v[1] == "+") {
+//                    shared_ptr<DataBaseType> val = getTypeByCol(col.type, v[2]);
+//                    DataBaseType* d = ((*this->rows[i][col.idx].get()) + (*val.get()));
+//                    shared_ptr<DataBaseType> sharedPtr(d);
+//                    this->rows[i][col.idx] = sharedPtr;
+//                }
+//            }
+            shared_ptr<DataBaseType> res = ExprChecker::getValFromExpr(expr, rows[i], columns);
+            if (!checkType(res, col)) {
+                continue;
             }
+            rows[i][col.idx] = res;
         }
     }
 }

@@ -14,13 +14,21 @@
 #include "domain/DataBaseType.h"
 
 using namespace std;
-
+struct Element {
+    Attributes attributes;
+    string name;
+    string value;
+    Element(string name, string value) : name(name), value(value) {
+        attributes = Attributes();
+    };
+    Element(string name, string value, Attributes attributes) : name(name), value(value), attributes(attributes) {};
+};
 class Table {
 public:
     string name;
     vector<Col> columns;
     vector<vector<shared_ptr<DataBaseType>>> rows;
-    Table(string name, map<string, string> m);
+    Table(string name, vector<Element> m);
 
     Table(const Table& other) = default;
 
@@ -86,9 +94,12 @@ public:
     map<string, shared_ptr<Table>> tables;
     DataBase(string name) : name(name) {};
 
-    void create(string tableName, map<string, string> m) {
+    void create(string tableName, vector<Element> m) {
         Table table = Table(tableName, m);
         tables[tableName] = make_shared<Table>(table);
+    }
+    void create(string s) {
+
     }
 };
 

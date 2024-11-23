@@ -14,7 +14,7 @@ bool isBoolOp(string& s) {
 }
 
 bool isCompareOp(string& s) {
-    if (s == "=" || s == "<" || s == "!=" || s == ">") {
+    if (s == "=" || s == "<" || s == "!=" || s == ">" || s == ">=" || s == "<=") {
         return true;
     }
 
@@ -35,8 +35,24 @@ shared_ptr<DataBaseType> getByString(string val, map<string, shared_ptr<DataBase
     if (isNumber(val)) {
         return make_shared<Int>(Int(val));
     } else {
-        if (row.find(val) != row.end()) {
-            return row[val];
+        if (val[0] != '|') {
+            if (row.find(val) != row.end()) {
+                return row[val];
+            }
+        } else {
+            if (val.size() < 2) {
+                return make_shared<String>(String(val));
+            }
+
+            string val1 = val.substr(1, val.size() - 2);
+            if (row.find(val1) != row.end()) {
+                if (dynamic_pointer_cast<String>(row[val1])) {
+                    auto s = static_cast<string*>((*row[val1]).type);
+                    return make_shared<Int>(Int(static_cast<int>(s->size())));
+                }
+            }
+
+            return make_shared<Int>(Int(static_cast<int>(val1.size())));
         }
 
         return make_shared<String>(String(val));
@@ -106,6 +122,10 @@ shared_ptr<DataBaseType> doCompare(string& comp, const shared_ptr<DataBaseType>&
         d = ((*leftVal) == (*rightVal));
     else if (comp == "!=")
         d = ((*leftVal) != (*rightVal));
+    else if (comp == "<=")
+        d = ((*leftVal) <= (*rightVal));
+    else if (comp == ">=")
+        d = ((*leftVal) >= (*rightVal));
     else
         throw invalid_argument("invalid compare sign");
     shared_ptr<DataBaseType> sharedPtr(d);
@@ -124,13 +144,13 @@ shared_ptr<DataBaseType> doBoolOp(string& comp, const shared_ptr<DataBaseType>& 
     return sharedPtr;
 }
 
-bool checkExpr(const string& expr, map<string, shared_ptr<DataBaseType>>& row) {
+shared_ptr<DataBaseType> checkExpr(const string& expr, map<string, shared_ptr<DataBaseType>>& row) {
     vector<string> v = splitString(expr, ' ');
     v.push_back("&&");
     v.push_back("1");
     vector<string> query;
-    string prev = "&&";
-    shared_ptr<DataBaseType> res = make_shared<Bool>(Bool("True"));
+    string prev = "";
+    shared_ptr<DataBaseType> res = nullptr;
     for (int i = 0; i < v.size(); ++i) {
         if (!isBoolOp(v[i])) {
             query.push_back(v[i]);
@@ -155,20 +175,55 @@ bool checkExpr(const string& expr, map<string, shared_ptr<DataBaseType>>& row) {
             shared_ptr<DataBaseType> q1 = getVal(query1, 0, row);
             shared_ptr<DataBaseType> q2 = getVal(query2, 0, row);
 
-            if (comp == "") {
-                comp = "=";
-                q2 = make_shared<Bool>(Bool("True"));
+//            if (i == v.size() - 1) {
+//                if (comp == "") {
+//                    return q1;
+//                }
+//                shared_ptr<DataBaseType> res1 = doCompare(comp, q1, q2);
+//                return res1;
+//            }
+
+//            if (comp == "") {
+//                comp = "=";
+//                q2 = make_shared<Bool>(Bool("True"));
+//            }
+//            shared_ptr<DataBaseType> res1 = doCompare(comp, q1, q2);
+            shared_ptr<DataBaseType> res1;
+            if (comp != "") {
+                res1 = doCompare(comp, q1, q2);
+            } else {
+                res1 = q1;
             }
-            shared_ptr<DataBaseType> res1 = doCompare(comp, q1, q2);
-            res = doBoolOp(prev, res, res1);
+            if (res != nullptr) {
+                res = doBoolOp(prev, res, res1);
+            } else {
+                res = res1;
+            }
+
             prev = v[i];
             query = {};
         }
     }
-    if (dynamic_pointer_cast<Bool>(res)) {
-        return *(static_cast<bool*>(res.get()->type));
-    }
+//    if (dynamic_pointer_cast<Bool>(res)) {
+//        return *(static_cast<bool*>(res.get()->type));
+//    }
+    return res;
     throw invalid_argument("шото не то хз");
+}
+
+shared_ptr<DataBaseType> ExprChecker::getValFromExpr(const std::string &expr, vector<shared_ptr<DataBaseType>> row,
+                                                     vector<Col> columns) {
+    map<string, shared_ptr<DataBaseType>> mapRow;
+    for (int i = 0; i < columns.size(); ++i) {
+        mapRow[columns[i].name] = row[i];
+    }
+    try {
+        shared_ptr<DataBaseType> res = checkExpr(expr, mapRow);
+        return res;
+    } catch (const std::exception& e) {
+        std::cout << "Error: " << e.what() << std::endl;
+        throw;
+    }
 }
 
 bool ExprChecker::check(const std::string &expr, vector<shared_ptr<DataBaseType>> row, vector<Col> columns) {
@@ -177,7 +232,15 @@ bool ExprChecker::check(const std::string &expr, vector<shared_ptr<DataBaseType>
         mapRow[columns[i].name] = row[i];
     }
     try {
-        return checkExpr(expr, mapRow);
+        shared_ptr<DataBaseType> res = checkExpr(expr, mapRow);
+        if (dynamic_pointer_cast<Bool>(res)) {
+            return *(static_cast<bool*>(res.get()->type));
+        }
+       if (dynamic_pointer_cast<Int>(res)) {
+           int q = *(static_cast<int*>(res.get()->type));
+           return static_cast<bool>(q);
+       }
+       throw invalid_argument("result is not bool and not int");
     } catch (const std::exception& e) {
         std::cout << "Error: " << e.what() << std::endl;
         throw;

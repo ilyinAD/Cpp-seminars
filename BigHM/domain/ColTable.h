@@ -8,6 +8,22 @@
 #include <string>
 using namespace std;
 
+struct Attributes {
+public:
+    bool is_unique;
+    bool is_autoincrement;
+    bool is_key;
+    string default_value;
+    Attributes(bool is_unique, bool is_autoincrement, bool is_key, string default_value) :
+    is_unique(is_unique), is_autoincrement(is_autoincrement), is_key(is_key), default_value(default_value) {};
+    Attributes() {
+        is_autoincrement = 0;
+        is_key = 0;
+        is_unique = 0;
+    };
+};
+
+
 enum class TypeName {
     Int,
     Bool,
@@ -16,6 +32,7 @@ enum class TypeName {
 
 class Type {
 public:
+
     TypeName name;
     int size;
     Type(TypeName typeName, int size) : name(typeName), size(size) {};
@@ -26,10 +43,11 @@ public:
 
 class Col {
 public:
+    Attributes attributes;
     string name;
     Type type;
     int idx;
-    Col(string name, Type type, int idx) : name(name), type(type), idx(idx) {};
+    Col(string name, Type type, int idx, Attributes attributes) : name(name), type(type), idx(idx), attributes(attributes){};
     Col() {
         name = "";
         idx = 0;

@@ -23,7 +23,7 @@ shared_ptr<DataBaseType> getTypeByCol(Type col, string value) {
         return make_shared<Bool>(Bool(value));
     } else {
         if (value.size() > col.size) {
-            throw("Invalid size of string");
+            throw invalid_argument("Invalid size of string");
         }
         return make_shared<String>(String(value));
     }

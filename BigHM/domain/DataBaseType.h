@@ -19,6 +19,8 @@ public:
     virtual DataBaseType* operator%(const DataBaseType&) = 0;
     virtual DataBaseType* operator<(const DataBaseType&) = 0;
     virtual DataBaseType* operator>(const DataBaseType&) = 0;
+    virtual DataBaseType* operator>=(const DataBaseType&) = 0;
+    virtual DataBaseType* operator<=(const DataBaseType&) = 0;
     virtual DataBaseType* operator==(const DataBaseType&) = 0;
     virtual DataBaseType* operator!=(const DataBaseType&) = 0;
     virtual DataBaseType* operator&&(const DataBaseType&) = 0;
@@ -80,6 +82,12 @@ public:
     DataBaseType* operator^ (const DataBaseType& other) {
         return new Bool( bool(*static_cast<bool*>(type) ^ *static_cast<bool*>(other.type)));
     }
+    DataBaseType* operator>= (const DataBaseType& other) {
+        return new Bool( bool(*static_cast<bool*>(type) <= *static_cast<bool*>(other.type)));
+    }
+    DataBaseType* operator<= (const DataBaseType& other) {
+        return new Bool( bool(*static_cast<bool*>(type) <= *static_cast<bool*>(other.type)));
+    }
 };
 
 class Int : public DataBaseType {
@@ -137,6 +145,12 @@ public:
     DataBaseType* operator^ (const DataBaseType& other) {
         throw invalid_argument("wrong operation with int");
     }
+    DataBaseType* operator>= (const DataBaseType& other) {
+        return new Bool( bool(*static_cast<int*>(type) >= *static_cast<int*>(other.type)));
+    }
+    DataBaseType* operator<= (const DataBaseType& other) {
+        return new Bool( bool(*static_cast<int*>(type) <= *static_cast<int*>(other.type)));
+    }
 };
 
 class String : public DataBaseType {
@@ -183,6 +197,12 @@ public:
     }
     DataBaseType* operator^ (const DataBaseType& other) {
         throw invalid_argument("wrong operation with strings");
+    }
+    DataBaseType* operator>= (const DataBaseType& other) {
+        return new Bool( bool(*static_cast<string*>(type) <= *static_cast<string*>(other.type)));
+    }
+    DataBaseType* operator<= (const DataBaseType& other) {
+        return new Bool( bool(*static_cast<string*>(type) <= *static_cast<string*>(other.type)));
     }
 };
 

@@ -18,7 +18,7 @@
 #include "./domain/DataBaseType.h"
 #include "./domain/ColTable.h"
 using namespace std;
-bool checkExpr(const string& expr, map<string, shared_ptr<DataBaseType>>& row);
+shared_ptr<DataBaseType> checkExpr(const string& expr, map<string, shared_ptr<DataBaseType>>& row);
 shared_ptr<DataBaseType> doBoolOp(string& comp, const shared_ptr<DataBaseType>& leftVal, const shared_ptr<DataBaseType>& rightVal);
 shared_ptr<DataBaseType> doCompare(string& comp, const shared_ptr<DataBaseType>& leftVal, const shared_ptr<DataBaseType>& rightVal);
 shared_ptr<DataBaseType> getVal(vector<string>& v, int idx, map<string, shared_ptr<DataBaseType>>& row);
@@ -30,6 +30,7 @@ bool isCompareOp(string& s);
 bool isBoolOp(string& s);
 class ExprChecker {
 public:
+    static shared_ptr<DataBaseType> getValFromExpr(const string& expr, vector<shared_ptr<DataBaseType>> row, vector<Col> columns);
     static bool check(const string& expr, vector<shared_ptr<DataBaseType>> row, vector<Col> columns);
 };
 
