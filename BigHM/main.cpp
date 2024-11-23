@@ -10,7 +10,7 @@ string toLower(const string& s) {
     return ans;
 }
 
-string deleteSpaces(const string& s) {
+string deleteDoubleSpaces(const string& s) {
     string ans;
     char prev = '_';
     for (auto i : s) {
@@ -33,17 +33,78 @@ string getCommand(const string& s, int idx) {
     return ans;
 }
 
+string deleteSpaces(const string& s) {
+    string ans;
+    for (auto i : s) {
+        if (i != ' ') {
+            ans += i;
+        }
+    }
+
+    return ans;
+}
+
+vector<Element> parseCreate(const string& schema) {
+    vector<Element> elements;
+    string table_name, fields_section;
+    size_t start_pos = schema.find('(');
+    size_t end_pos = schema.find(')');
+    table_name = schema.substr(0, start_pos - 1);
+    fields_section = schema.substr(start_pos + 1, end_pos - start_pos - 1);
+
+    istringstream stream(fields_section);
+    string field;
+
+    while (getline(stream, field, ',')) {
+        Element element;
+        Attributes attributes;
+        size_t brace_start = field.find('{');
+        size_t brace_end = field.find('}');
+        if (brace_start != string::npos && brace_end != string::npos) {
+            string attr_section = field.substr(brace_start + 1, brace_end - brace_start - 1);
+            if (attr_section.find("key") != string::npos) attributes.is_key = true;
+            if (attr_section.find("autoincrement") != string::npos) attributes.is_autoincrement = true;
+            if (attr_section.find("unique") != string::npos) attributes.is_unique = true;
+            field = field.substr(brace_end + 2); // Убираем атрибуты из строки
+        }
+
+        size_t colon_pos = field.find(':');
+        string name = field.substr(0, colon_pos);
+        string value = field.substr(colon_pos + 2);
+
+        size_t equals_pos = value.find('=');
+        if (equals_pos != string::npos) {
+            attributes.default_value = value.substr(equals_pos + 2);
+            value = value.substr(0, equals_pos - 1);
+        }
+
+        element.name = name;
+        element.value = value;
+        element.attributes = attributes;
+        elements.push_back(element);
+    }
+    for (auto& i : elements) {
+        i.name = deleteSpaces(i.name);
+        i.value = deleteSpaces(i.value);
+        i.attributes.default_value = deleteSpaces(i.attributes.default_value);
+    }
+    return elements;
+}
+
 int main() {
 //    while (true) {
 //        string s;
 //        cin >> s;
 //        s = toLower(s);
-//        s = deleteSpaces(s);
+//        s = deleteDoubleSpaces(s);
 //        string command = getCommand(s, 0);
 //        if (command == "create") {
 //
 //        }
 //    }
+    vector<Element> elemets = parseSchema("users ({key; autoincrement} id : "
+                                          "int32, {unique} login: string[32], password_hash: bytes[8], is_admin: "
+                                          "bool = false)");
     try {
         DataBase database = DataBase("my database");
         database.create("my table", {Element("id", "int32"), Element("login", "string[32]"), Element{"is_admin", "bool"}});
@@ -74,8 +135,8 @@ int main() {
 
         //Table joinTable = database.tables["my table 1"]->join(*database.tables["my table"], *database.tables["my table 1"], "id < 10 && login + company_name = vasyaapple", "new join table");
         //joinTable.print();
-    } catch(const std::exception& e) {
-        std::cout << "Error: " << e.what() << std::endl;
+    } catch(const exception& e) {
+        cout << "Error: " << e.what() << endl;
     }
 
 }

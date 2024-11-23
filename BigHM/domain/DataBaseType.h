@@ -5,11 +5,13 @@
 #ifndef CPP_SEMINARS_DATABASETYPE_H
 #define CPP_SEMINARS_DATABASETYPE_H
 #include <string>
+#include <vector>
 #include <iostream>
 using namespace std;
 class DataBaseType {
 public:
     void *type;
+    int sizeConstraint = 0;
     DataBaseType() = default;
     virtual void print() const = 0;
     virtual DataBaseType* operator+(const DataBaseType&) = 0;
@@ -155,7 +157,17 @@ public:
 
 class String : public DataBaseType {
 public:
+    String(string strType, int constraint) {
+        sizeConstraint = constraint;
+        if (strType.size() > constraint) {
+            throw runtime_error("invalid size");
+        }
+        type = new string(strType);
+    };
     String(string strType) {
+        if (strType.size() > sizeConstraint) {
+            throw runtime_error("Invalid size");
+        }
         type = new string(strType);
     };
     void print() const override {
@@ -206,5 +218,27 @@ public:
     }
 };
 
-
+class Bytes: public DataBaseType {
+public:
+    Bytes (string strType, int constraint) {
+        vector<char> v;
+        if (strType[0] == '0' && strType[1] == 'x') {
+            if (strType.size() - 2 != constraint) {
+                throw runtime_error("invalid size");
+            }
+            sizeConstraint = constraint;
+            for (int i = 2; i < strType.size(); ++i) {
+                v.push_back(i);
+            }
+        } else {
+            if (strType.size() != constraint) {
+                throw runtime_error("invalid size");
+            }
+            sizeConstraint = constraint;
+            for (int i = 0; i < strType.size(); ++i) {
+                v.push_back(i);
+            }
+        }
+    };
+};
 #endif //CPP_SEMINARS_DATABASETYPE_H

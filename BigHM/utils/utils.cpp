@@ -25,6 +25,6 @@ shared_ptr<DataBaseType> getTypeByCol(Type col, string value) {
         if (value.size() > col.size) {
             throw invalid_argument("Invalid size of string");
         }
-        return make_shared<String>(String(value));
+        return make_shared<String>(String(value, col.size));
     }
 }

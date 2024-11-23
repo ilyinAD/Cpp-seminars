@@ -28,6 +28,21 @@ Table::Table(string name, vector<Element> m): name(name) {
     }
 }
 
+//проверяет только что последняя строка имеет неуникальные значения в колонке с индексом idx
+bool Table::checkOnUnique(int colIdx, int rowIdx) {
+    for (int i = 0; i < rows.size(); ++i) {
+        if (i == rowIdx) {
+            continue;
+        }
+        if ((*rows[i][colIdx]) == (*rows[rowIdx][colIdx])) {
+            rows.pop_back();
+            return true;
+        }
+    }
+
+    return false;
+}
+
 void Table::insert(const map<string, string>& m) {
     int idx = rows.size();
     rows.push_back({});
@@ -62,6 +77,10 @@ void Table::insert(const map<string, string>& m) {
                 std::cout << "Error" << e.what() << endl;
                 throw;
             }
+        }
+
+        if (!checkOnUnique(i, rows.size() - 1)) {
+            throw invalid_argument("not unique value");
         }
     }
 }
@@ -120,6 +139,9 @@ void Table::update(const map<string, string>& m, const string& condExpr) {
                 continue;
             }
             rows[i][col.idx] = res;
+            if (!checkOnUnique(col.idx, i)) {
+                throw invalid_argument("not unique value in update");
+            }
         }
     }
 }

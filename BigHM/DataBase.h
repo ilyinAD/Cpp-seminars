@@ -18,6 +18,11 @@ struct Element {
     Attributes attributes;
     string name;
     string value;
+    Element() {
+        attributes = Attributes();
+        name = "";
+        value = "";
+    }
     Element(string name, string value) : name(name), value(value) {
         attributes = Attributes();
     };
@@ -86,6 +91,8 @@ public:
     void print();
 
     Table join(const Table&, const Table&, string, string);
+
+    bool checkOnUnique(int, int);
 };
 
 class DataBase {
@@ -98,9 +105,7 @@ public:
         Table table = Table(tableName, m);
         tables[tableName] = make_shared<Table>(table);
     }
-    void create(string s) {
-
-    }
+    void create(string s);
 };
 
 
