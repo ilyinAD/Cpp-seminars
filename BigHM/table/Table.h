@@ -1,5 +1,9 @@
-#ifndef CPP_SEMINARS_DATABASE_H
-#define CPP_SEMINARS_DATABASE_H
+//
+// Created by artem on 24.11.2024.
+//
+
+#ifndef CPP_SEMINARS_TABLE_H
+#define CPP_SEMINARS_TABLE_H
 
 #include <iostream>
 #include <memory>
@@ -9,25 +13,12 @@
 #include <string.h>
 #include <algorithm>
 #include <math.h>
-#include "utils/utils.h"
-#include "domain/ColTable.h"
-#include "domain/DataBaseType.h"
-
+#include "../utils/utils.h"
+#include "../domain/ColTable.h"
+#include "../domain/DataBaseType.h"
+#include "../domain/Element.h"
 using namespace std;
-struct Element {
-    Attributes attributes;
-    string name;
-    string value;
-    Element() {
-        attributes = Attributes();
-        name = "";
-        value = "";
-    }
-    Element(string name, string value) : name(name), value(value) {
-        attributes = Attributes();
-    };
-    Element(string name, string value, Attributes attributes) : name(name), value(value), attributes(attributes) {};
-};
+
 class Table {
 public:
     string name;
@@ -35,7 +26,13 @@ public:
     vector<vector<shared_ptr<DataBaseType>>> rows;
     Table(string name, vector<Element> m);
 
-    Table(const Table& other) = default;
+    Table(const Table& other) {
+        name = other.name;
+        columns = other.columns;
+        rows = other.rows;
+    };
+
+    Table() {};
 
     Table(string name, vector<Col> newColumns) : name(name) {
         int idx = 0;
@@ -95,18 +92,5 @@ public:
     bool checkOnUnique(int, int);
 };
 
-class DataBase {
-public:
-    string name;
-    map<string, shared_ptr<Table>> tables;
-    DataBase(string name) : name(name) {};
 
-    void create(string tableName, vector<Element> m) {
-        Table table = Table(tableName, m);
-        tables[tableName] = make_shared<Table>(table);
-    }
-    void create(string s);
-};
-
-
-#endif //CPP_SEMINARS_DATABASE_H
+#endif //CPP_SEMINARS_TABLE_H

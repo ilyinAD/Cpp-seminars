@@ -129,53 +129,53 @@ BigHM/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/BigHM.dir/build.make CMakeFiles/BigHM.dir/build
 .PHONY : BigHM/fast
 
-DataBase.o: DataBase.cpp.o
-.PHONY : DataBase.o
+conditionParser/ExprChecker.o: conditionParser/ExprChecker.cpp.o
+.PHONY : conditionParser/ExprChecker.o
 
 # target to build an object file
-DataBase.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/BigHM.dir/build.make CMakeFiles/BigHM.dir/DataBase.cpp.o
-.PHONY : DataBase.cpp.o
+conditionParser/ExprChecker.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/BigHM.dir/build.make CMakeFiles/BigHM.dir/conditionParser/ExprChecker.cpp.o
+.PHONY : conditionParser/ExprChecker.cpp.o
 
-DataBase.i: DataBase.cpp.i
-.PHONY : DataBase.i
+conditionParser/ExprChecker.i: conditionParser/ExprChecker.cpp.i
+.PHONY : conditionParser/ExprChecker.i
 
 # target to preprocess a source file
-DataBase.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/BigHM.dir/build.make CMakeFiles/BigHM.dir/DataBase.cpp.i
-.PHONY : DataBase.cpp.i
+conditionParser/ExprChecker.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/BigHM.dir/build.make CMakeFiles/BigHM.dir/conditionParser/ExprChecker.cpp.i
+.PHONY : conditionParser/ExprChecker.cpp.i
 
-DataBase.s: DataBase.cpp.s
-.PHONY : DataBase.s
+conditionParser/ExprChecker.s: conditionParser/ExprChecker.cpp.s
+.PHONY : conditionParser/ExprChecker.s
 
 # target to generate assembly for a file
-DataBase.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/BigHM.dir/build.make CMakeFiles/BigHM.dir/DataBase.cpp.s
-.PHONY : DataBase.cpp.s
+conditionParser/ExprChecker.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/BigHM.dir/build.make CMakeFiles/BigHM.dir/conditionParser/ExprChecker.cpp.s
+.PHONY : conditionParser/ExprChecker.cpp.s
 
-ExprChecker.o: ExprChecker.cpp.o
-.PHONY : ExprChecker.o
+dataBase/DataBase.o: dataBase/DataBase.cpp.o
+.PHONY : dataBase/DataBase.o
 
 # target to build an object file
-ExprChecker.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/BigHM.dir/build.make CMakeFiles/BigHM.dir/ExprChecker.cpp.o
-.PHONY : ExprChecker.cpp.o
+dataBase/DataBase.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/BigHM.dir/build.make CMakeFiles/BigHM.dir/dataBase/DataBase.cpp.o
+.PHONY : dataBase/DataBase.cpp.o
 
-ExprChecker.i: ExprChecker.cpp.i
-.PHONY : ExprChecker.i
+dataBase/DataBase.i: dataBase/DataBase.cpp.i
+.PHONY : dataBase/DataBase.i
 
 # target to preprocess a source file
-ExprChecker.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/BigHM.dir/build.make CMakeFiles/BigHM.dir/ExprChecker.cpp.i
-.PHONY : ExprChecker.cpp.i
+dataBase/DataBase.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/BigHM.dir/build.make CMakeFiles/BigHM.dir/dataBase/DataBase.cpp.i
+.PHONY : dataBase/DataBase.cpp.i
 
-ExprChecker.s: ExprChecker.cpp.s
-.PHONY : ExprChecker.s
+dataBase/DataBase.s: dataBase/DataBase.cpp.s
+.PHONY : dataBase/DataBase.s
 
 # target to generate assembly for a file
-ExprChecker.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/BigHM.dir/build.make CMakeFiles/BigHM.dir/ExprChecker.cpp.s
-.PHONY : ExprChecker.cpp.s
+dataBase/DataBase.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/BigHM.dir/build.make CMakeFiles/BigHM.dir/dataBase/DataBase.cpp.s
+.PHONY : dataBase/DataBase.cpp.s
 
 domain/DataBaseType.o: domain/DataBaseType.cpp.o
 .PHONY : domain/DataBaseType.o
@@ -225,6 +225,30 @@ main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/BigHM.dir/build.make CMakeFiles/BigHM.dir/main.cpp.s
 .PHONY : main.cpp.s
 
+table/Table.o: table/Table.cpp.o
+.PHONY : table/Table.o
+
+# target to build an object file
+table/Table.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/BigHM.dir/build.make CMakeFiles/BigHM.dir/table/Table.cpp.o
+.PHONY : table/Table.cpp.o
+
+table/Table.i: table/Table.cpp.i
+.PHONY : table/Table.i
+
+# target to preprocess a source file
+table/Table.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/BigHM.dir/build.make CMakeFiles/BigHM.dir/table/Table.cpp.i
+.PHONY : table/Table.cpp.i
+
+table/Table.s: table/Table.cpp.s
+.PHONY : table/Table.s
+
+# target to generate assembly for a file
+table/Table.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/BigHM.dir/build.make CMakeFiles/BigHM.dir/table/Table.cpp.s
+.PHONY : table/Table.cpp.s
+
 utils/utils.o: utils/utils.cpp.o
 .PHONY : utils/utils.o
 
@@ -258,18 +282,21 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... BigHM"
-	@echo "... DataBase.o"
-	@echo "... DataBase.i"
-	@echo "... DataBase.s"
-	@echo "... ExprChecker.o"
-	@echo "... ExprChecker.i"
-	@echo "... ExprChecker.s"
+	@echo "... conditionParser/ExprChecker.o"
+	@echo "... conditionParser/ExprChecker.i"
+	@echo "... conditionParser/ExprChecker.s"
+	@echo "... dataBase/DataBase.o"
+	@echo "... dataBase/DataBase.i"
+	@echo "... dataBase/DataBase.s"
 	@echo "... domain/DataBaseType.o"
 	@echo "... domain/DataBaseType.i"
 	@echo "... domain/DataBaseType.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
+	@echo "... table/Table.o"
+	@echo "... table/Table.i"
+	@echo "... table/Table.s"
 	@echo "... utils/utils.o"
 	@echo "... utils/utils.i"
 	@echo "... utils/utils.s"

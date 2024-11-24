@@ -24,7 +24,7 @@
 			{
 				"command" : 0,
 				"file" : 0,
-				"line" : 18,
+				"line" : 21,
 				"parent" : 0
 			}
 		]
@@ -56,7 +56,8 @@
 				3,
 				4,
 				6,
-				9
+				9,
+				12
 			]
 		}
 	],
@@ -93,7 +94,8 @@
 				3,
 				4,
 				6,
-				9
+				9,
+				12
 			]
 		},
 		{
@@ -104,7 +106,9 @@
 				2,
 				5,
 				7,
-				8
+				8,
+				10,
+				11
 			]
 		}
 	],
@@ -118,7 +122,7 @@
 		},
 		{
 			"backtrace" : 1,
-			"path" : "DataBase.h",
+			"path" : "dataBase/DataBase.h",
 			"sourceGroupIndex" : 1
 		},
 		{
@@ -135,18 +139,18 @@
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "DataBase.cpp",
+			"path" : "dataBase/DataBase.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 1,
-			"path" : "ExprChecker.h",
+			"path" : "conditionParser/ExprChecker.h",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "ExprChecker.cpp",
+			"path" : "conditionParser/ExprChecker.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{
@@ -163,6 +167,22 @@
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
 			"path" : "domain/DataBaseType.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "table/Table.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "domain/Element.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "table/Table.cpp",
 			"sourceGroupIndex" : 0
 		}
 	],

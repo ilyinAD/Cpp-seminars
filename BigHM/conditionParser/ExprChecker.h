@@ -15,8 +15,8 @@
 #include <regex>
 #include <iomanip>
 #include <cmath>
-#include "./domain/DataBaseType.h"
-#include "./domain/ColTable.h"
+#include "../domain/DataBaseType.h"
+#include "../domain/ColTable.h"
 using namespace std;
 shared_ptr<DataBaseType> checkExpr(const string& expr, map<string, shared_ptr<DataBaseType>>& row);
 shared_ptr<DataBaseType> doBoolOp(string& comp, const shared_ptr<DataBaseType>& leftVal, const shared_ptr<DataBaseType>& rightVal);

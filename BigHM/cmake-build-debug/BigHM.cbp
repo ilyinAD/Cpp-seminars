@@ -82,16 +82,16 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/DataBase.cpp">
+		<Unit filename="/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/conditionParser/ExprChecker.cpp">
 			<Option target="BigHM"/>
 		</Unit>
-		<Unit filename="/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/DataBase.h">
+		<Unit filename="/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/conditionParser/ExprChecker.h">
 			<Option target="BigHM"/>
 		</Unit>
-		<Unit filename="/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/ExprChecker.cpp">
+		<Unit filename="/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/dataBase/DataBase.cpp">
 			<Option target="BigHM"/>
 		</Unit>
-		<Unit filename="/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/ExprChecker.h">
+		<Unit filename="/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/dataBase/DataBase.h">
 			<Option target="BigHM"/>
 		</Unit>
 		<Unit filename="/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/domain/ColTable.h">
@@ -103,7 +103,16 @@
 		<Unit filename="/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/domain/DataBaseType.h">
 			<Option target="BigHM"/>
 		</Unit>
+		<Unit filename="/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/domain/Element.h">
+			<Option target="BigHM"/>
+		</Unit>
 		<Unit filename="/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/main.cpp">
+			<Option target="BigHM"/>
+		</Unit>
+		<Unit filename="/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/table/Table.cpp">
+			<Option target="BigHM"/>
+		</Unit>
+		<Unit filename="/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/table/Table.h">
 			<Option target="BigHM"/>
 		</Unit>
 		<Unit filename="/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/utils/utils.cpp">

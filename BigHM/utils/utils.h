@@ -16,6 +16,10 @@ using namespace std;
 
 vector<string> splitString(const string &, char);
 shared_ptr<DataBaseType> getTypeByCol(Type, string);
-
+string toLower(const string& s);
+string deleteDoubleSpaces(const string& s);
+string getCommand(const string& s, int idx);
+string deleteSpaces(const string& s);
+string deleteCornerSpaces(const string& s);
 
 #endif //CPP_SEMINARS_UTILS_H

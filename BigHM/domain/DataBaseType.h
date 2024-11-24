@@ -7,12 +7,15 @@
 #include <string>
 #include <vector>
 #include <iostream>
+#include <iomanip>
 using namespace std;
 class DataBaseType {
 public:
     void *type;
     int sizeConstraint = 0;
-    DataBaseType() = default;
+    //DataBaseType() = default;
+
+    //virtual DataBaseType& operator=(const DataBaseType& other) = 0;
     virtual void print() const = 0;
     virtual DataBaseType* operator+(const DataBaseType&) = 0;
     virtual DataBaseType* operator-(const DataBaseType&) = 0;
@@ -28,10 +31,14 @@ public:
     virtual DataBaseType* operator&&(const DataBaseType&) = 0;
     virtual DataBaseType* operator||(const DataBaseType&) = 0;
     virtual DataBaseType* operator^(const DataBaseType&) = 0;
+    virtual ~DataBaseType() = default;
 };
 
 class Bool : public DataBaseType {
 public:
+//    Bool(const DataBaseType& other) {
+//        type = other.type;
+//    }
     Bool(string strType) {
         if (strType == "True" || strType == "true") {
             type = new bool(true);
@@ -42,9 +49,15 @@ public:
         }
     }
 
+//    Bool& operator= (const DataBaseType& other) {
+//        this->type = other.type;
+//        return *this;
+//    }
+
     Bool(bool val) {
         type = new bool(val);
     }
+
     void print() const override {
         cout << *(static_cast<bool*>(type)) << ' ';
     }
@@ -108,6 +121,11 @@ public:
         type = new int(val);
     };
 
+//    Int& operator= (const DataBaseType& other) {
+//        this->type = other.type;
+//        return *this;
+//    }
+
     void print() const override {
         cout << *(static_cast<int*>(type)) << ' ';
     }
@@ -153,6 +171,7 @@ public:
     DataBaseType* operator<= (const DataBaseType& other) {
         return new Bool( bool(*static_cast<int*>(type) <= *static_cast<int*>(other.type)));
     }
+
 };
 
 class String : public DataBaseType {
@@ -165,11 +184,12 @@ public:
         type = new string(strType);
     };
     String(string strType) {
-        if (strType.size() > sizeConstraint) {
-            throw runtime_error("Invalid size");
-        }
+//        if (strType.size() > sizeConstraint) {
+//            throw runtime_error("Invalid size");
+//        }
         type = new string(strType);
     };
+
     void print() const override {
         cout << *(static_cast<string*>(type)) << ' ';
     }
@@ -220,25 +240,78 @@ public:
 
 class Bytes: public DataBaseType {
 public:
+
     Bytes (string strType, int constraint) {
-        vector<char> v;
         if (strType[0] == '0' && strType[1] == 'x') {
             if (strType.size() - 2 != constraint) {
                 throw runtime_error("invalid size");
             }
-            sizeConstraint = constraint;
-            for (int i = 2; i < strType.size(); ++i) {
-                v.push_back(i);
-            }
+
+            type = new string(strType.substr(2));
+            //cout << *static_cast<string*>(type) << endl;
         } else {
             if (strType.size() != constraint) {
                 throw runtime_error("invalid size");
             }
-            sizeConstraint = constraint;
-            for (int i = 0; i < strType.size(); ++i) {
-                v.push_back(i);
-            }
+            type = new string(strType);
+        }
+
+        sizeConstraint = constraint;
+    };
+
+    Bytes (string strType) {
+        if (strType[0] == '0' && strType[1] == 'x') {
+            type = new string(strType.substr(2));
+        } else {
+            type = new string(strType);
         }
     };
+
+    void print() const override {
+        cout << *static_cast<string*>(type) << ' ';
+    }
+
+    DataBaseType* operator+ (const DataBaseType& other) {
+        throw invalid_argument("wrong operation with bytes");
+    }
+    DataBaseType* operator* (const DataBaseType& other) {
+        throw invalid_argument("wrong operation with bytes");
+    }
+    DataBaseType* operator/ (const DataBaseType& other) {
+        throw invalid_argument("wrong operation with bytes");
+    }
+    DataBaseType* operator- (const DataBaseType& other) {
+        throw invalid_argument("wrong operation with bytes");
+    }
+    DataBaseType* operator% (const DataBaseType& other) {
+        throw invalid_argument("wrong operation with bytes");
+    }
+    DataBaseType* operator< (const DataBaseType& other) {
+        return new Bool( bool(*static_cast<string*>(type) < *static_cast<string*>(other.type)));
+    }
+    DataBaseType* operator> (const DataBaseType& other) {
+        return new Bool( bool(*static_cast<string*>(type) > *static_cast<string*>(other.type)));
+    }
+    DataBaseType* operator== (const DataBaseType& other) {
+        return new Bool( bool(*static_cast<string*>(type) == *static_cast<string*>(other.type)));
+    }
+    DataBaseType* operator!= (const DataBaseType& other) {
+        return new Bool( bool(*static_cast<string*>(type) != *static_cast<string*>(other.type)));
+    }
+    DataBaseType* operator&& (const DataBaseType& other) {
+        throw invalid_argument("wrong operation with bytes");
+    }
+    DataBaseType* operator|| (const DataBaseType& other) {
+        throw invalid_argument("wrong operation with bytes");
+    }
+    DataBaseType* operator^ (const DataBaseType& other) {
+        throw invalid_argument("wrong operation with bytes");
+    }
+    DataBaseType* operator>= (const DataBaseType& other) {
+        return new Bool( bool(*static_cast<string*>(type) <= *static_cast<string*>(other.type)));
+    }
+    DataBaseType* operator<= (const DataBaseType& other) {
+        return new Bool( bool(*static_cast<string*>(type) <= *static_cast<string*>(other.type)));
+    }
 };
 #endif //CPP_SEMINARS_DATABASETYPE_H

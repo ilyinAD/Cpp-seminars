@@ -3,7 +3,7 @@
 //
 
 #include "ExprChecker.h"
-#include "./utils/utils.h"
+#include "../utils/utils.h"
 
 bool isBoolOp(string& s) {
     if (s == "&&" || s == "||" || s == "^^") {
@@ -34,6 +34,12 @@ bool isNumber(string& s) {
 shared_ptr<DataBaseType> getByString(string val, map<string, shared_ptr<DataBaseType>>& row) {
     if (isNumber(val)) {
         return make_shared<Int>(Int(val));
+    } else if (val == "true" || val == "false") {
+        return make_shared<Bool>(Bool(val));
+    } else if (val.size() > 2 && val[0] == '0' && val[1] == 'x') {
+        return make_shared<Bytes>(Bytes(val));
+    } else if (val[0] == '"' && val[val.size() - 1] == '"') {
+        return make_shared<String>(String(val.substr(1, val.size() - 1)));
     } else {
         if (val[0] != '|') {
             if (row.find(val) != row.end()) {
@@ -47,6 +53,10 @@ shared_ptr<DataBaseType> getByString(string val, map<string, shared_ptr<DataBase
             string val1 = val.substr(1, val.size() - 2);
             if (row.find(val1) != row.end()) {
                 if (dynamic_pointer_cast<String>(row[val1])) {
+                    auto s = static_cast<string*>((*row[val1]).type);
+                    return make_shared<Int>(Int(static_cast<int>(s->size())));
+                }
+                if (dynamic_pointer_cast<Bytes>(row[val1])) {
                     auto s = static_cast<string*>((*row[val1]).type);
                     return make_shared<Int>(Int(static_cast<int>(s->size())));
                 }

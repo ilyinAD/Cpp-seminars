@@ -1,11 +1,10 @@
 //
-// Created by artem on 16.11.2024.
+// Created by artem on 24.11.2024.
 //
 
-#include "DataBase.h"
-#include "ExprChecker.h"
+#include "Table.h"
+#include "../conditionParser/ExprChecker.h"
 using namespace std;
-
 
 Table::Table(string name, vector<Element> m): name(name) {
     int idx = 0;
@@ -19,22 +18,26 @@ Table::Table(string name, vector<Element> m): name(name) {
         } else {
             size_t start = type.find('[');
             size_t end = type.find(']');
-
+            string s = type.substr(0, start);
             string numberStr = type.substr(start + 1, end - start - 1);
             int size = stoi(numberStr);
-            columns.push_back(Col(colName, Type(TypeName::String, size), idx, element.attributes));
+            if (s == "string") {
+                columns.push_back(Col(colName, Type(TypeName::String, size), idx, element.attributes));
+            } else {
+                columns.push_back(Col(colName, Type(TypeName::Bytes, size), idx, element.attributes));
+            }
         }
         ++idx;
     }
 }
 
-//проверяет только что последняя строка имеет неуникальные значения в колонке с индексом idx
+//проверяет только что нужная строка имеет неуникальные значения в колонке с индексом idx
 bool Table::checkOnUnique(int colIdx, int rowIdx) {
     for (int i = 0; i < rows.size(); ++i) {
         if (i == rowIdx) {
             continue;
         }
-        if ((*rows[i][colIdx]) == (*rows[rowIdx][colIdx])) {
+        if ((*rows[i][colIdx]).type == (*rows[rowIdx][colIdx]).type) {
             rows.pop_back();
             return true;
         }
@@ -60,6 +63,7 @@ void Table::insert(const map<string, string>& m) {
                 rows[idx][i] = std::move(type);
             } catch (const std::exception& e) {
                 cout << e.what() << endl;
+                rows.pop_back();
                 throw;
             }
         }
@@ -75,11 +79,13 @@ void Table::insert(const map<string, string>& m) {
             }
             catch (const std::exception& e) {
                 std::cout << "Error" << e.what() << endl;
+                rows.pop_back();
                 throw;
             }
         }
 
-        if (!checkOnUnique(i, rows.size() - 1)) {
+        if (columns[i].attributes.is_unique && checkOnUnique(i, rows.size() - 1)) {
+            rows.pop_back();
             throw invalid_argument("not unique value");
         }
     }
@@ -97,17 +103,28 @@ Col Table::getColByName(string colName) {
 bool checkType(shared_ptr<DataBaseType> type, Col needType) {
     if (needType.type.name == TypeName::Int) {
         if (!dynamic_pointer_cast<Int>(type)) {
-            return false;
+            throw runtime_error("invalid type");
         }
     }
     if (needType.type.name == TypeName::Bool) {
         if (!dynamic_pointer_cast<Bool>(type)) {
-            return false;
+            throw runtime_error("invalid type");
         }
     }
     if (needType.type.name == TypeName::String) {
+        if (needType.type.size < static_cast<string*>(type->type)->size()) {
+            throw runtime_error("invalid size");
+        }
         if (!dynamic_pointer_cast<String>(type)) {
-            return false;
+            throw runtime_error("invalid type");
+        }
+    }
+    if (needType.type.name == TypeName::Bytes) {
+        if (needType.type.size != static_cast<string*>(type->type)->size()) {
+            throw runtime_error("invalid size");
+        }
+        if (!dynamic_pointer_cast<Bytes>(type)) {
+            throw runtime_error("invalid type");
         }
     }
     return true;
@@ -118,28 +135,23 @@ void Table::update(const map<string, string>& m, const string& condExpr) {
         if (!ExprChecker::check(condExpr, rows[i], columns)) {
             continue;
         }
+        vector<shared_ptr<DataBaseType>> copyRow = rows[i];
         for (auto& [colName, expr] : m) {
             Col col = this->getColByName(colName);
             if (col.name == "") {
-                throw ("invalid column name");
+                rows[i] = copyRow;
+                throw runtime_error("invalid column name");
             }
-//            if (expr.find(colName) == string::npos) {
-//                this->rows[i][col.idx] = getTypeByCol(col.type, expr);
-//            } else {
-//                vector<string> v = splitString(expr, ' ');
-//                if (v[1] == "+") {
-//                    shared_ptr<DataBaseType> val = getTypeByCol(col.type, v[2]);
-//                    DataBaseType* d = ((*this->rows[i][col.idx].get()) + (*val.get()));
-//                    shared_ptr<DataBaseType> sharedPtr(d);
-//                    this->rows[i][col.idx] = sharedPtr;
-//                }
-//            }
             shared_ptr<DataBaseType> res = ExprChecker::getValFromExpr(expr, rows[i], columns);
-            if (!checkType(res, col)) {
-                continue;
+            try {
+                checkType(res, col);
+            } catch (const std::exception& e) {
+                rows[i] = copyRow;
+                cout << "Error" << ' ' << e.what()  << endl;
+                throw;
             }
             rows[i][col.idx] = res;
-            if (!checkOnUnique(col.idx, i)) {
+            if (columns[i].attributes.is_unique && checkOnUnique(col.idx, i)) {
                 throw invalid_argument("not unique value in update");
             }
         }
@@ -180,11 +192,15 @@ Table Table::select(vector<std::string> namesCol, std::string cond, string table
 Table Table::join(const Table& left, const Table& right, string cond, string tableName) {
     vector<Col> joinColumns;
     for (auto i : left.columns) {
-        joinColumns.push_back(i);
+        Col col = i;
+        col.name = left.name + '.' + col.name;
+        joinColumns.push_back(col);
     }
 
     for (auto i : right.columns) {
-        joinColumns.push_back(i);
+        Col col = i;
+        col.name = right.name + '.' + col.name;
+        joinColumns.push_back(col);
     }
 
     Table joinTable = Table(tableName, joinColumns);

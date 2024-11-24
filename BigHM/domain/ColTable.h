@@ -27,7 +27,8 @@ public:
 enum class TypeName {
     Int,
     Bool,
-    String
+    String,
+    Bytes,
 };
 
 class Type {

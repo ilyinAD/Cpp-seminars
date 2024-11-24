@@ -1,98 +1,11 @@
 #include <bits/stdc++.h>
-#include "DataBase.h"
+#include "dataBase/DataBase.h"
 using namespace std;
 
-string toLower(const string& s) {
-    string ans;
-    for (auto i : s) {
-        ans += tolower(i);
-    }
-    return ans;
-}
 
-string deleteDoubleSpaces(const string& s) {
-    string ans;
-    char prev = '_';
-    for (auto i : s) {
-        if (i == ' ' && prev == ' ') {
-            continue;
-        }
-        prev = i;
-        ans += i;
-    }
-}
-
-string getCommand(const string& s, int idx) {
-    string ans;
-    for (int i = idx; i < s.size(); ++i) {
-        if (s[idx] == ' ') {
-            break;
-        }
-        ans += s[i];
-    }
-    return ans;
-}
-
-string deleteSpaces(const string& s) {
-    string ans;
-    for (auto i : s) {
-        if (i != ' ') {
-            ans += i;
-        }
-    }
-
-    return ans;
-}
-
-vector<Element> parseCreate(const string& schema) {
-    vector<Element> elements;
-    string table_name, fields_section;
-    size_t start_pos = schema.find('(');
-    size_t end_pos = schema.find(')');
-    table_name = schema.substr(0, start_pos - 1);
-    fields_section = schema.substr(start_pos + 1, end_pos - start_pos - 1);
-
-    istringstream stream(fields_section);
-    string field;
-
-    while (getline(stream, field, ',')) {
-        Element element;
-        Attributes attributes;
-        size_t brace_start = field.find('{');
-        size_t brace_end = field.find('}');
-        if (brace_start != string::npos && brace_end != string::npos) {
-            string attr_section = field.substr(brace_start + 1, brace_end - brace_start - 1);
-            if (attr_section.find("key") != string::npos) attributes.is_key = true;
-            if (attr_section.find("autoincrement") != string::npos) attributes.is_autoincrement = true;
-            if (attr_section.find("unique") != string::npos) attributes.is_unique = true;
-            field = field.substr(brace_end + 2); // Убираем атрибуты из строки
-        }
-
-        size_t colon_pos = field.find(':');
-        string name = field.substr(0, colon_pos);
-        string value = field.substr(colon_pos + 2);
-
-        size_t equals_pos = value.find('=');
-        if (equals_pos != string::npos) {
-            attributes.default_value = value.substr(equals_pos + 2);
-            value = value.substr(0, equals_pos - 1);
-        }
-
-        element.name = name;
-        element.value = value;
-        element.attributes = attributes;
-        elements.push_back(element);
-    }
-    for (auto& i : elements) {
-        i.name = deleteSpaces(i.name);
-        i.value = deleteSpaces(i.value);
-        i.attributes.default_value = deleteSpaces(i.attributes.default_value);
-    }
-    return elements;
-}
 
 int main() {
-//    while (true) {
+    //    while (true) {
 //        string s;
 //        cin >> s;
 //        s = toLower(s);
@@ -102,26 +15,42 @@ int main() {
 //
 //        }
 //    }
-    vector<Element> elemets = parseSchema("users ({key; autoincrement} id : "
-                                          "int32, {unique} login: string[32], password_hash: bytes[8], is_admin: "
-                                          "bool = false)");
+//    vector<Element> elemets = parseCreate("users ({key; autoincrement} id : "
+//                                          "int32, {unique} login: string[32], password_hash: bytes[8], is_admin: "
+//                                          "bool = false)");
+    DataBase database = DataBase("my database");
+//    database.insert("insert (login = \"vasya\", password_hash = 0xdeadbeefdeadbeef) to users");
+//    return 0;
     try {
-        DataBase database = DataBase("my database");
-        database.create("my table", {Element("id", "int32"), Element("login", "string[32]"), Element{"is_admin", "bool"}});
-
-
+        database.create("create table users ({key, autoincrement} id :\n"
+                        "int32, {unique} login: string[32], password_hash: bytes[8], is_admin:\n"
+                        "bool = true)");
         //shared_ptr<Table> table = database.tables["my table"];
-        database.tables["my table"]->insert({{"login", "vasya"}, {"is_admin", "False"}, {"id", "9"}});
-        database.tables["my table"]->insert({{"login", "max"}, {"is_admin", "True"}, {"id", "12"}});
-        database.tables["my table"]->print();
+        //database.tables["users"].insert({{"login", "vasya"}, {"is_admin", "False"}, {"id", "9"}, {"password_hash", "0x10000000"}});
+        //database.tables["users"].insert({{"login", "max"}, {"is_admin", "True"}, {"id", "12"}, {"password_hash", "0x00000000"}});
+        database.insert("insert (login = \"vasya\", password_hash = 0xdeadbeef) to users");
+        database.insert("insert (,\"max\", 0x00000000, false) to users");
+        database.tables["users"].print();
+        database.create("create table cars ({key, autoincrement} id :\n"
+                        "int32, car_name: string[32], is_truck:\n"
+                        "bool = false, person_id: int32)");
+        database.insert("insert (,\"nissan\",,1) to cars");
+        database.insert("insert (,\"toyota\",,0) to cars");
+        database.tables["cars"].print();
+        Table newtable  = database.update("update users join cars on true set cars.car_name = cars.car_name + CAR, cars.is_truck = true where true");
+        newtable.print();
+        //Table table = database.tables["users"].join(database.tables["users"], database.tables["cars"], "users.id = cars.person_id", "new table");
+        //table.print();
+        //database.deleteRows("delete users where is_admin");
+        //database.tables["users"].print();
 //    for (auto i = database.tables["my table"]->begin(); i != database.tables["my table"]->end(); i++) {
 //        for (auto j : *i) {
 //            j->print();
 //        }
 //        cout << endl;
 //    }
-        database.tables["my table"]->update({{"login", "login + xyz + z"}, {"is_admin", "true"}, {"id", "id * 2 + 111"}}, "id + 1");
-        database.tables["my table"]->print();
+       // database.tables["users"].update({{"password_hash", "0x12000000"}, {"login", "login + xyz + z"}, {"is_admin", "true"}, {"id", "id * 2 + 111"}}, "id + 1");
+        //database.tables["users"].print();
         //database.tables["my table"]->deleteRows("id * 2 < 150");
         //database.tables["my table"]->print();
         //Table newTable = database.tables["my table"]->select({"id", "login"}, "is_admin", "me new table");
@@ -136,6 +65,7 @@ int main() {
         //Table joinTable = database.tables["my table 1"]->join(*database.tables["my table"], *database.tables["my table 1"], "id < 10 && login + company_name = vasyaapple", "new join table");
         //joinTable.print();
     } catch(const exception& e) {
+        database.tables["users"].print();
         cout << "Error: " << e.what() << endl;
     }
 

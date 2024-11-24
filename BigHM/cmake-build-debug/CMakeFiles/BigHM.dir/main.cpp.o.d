@@ -351,10 +351,13 @@ CMakeFiles/BigHM.dir/main.cpp.o: \
  /usr/include/c++/11/ranges /usr/include/c++/11/span \
  /usr/include/c++/11/source_location /usr/include/c++/11/syncstream \
  /usr/include/c++/11/version \
- /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/DataBase.h \
+ /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/dataBase/DataBase.h \
  /usr/include/c++/11/math.h \
- /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/utils/utils.h \
- /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/utils/../domain/ColTable.h \
- /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/utils/../domain/DataBaseType.h \
- /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/domain/ColTable.h \
- /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/domain/DataBaseType.h
+ /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/dataBase/../table/Table.h \
+ /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/dataBase/../table/../utils/utils.h \
+ /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/dataBase/../table/../utils/../domain/ColTable.h \
+ /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/dataBase/../table/../utils/../domain/DataBaseType.h \
+ /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/dataBase/../table/../domain/ColTable.h \
+ /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/dataBase/../table/../domain/DataBaseType.h \
+ /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/dataBase/../table/../domain/Element.h \
+ /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/dataBase/../table/../domain/ColTable.h
