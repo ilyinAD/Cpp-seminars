@@ -12,14 +12,13 @@
 #include <algorithm>
 #include "../domain/ColTable.h"
 #include "../domain/DataBaseType.h"
-using namespace std;
 
-vector<string> splitString(const string &, char);
-shared_ptr<DataBaseType> getTypeByCol(Type, string);
-string toLower(const string& s);
-string deleteDoubleSpaces(const string& s);
-string getCommand(const string& s, int idx);
-string deleteSpaces(const string& s);
-string deleteCornerSpaces(const string& s);
+std::vector<std::string> splitString(const std::string &, char);
+std::shared_ptr<DataBaseType> getTypeByCol(Type, std::string);
+std::string toLower(const std::string& s);
+std::string deleteDoubleSpaces(const std::string& s);
+std::string getCommand(const std::string& s, int idx);
+std::string deleteSpaces(const std::string& s);
+std::string deleteCornerSpaces(const std::string& s);
 
 #endif //CPP_SEMINARS_UTILS_H

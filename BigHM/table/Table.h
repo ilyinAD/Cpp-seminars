@@ -18,14 +18,13 @@
 #include "../domain/DataBaseType.h"
 #include "../domain/Element.h"
 #include "../conditionParser/ExprChecker.h"
-using namespace std;
 
 class Table {
 public:
-    string name;
-    vector<Col> columns;
-    vector<vector<shared_ptr<DataBaseType>>> rows;
-    Table(string name, vector<Element> m);
+    std::string name;
+    std::vector<Col> columns;
+    std::vector<std::vector<std::shared_ptr<DataBaseType>>> rows;
+    Table(std::string name, std::vector<Element> m);
 
     Table(const Table& other) {
         name = other.name;
@@ -35,7 +34,7 @@ public:
 
     Table() {};
 
-    Table(string name, vector<Col> newColumns) : name(name) {
+    Table(std::string name, std::vector<Col> newColumns) : name(name) {
         int idx = 0;
         for (auto i : newColumns) {
             Col col = i;
@@ -46,9 +45,9 @@ public:
     };
 
     class Iterator {
-        typename vector<vector<shared_ptr<DataBaseType>>>::iterator it;
+        typename std::vector<std::vector<std::shared_ptr<DataBaseType>>>::iterator it;
     public:
-        Iterator(typename vector<vector<shared_ptr<DataBaseType>>>::iterator it): it(it) {};
+        Iterator(typename std::vector<std::vector<std::shared_ptr<DataBaseType>>>::iterator it): it(it) {};
         Iterator& operator++() {
             it++;
             return *this;
@@ -59,7 +58,7 @@ public:
             return it1;
         }
 
-        vector<shared_ptr<DataBaseType>>& operator*() {
+        std::vector<std::shared_ptr<DataBaseType>>& operator*() {
             return *it;
         }
 
@@ -76,19 +75,19 @@ public:
 
     Iterator end();
 
-    void insert(const map<string, string>& m);
+    void insert(const std::map<std::string, std::string>& m);
 
-    Col getColByName(string colName);
+    Col getColByName(std::string colName);
 
-    void update(const map<string, string>& m, const string&);
+    void update(const std::map<std::string, std::string>& m, const std::string&);
 
-    void deleteRows(string cond);
+    void deleteRows(std::string cond);
 
-    Table select(vector<string>namesCol, string cond, string);
+    Table select(std::vector<std::string>namesCol, std::string cond, std::string);
 
     void print();
 
-    Table join(const Table&, const Table&, string, string);
+    Table join(const Table&, const Table&, std::string, std::string);
 
     bool checkOnUnique(int, int);
 };

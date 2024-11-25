@@ -1,0 +1,1 @@
+/usr/bin/c++ -g CMakeFiles/my_tests.dir/test/conditionParser_test.cpp.o CMakeFiles/my_tests.dir/conditionParser/ExprChecker.cpp.o CMakeFiles/my_tests.dir/utils/utils.cpp.o -o my_tests  lib/libgtest.a lib/libgtest_main.a lib/libgtest.a 

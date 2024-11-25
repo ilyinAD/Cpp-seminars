@@ -8,7 +8,6 @@
 #include <vector>
 #include <iostream>
 #include <iomanip>
-using namespace std;
 class DataBaseType {
 public:
     void *type;
@@ -39,7 +38,7 @@ public:
 //    Bool(const DataBaseType& other) {
 //        type = other.type;
 //    }
-    Bool(string strType) {
+    Bool(std::string strType) {
         if (strType == "True" || strType == "true") {
             type = new bool(true);
         } else if (strType == "False" || strType == "false") {
@@ -59,22 +58,22 @@ public:
     }
 
     void print() const override {
-        cout << *(static_cast<bool*>(type)) << ' ';
+        std::cout << *(static_cast<bool*>(type)) << ' ';
     }
     DataBaseType* operator+ (const DataBaseType& other) {
-        throw invalid_argument("wrong operation with bool");
+        throw std::invalid_argument("wrong operation with bool");
     }
     DataBaseType* operator* (const DataBaseType& other) {
-        throw invalid_argument("wrong operation with bool");
+        throw std::invalid_argument("wrong operation with bool");
     }
     DataBaseType* operator/ (const DataBaseType& other) {
-        throw invalid_argument("wrong operation with bool");
+        throw std::invalid_argument("wrong operation with bool");
     }
     DataBaseType* operator- (const DataBaseType& other) {
-        throw invalid_argument("wrong operation with bool");
+        throw std::invalid_argument("wrong operation with bool");
     }
     DataBaseType* operator% (const DataBaseType& other) {
-        throw invalid_argument("wrong operation with bool");
+        throw std::invalid_argument("wrong operation with bool");
     }
     DataBaseType* operator< (const DataBaseType& other) {
         return new Bool( bool(*static_cast<bool*>(type) < *static_cast<bool*>(other.type)));
@@ -107,7 +106,7 @@ public:
 
 class Int : public DataBaseType {
 public:
-    Int(string strType) {
+    Int(std::string strType) {
         try {
             type = new int(stoi(strType));
         } catch (const std::invalid_argument& e) {
@@ -127,7 +126,7 @@ public:
 //    }
 
     void print() const override {
-        cout << *(static_cast<int*>(type)) << ' ';
+        std::cout << *(static_cast<int*>(type)) << ' ';
     }
     DataBaseType* operator+ (const DataBaseType& other) {
         return new Int(*static_cast<int*>(other.type) + *static_cast<int*>(type));
@@ -157,13 +156,13 @@ public:
         return new Bool( bool(*static_cast<int*>(type) != *static_cast<int*>(other.type)));
     }
     DataBaseType* operator&& (const DataBaseType& other) {
-        throw invalid_argument("wrong operation with int");
+        throw std::invalid_argument("wrong operation with int");
     }
     DataBaseType* operator|| (const DataBaseType& other) {
-        throw invalid_argument("wrong operation with int");
+        throw std::invalid_argument("wrong operation with int");
     }
     DataBaseType* operator^ (const DataBaseType& other) {
-        throw invalid_argument("wrong operation with int");
+        throw std::invalid_argument("wrong operation with int");
     }
     DataBaseType* operator>= (const DataBaseType& other) {
         return new Bool( bool(*static_cast<int*>(type) >= *static_cast<int*>(other.type)));
@@ -176,142 +175,142 @@ public:
 
 class String : public DataBaseType {
 public:
-    String(string strType, int constraint) {
+    String(std::string strType, int constraint) {
         sizeConstraint = constraint;
         if (strType.size() > constraint) {
-            throw runtime_error("invalid size");
+            throw std::runtime_error("invalid size");
         }
-        type = new string(strType);
+        type = new std::string(strType);
     };
-    String(string strType) {
+    String(std::string strType) {
 //        if (strType.size() > sizeConstraint) {
 //            throw runtime_error("Invalid size");
 //        }
-        type = new string(strType);
+        type = new std::string(strType);
     };
 
     void print() const override {
-        cout << *(static_cast<string*>(type)) << ' ';
+        std::cout << *(static_cast<std::string*>(type)) << ' ';
     }
 
     DataBaseType* operator+ (const DataBaseType& other) {
-        return new String( *static_cast<string*>(type) + *static_cast<string*>(other.type));
+        return new String( *static_cast<std::string*>(type) + *static_cast<std::string*>(other.type));
     }
     DataBaseType* operator* (const DataBaseType& other) {
-        throw invalid_argument("wrong operation with strings");
+        throw std::invalid_argument("wrong operation with strings");
     }
     DataBaseType* operator/ (const DataBaseType& other) {
-        throw invalid_argument("wrong operation with strings");
+        throw std::invalid_argument("wrong operation with strings");
     }
     DataBaseType* operator- (const DataBaseType& other) {
-        throw invalid_argument("wrong operation with strings");
+        throw std::invalid_argument("wrong operation with strings");
     }
     DataBaseType* operator% (const DataBaseType& other) {
-        throw invalid_argument("wrong operation with strings");
+        throw std::invalid_argument("wrong operation with strings");
     }
     DataBaseType* operator< (const DataBaseType& other) {
-        return new Bool( bool(*static_cast<string*>(type) < *static_cast<string*>(other.type)));
+        return new Bool( bool(*static_cast<std::string*>(type) < *static_cast<std::string*>(other.type)));
     }
     DataBaseType* operator> (const DataBaseType& other) {
-        return new Bool( bool(*static_cast<string*>(type) > *static_cast<string*>(other.type)));
+        return new Bool( bool(*static_cast<std::string*>(type) > *static_cast<std::string*>(other.type)));
     }
     DataBaseType* operator== (const DataBaseType& other) {
-        return new Bool( bool(*static_cast<string*>(type) == *static_cast<string*>(other.type)));
+        return new Bool( bool(*static_cast<std::string*>(type) == *static_cast<std::string*>(other.type)));
     }
     DataBaseType* operator!= (const DataBaseType& other) {
-        return new Bool( bool(*static_cast<string*>(type) != *static_cast<string*>(other.type)));
+        return new Bool( bool(*static_cast<std::string*>(type) != *static_cast<std::string*>(other.type)));
     }
     DataBaseType* operator&& (const DataBaseType& other) {
-        throw invalid_argument("wrong operation with strings");
+        throw std::invalid_argument("wrong operation with strings");
     }
     DataBaseType* operator|| (const DataBaseType& other) {
-        throw invalid_argument("wrong operation with strings");
+        throw std::invalid_argument("wrong operation with strings");
     }
     DataBaseType* operator^ (const DataBaseType& other) {
-        throw invalid_argument("wrong operation with strings");
+        throw std::invalid_argument("wrong operation with strings");
     }
     DataBaseType* operator>= (const DataBaseType& other) {
-        return new Bool( bool(*static_cast<string*>(type) <= *static_cast<string*>(other.type)));
+        return new Bool( bool(*static_cast<std::string*>(type) <= *static_cast<std::string*>(other.type)));
     }
     DataBaseType* operator<= (const DataBaseType& other) {
-        return new Bool( bool(*static_cast<string*>(type) <= *static_cast<string*>(other.type)));
+        return new Bool( bool(*static_cast<std::string*>(type) <= *static_cast<std::string*>(other.type)));
     }
 };
 
 class Bytes: public DataBaseType {
 public:
 
-    Bytes (string strType, int constraint) {
+    Bytes (std::string strType, int constraint) {
         if (strType[0] == '0' && strType[1] == 'x') {
             if (strType.size() - 2 != constraint) {
-                throw runtime_error("invalid size");
+                throw std::runtime_error("invalid size");
             }
 
-            type = new string(strType.substr(2));
+            type = new std::string(strType.substr(2));
             //cout << *static_cast<string*>(type) << endl;
         } else {
             if (strType.size() != constraint) {
-                throw runtime_error("invalid size");
+                throw std::runtime_error("invalid size");
             }
-            type = new string(strType);
+            type = new std::string(strType);
         }
 
         sizeConstraint = constraint;
     };
 
-    Bytes (string strType) {
+    Bytes (std::string strType) {
         if (strType[0] == '0' && strType[1] == 'x') {
-            type = new string(strType.substr(2));
+            type = new std::string(strType.substr(2));
         } else {
-            type = new string(strType);
+            type = new std::string(strType);
         }
     };
 
     void print() const override {
-        cout << *static_cast<string*>(type) << ' ';
+        std::cout << *static_cast<std::string*>(type) << ' ';
     }
 
     DataBaseType* operator+ (const DataBaseType& other) {
-        throw invalid_argument("wrong operation with bytes");
+        throw std::invalid_argument("wrong operation with bytes");
     }
     DataBaseType* operator* (const DataBaseType& other) {
-        throw invalid_argument("wrong operation with bytes");
+        throw std::invalid_argument("wrong operation with bytes");
     }
     DataBaseType* operator/ (const DataBaseType& other) {
-        throw invalid_argument("wrong operation with bytes");
+        throw std::invalid_argument("wrong operation with bytes");
     }
     DataBaseType* operator- (const DataBaseType& other) {
-        throw invalid_argument("wrong operation with bytes");
+        throw std::invalid_argument("wrong operation with bytes");
     }
     DataBaseType* operator% (const DataBaseType& other) {
-        throw invalid_argument("wrong operation with bytes");
+        throw std::invalid_argument("wrong operation with bytes");
     }
     DataBaseType* operator< (const DataBaseType& other) {
-        return new Bool( bool(*static_cast<string*>(type) < *static_cast<string*>(other.type)));
+        return new Bool( bool(*static_cast<std::string*>(type) < *static_cast<std::string*>(other.type)));
     }
     DataBaseType* operator> (const DataBaseType& other) {
-        return new Bool( bool(*static_cast<string*>(type) > *static_cast<string*>(other.type)));
+        return new Bool( bool(*static_cast<std::string*>(type) > *static_cast<std::string*>(other.type)));
     }
     DataBaseType* operator== (const DataBaseType& other) {
-        return new Bool( bool(*static_cast<string*>(type) == *static_cast<string*>(other.type)));
+        return new Bool( bool(*static_cast<std::string*>(type) == *static_cast<std::string*>(other.type)));
     }
     DataBaseType* operator!= (const DataBaseType& other) {
-        return new Bool( bool(*static_cast<string*>(type) != *static_cast<string*>(other.type)));
+        return new Bool( bool(*static_cast<std::string*>(type) != *static_cast<std::string*>(other.type)));
     }
     DataBaseType* operator&& (const DataBaseType& other) {
-        throw invalid_argument("wrong operation with bytes");
+        throw std::invalid_argument("wrong operation with bytes");
     }
     DataBaseType* operator|| (const DataBaseType& other) {
-        throw invalid_argument("wrong operation with bytes");
+        throw std::invalid_argument("wrong operation with bytes");
     }
     DataBaseType* operator^ (const DataBaseType& other) {
-        throw invalid_argument("wrong operation with bytes");
+        throw std::invalid_argument("wrong operation with bytes");
     }
     DataBaseType* operator>= (const DataBaseType& other) {
-        return new Bool( bool(*static_cast<string*>(type) <= *static_cast<string*>(other.type)));
+        return new Bool( bool(*static_cast<std::string*>(type) <= *static_cast<std::string*>(other.type)));
     }
     DataBaseType* operator<= (const DataBaseType& other) {
-        return new Bool( bool(*static_cast<string*>(type) <= *static_cast<string*>(other.type)));
+        return new Bool( bool(*static_cast<std::string*>(type) <= *static_cast<std::string*>(other.type)));
     }
 };
 #endif //CPP_SEMINARS_DATABASETYPE_H

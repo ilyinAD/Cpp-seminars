@@ -1,0 +1,3 @@
+[submodule "BigHM/googletest"]
+	path = BigHM/googletest
+	url = https://github.com/google/googletest

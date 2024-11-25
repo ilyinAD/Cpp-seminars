@@ -11,26 +11,22 @@
 #include <math.h>
 #include "../table/Table.h"
 
-using namespace std;
-
-
-
 class DataBase {
 public:
-    string name;
-    map<string, Table> tables;
-    DataBase(string name) : name(name) {};
-    pair<vector<Element>, string> parseCreate(const string&);
+    std::string name;
+    std::map<std::string, Table> tables;
+    DataBase(std::string name) : name(name) {};
+    std::pair<std::vector<Element>, std::string> parseCreate(const std::string&);
 //    void create(string tableName, vector<Element> m) {
 //        Table table = Table(tableName, m);
 //        tables[tableName] = make_shared<Table>(table);
 //    }
-    void create(string s);
-    void insert(string s);
-    void deleteRows(string s);
-    Table select(string s);
-    Table handleJoin(string s);
-    Table update(string s);
+    void create(std::string s);
+    void insert(std::string s);
+    void deleteRows(std::string s);
+    Table select(std::string s);
+    Table handleJoin(std::string s);
+    Table update(std::string s);
 };
 
 

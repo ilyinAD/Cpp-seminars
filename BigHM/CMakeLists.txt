@@ -18,4 +18,15 @@ set(SOURCE_FILES main.cpp
         table/Table.cpp
 )
 
+
+add_subdirectory(googletest)
+enable_testing()
+add_executable(my_tests test/conditionParser_test.cpp)
+target_link_libraries(my_tests gtest gtest_main)
+
+target_include_directories(my_tests PRIVATE ${CMAKE_SOURCE_DIR})
+target_sources(my_tests PRIVATE
+        conditionParser/ExprChecker.cpp
+        utils/utils.cpp
+)
 add_executable(BigHM ${SOURCE_FILES})

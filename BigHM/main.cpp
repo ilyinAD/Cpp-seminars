@@ -3,19 +3,13 @@
 using namespace std;
 
 int main() {
-    //    while (true) {
-//        string s;
-//        cin >> s;
-//        s = toLower(s);
-//        s = deleteDoubleSpaces(s);
-//        string command = getCommand(s, 0);
-//        if (command == "create") {
-//
-//        }
-//    }
-//    vector<Element> elemets = parseCreate("users ({key; autoincrement} id : "
-//                                          "int32, {unique} login: string[32], password_hash: bytes[8], is_admin: "
-//                                          "bool = false)");
+    map<string, shared_ptr<DataBaseType>> row = {{"val", make_shared<Int>(Int("-12"))},
+                                                 {"login", make_shared<String>(String("maixm"))},
+                                                 {"password", make_shared<Bytes>(Bytes("0xaacf1242f"))},
+                                                 {"is_cool", make_shared<Bool>(Bool("true"))}};
+    string val = "1 + val - (-val * 10) = -131";
+    bool b = *static_cast<bool*>(getByString(val, row)->type);
+    //cout << b << endl;
     DataBase database = DataBase("my database");
 //    database.insert("insert (login = \"vasya\", password_hash = 0xdeadbeefdeadbeef) to users");
 //    return 0;

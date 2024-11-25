@@ -6,15 +6,14 @@
 #define CPP_SEMINARS_COLTABLE_H
 
 #include <string>
-using namespace std;
 
 struct Attributes {
 public:
     bool is_unique;
     bool is_autoincrement;
     bool is_key;
-    string default_value;
-    Attributes(bool is_unique, bool is_autoincrement, bool is_key, string default_value) :
+    std::string default_value;
+    Attributes(bool is_unique, bool is_autoincrement, bool is_key, std::string default_value) :
     is_unique(is_unique), is_autoincrement(is_autoincrement), is_key(is_key), default_value(default_value) {};
     Attributes() {
         is_autoincrement = 0;
@@ -45,10 +44,10 @@ public:
 class Col {
 public:
     Attributes attributes;
-    string name;
+    std::string name;
     Type type;
     int idx;
-    Col(string name, Type type, int idx, Attributes attributes) : name(name), type(type), idx(idx), attributes(attributes){};
+    Col(std::string name, Type type, int idx, Attributes attributes) : name(name), type(type), idx(idx), attributes(attributes){};
     Col() {
         name = "";
         idx = 0;

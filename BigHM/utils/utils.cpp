@@ -4,10 +4,10 @@
 
 #include "utils.h"
 
-vector<string> splitString(const string &str, char delimiter) {
-    vector<std::string> tokens;
-    string token;
-    istringstream tokenStream(str);
+std::vector<std::string> splitString(const std::string &str, char delimiter) {
+    std::vector<std::string> tokens;
+    std::string token;
+    std::istringstream tokenStream(str);
 
     while (getline(tokenStream, token, delimiter)) {
         tokens.push_back(token);
@@ -16,31 +16,31 @@ vector<string> splitString(const string &str, char delimiter) {
     return tokens;
 }
 
-shared_ptr<DataBaseType> getTypeByCol(Type col, string value) {
+std::shared_ptr<DataBaseType> getTypeByCol(Type col, std::string value) {
     if (col.name == TypeName::Int) {
-        return make_shared<Int>(Int(value));
+        return std::make_shared<Int>(Int(value));
     } else if (col.name == TypeName::Bool) {
-        return make_shared<Bool>(Bool(value));
+        return std::make_shared<Bool>(Bool(value));
     } else if (col.name == TypeName::Bytes) {
-        return make_shared<Bytes>(Bytes(value, col.size));
+        return std::make_shared<Bytes>(Bytes(value, col.size));
     } else {
         if (value.size() > col.size) {
-            throw invalid_argument("Invalid size of string");
+            throw std::invalid_argument("Invalid size of string");
         }
-        return make_shared<String>(String(value, col.size));
+        return std::make_shared<String>(String(value, col.size));
     }
 }
 
-string toLower(const string& s) {
-    string ans;
+std::string toLower(const std::string& s) {
+    std::string ans;
     for (auto i : s) {
         ans += tolower(i);
     }
     return ans;
 }
 
-string deleteDoubleSpaces(const string& s) {
-    string ans;
+std::string deleteDoubleSpaces(const std::string& s) {
+    std::string ans;
     char prev = '_';
     for (auto i : s) {
         if (i == ' ' && prev == ' ') {
@@ -53,8 +53,8 @@ string deleteDoubleSpaces(const string& s) {
     return ans;
 }
 
-string getCommand(const string& s, int idx) {
-    string ans;
+std::string getCommand(const std::string& s, int idx) {
+    std::string ans;
     for (int i = idx; i < s.size(); ++i) {
         if (s[idx] == ' ') {
             break;
@@ -64,8 +64,8 @@ string getCommand(const string& s, int idx) {
     return ans;
 }
 
-string deleteSpaces(const string& s) {
-    string ans;
+std::string deleteSpaces(const std::string& s) {
+    std::string ans;
     for (auto i : s) {
         if (i != ' ' && i != '\n') {
             ans += i;
@@ -75,8 +75,8 @@ string deleteSpaces(const string& s) {
     return ans;
 }
 
-string deleteCornerSpaces(const string& s) {
-    string ans = "";
+std::string deleteCornerSpaces(const std::string& s) {
+    std::string ans = "";
     int idx = 0;
     while (idx < s.size() && (s[idx] == ' ' || s[idx] == '\n')) {
         ++idx;

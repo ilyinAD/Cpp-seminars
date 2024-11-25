@@ -65,6 +65,16 @@ CMAKE_BINARY_DIR = /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-de
 #=============================================================================
 # Targets provided globally by CMake.
 
+# Special rule for the target test
+test:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running tests..."
+	/usr/bin/ctest --force-new-ctest-process $(ARGS)
+.PHONY : test
+
+# Special rule for the target test
+test/fast: test
+.PHONY : test/fast
+
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
@@ -84,6 +94,51 @@ rebuild_cache:
 # Special rule for the target rebuild_cache
 rebuild_cache/fast: rebuild_cache
 .PHONY : rebuild_cache/fast
+
+# Special rule for the target list_install_components
+list_install_components:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"gmock\" \"gtest\""
+.PHONY : list_install_components
+
+# Special rule for the target list_install_components
+list_install_components/fast: list_install_components
+.PHONY : list_install_components/fast
+
+# Special rule for the target install
+install: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
+	/usr/bin/cmake -P cmake_install.cmake
+.PHONY : install
+
+# Special rule for the target install
+install/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
+	/usr/bin/cmake -P cmake_install.cmake
+.PHONY : install/fast
+
+# Special rule for the target install/local
+install/local: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local
+
+# Special rule for the target install/local
+install/local/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local/fast
+
+# Special rule for the target install/strip
+install/strip: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
+	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip
+
+# Special rule for the target install/strip
+install/strip/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
+	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -117,6 +172,19 @@ depend:
 .PHONY : depend
 
 #=============================================================================
+# Target rules for targets named my_tests
+
+# Build rule for target.
+my_tests: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 my_tests
+.PHONY : my_tests
+
+# fast build rule for target.
+my_tests/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_tests.dir/build.make CMakeFiles/my_tests.dir/build
+.PHONY : my_tests/fast
+
+#=============================================================================
 # Target rules for targets named BigHM
 
 # Build rule for target.
@@ -129,11 +197,64 @@ BigHM/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/BigHM.dir/build.make CMakeFiles/BigHM.dir/build
 .PHONY : BigHM/fast
 
+#=============================================================================
+# Target rules for targets named gmock
+
+# Build rule for target.
+gmock: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 gmock
+.PHONY : gmock
+
+# fast build rule for target.
+gmock/fast:
+	$(MAKE) $(MAKESILENT) -f googletest/googlemock/CMakeFiles/gmock.dir/build.make googletest/googlemock/CMakeFiles/gmock.dir/build
+.PHONY : gmock/fast
+
+#=============================================================================
+# Target rules for targets named gmock_main
+
+# Build rule for target.
+gmock_main: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 gmock_main
+.PHONY : gmock_main
+
+# fast build rule for target.
+gmock_main/fast:
+	$(MAKE) $(MAKESILENT) -f googletest/googlemock/CMakeFiles/gmock_main.dir/build.make googletest/googlemock/CMakeFiles/gmock_main.dir/build
+.PHONY : gmock_main/fast
+
+#=============================================================================
+# Target rules for targets named gtest
+
+# Build rule for target.
+gtest: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 gtest
+.PHONY : gtest
+
+# fast build rule for target.
+gtest/fast:
+	$(MAKE) $(MAKESILENT) -f googletest/googletest/CMakeFiles/gtest.dir/build.make googletest/googletest/CMakeFiles/gtest.dir/build
+.PHONY : gtest/fast
+
+#=============================================================================
+# Target rules for targets named gtest_main
+
+# Build rule for target.
+gtest_main: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 gtest_main
+.PHONY : gtest_main
+
+# fast build rule for target.
+gtest_main/fast:
+	$(MAKE) $(MAKESILENT) -f googletest/googletest/CMakeFiles/gtest_main.dir/build.make googletest/googletest/CMakeFiles/gtest_main.dir/build
+.PHONY : gtest_main/fast
+
 conditionParser/ExprChecker.o: conditionParser/ExprChecker.cpp.o
 .PHONY : conditionParser/ExprChecker.o
 
 # target to build an object file
 conditionParser/ExprChecker.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_tests.dir/build.make CMakeFiles/my_tests.dir/conditionParser/ExprChecker.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/BigHM.dir/build.make CMakeFiles/BigHM.dir/conditionParser/ExprChecker.cpp.o
 .PHONY : conditionParser/ExprChecker.cpp.o
 
@@ -142,6 +263,7 @@ conditionParser/ExprChecker.i: conditionParser/ExprChecker.cpp.i
 
 # target to preprocess a source file
 conditionParser/ExprChecker.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_tests.dir/build.make CMakeFiles/my_tests.dir/conditionParser/ExprChecker.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/BigHM.dir/build.make CMakeFiles/BigHM.dir/conditionParser/ExprChecker.cpp.i
 .PHONY : conditionParser/ExprChecker.cpp.i
 
@@ -150,6 +272,7 @@ conditionParser/ExprChecker.s: conditionParser/ExprChecker.cpp.s
 
 # target to generate assembly for a file
 conditionParser/ExprChecker.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_tests.dir/build.make CMakeFiles/my_tests.dir/conditionParser/ExprChecker.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/BigHM.dir/build.make CMakeFiles/BigHM.dir/conditionParser/ExprChecker.cpp.s
 .PHONY : conditionParser/ExprChecker.cpp.s
 
@@ -249,11 +372,36 @@ table/Table.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/BigHM.dir/build.make CMakeFiles/BigHM.dir/table/Table.cpp.s
 .PHONY : table/Table.cpp.s
 
+test/conditionParser_test.o: test/conditionParser_test.cpp.o
+.PHONY : test/conditionParser_test.o
+
+# target to build an object file
+test/conditionParser_test.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_tests.dir/build.make CMakeFiles/my_tests.dir/test/conditionParser_test.cpp.o
+.PHONY : test/conditionParser_test.cpp.o
+
+test/conditionParser_test.i: test/conditionParser_test.cpp.i
+.PHONY : test/conditionParser_test.i
+
+# target to preprocess a source file
+test/conditionParser_test.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_tests.dir/build.make CMakeFiles/my_tests.dir/test/conditionParser_test.cpp.i
+.PHONY : test/conditionParser_test.cpp.i
+
+test/conditionParser_test.s: test/conditionParser_test.cpp.s
+.PHONY : test/conditionParser_test.s
+
+# target to generate assembly for a file
+test/conditionParser_test.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_tests.dir/build.make CMakeFiles/my_tests.dir/test/conditionParser_test.cpp.s
+.PHONY : test/conditionParser_test.cpp.s
+
 utils/utils.o: utils/utils.cpp.o
 .PHONY : utils/utils.o
 
 # target to build an object file
 utils/utils.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_tests.dir/build.make CMakeFiles/my_tests.dir/utils/utils.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/BigHM.dir/build.make CMakeFiles/BigHM.dir/utils/utils.cpp.o
 .PHONY : utils/utils.cpp.o
 
@@ -262,6 +410,7 @@ utils/utils.i: utils/utils.cpp.i
 
 # target to preprocess a source file
 utils/utils.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_tests.dir/build.make CMakeFiles/my_tests.dir/utils/utils.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/BigHM.dir/build.make CMakeFiles/BigHM.dir/utils/utils.cpp.i
 .PHONY : utils/utils.cpp.i
 
@@ -270,6 +419,7 @@ utils/utils.s: utils/utils.cpp.s
 
 # target to generate assembly for a file
 utils/utils.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_tests.dir/build.make CMakeFiles/my_tests.dir/utils/utils.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/BigHM.dir/build.make CMakeFiles/BigHM.dir/utils/utils.cpp.s
 .PHONY : utils/utils.cpp.s
 
@@ -280,8 +430,18 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... edit_cache"
+	@echo "... install"
+	@echo "... install/local"
+	@echo "... install/strip"
+	@echo "... list_install_components"
 	@echo "... rebuild_cache"
+	@echo "... test"
 	@echo "... BigHM"
+	@echo "... gmock"
+	@echo "... gmock_main"
+	@echo "... gtest"
+	@echo "... gtest_main"
+	@echo "... my_tests"
 	@echo "... conditionParser/ExprChecker.o"
 	@echo "... conditionParser/ExprChecker.i"
 	@echo "... conditionParser/ExprChecker.s"
@@ -297,6 +457,9 @@ help:
 	@echo "... table/Table.o"
 	@echo "... table/Table.i"
 	@echo "... table/Table.s"
+	@echo "... test/conditionParser_test.o"
+	@echo "... test/conditionParser_test.i"
+	@echo "... test/conditionParser_test.s"
 	@echo "... utils/utils.o"
 	@echo "... utils/utils.i"
 	@echo "... utils/utils.s"
