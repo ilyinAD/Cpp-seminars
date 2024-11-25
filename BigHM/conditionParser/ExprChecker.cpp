@@ -156,11 +156,14 @@ shared_ptr<DataBaseType> doBoolOp(string& comp, const shared_ptr<DataBaseType>& 
 
 shared_ptr<DataBaseType> checkExpr(const string& expr, map<string, shared_ptr<DataBaseType>>& row) {
     vector<string> v = splitString(expr, ' ');
+
     v.push_back("&&");
     v.push_back("1");
+
     vector<string> query;
     string prev = "";
     shared_ptr<DataBaseType> res = nullptr;
+
     for (int i = 0; i < v.size(); ++i) {
         if (!isBoolOp(v[i])) {
             query.push_back(v[i]);
@@ -184,26 +187,14 @@ shared_ptr<DataBaseType> checkExpr(const string& expr, map<string, shared_ptr<Da
 
             shared_ptr<DataBaseType> q1 = getVal(query1, 0, row);
             shared_ptr<DataBaseType> q2 = getVal(query2, 0, row);
-
-//            if (i == v.size() - 1) {
-//                if (comp == "") {
-//                    return q1;
-//                }
-//                shared_ptr<DataBaseType> res1 = doCompare(comp, q1, q2);
-//                return res1;
-//            }
-
-//            if (comp == "") {
-//                comp = "=";
-//                q2 = make_shared<Bool>(Bool("True"));
-//            }
-//            shared_ptr<DataBaseType> res1 = doCompare(comp, q1, q2);
             shared_ptr<DataBaseType> res1;
+
             if (comp != "") {
                 res1 = doCompare(comp, q1, q2);
             } else {
                 res1 = q1;
             }
+
             if (res != nullptr) {
                 res = doBoolOp(prev, res, res1);
             } else {
@@ -214,11 +205,51 @@ shared_ptr<DataBaseType> checkExpr(const string& expr, map<string, shared_ptr<Da
             query = {};
         }
     }
-//    if (dynamic_pointer_cast<Bool>(res)) {
-//        return *(static_cast<bool*>(res.get()->type));
-//    }
+
     return res;
-    throw invalid_argument("шото не то хз");
+}
+
+string getStringByType(shared_ptr<DataBaseType> val) {
+    if (dynamic_pointer_cast<String>(val)) {
+        return *static_cast<string*>(val->type);
+    } else if (dynamic_pointer_cast<Bytes>(val)) {
+        return "0x" + *static_cast<string*>(val->type);
+    } else if (dynamic_pointer_cast<Bool>(val)) {
+        return to_string(*static_cast<bool*>(val->type));
+    } else {
+        return to_string(*static_cast<int*>(val->type));
+    }
+}
+
+shared_ptr<DataBaseType> parseExpr(const string& s, map<string, shared_ptr<DataBaseType>>& row) {
+    string ans = "";
+    int i = 0;
+    while (i < s.size()) {
+        if (s[i] != '(') {
+            ans += s[i];
+            ++i;
+            continue;
+        }
+        int cnt = 1;
+        string subExpr = "";
+        ++i;
+        int l = i;
+        while (i < s.size() && cnt != 0) {
+            if (s[i] == '(') {
+                cnt++;
+            } else if (s[i] == ')') {
+                cnt--;
+            }
+            ++i;
+        }
+        if (cnt != 0) {
+            throw runtime_error("invalid expr");
+        }
+        subExpr = s.substr(l, i - l - 1);
+        shared_ptr<DataBaseType> bracket_val = parseExpr(subExpr, row);
+        ans += getStringByType(bracket_val);
+    }
+    return checkExpr(ans, row);
 }
 
 shared_ptr<DataBaseType> ExprChecker::getValFromExpr(const std::string &expr, vector<shared_ptr<DataBaseType>> row,
@@ -228,7 +259,8 @@ shared_ptr<DataBaseType> ExprChecker::getValFromExpr(const std::string &expr, ve
         mapRow[columns[i].name] = row[i];
     }
     try {
-        shared_ptr<DataBaseType> res = checkExpr(expr, mapRow);
+        //shared_ptr<DataBaseType> res = checkExpr(expr, mapRow);
+        shared_ptr<DataBaseType> res = parseExpr(expr, mapRow);
         return res;
     } catch (const std::exception& e) {
         std::cout << "Error: " << e.what() << std::endl;
@@ -242,14 +274,14 @@ bool ExprChecker::check(const std::string &expr, vector<shared_ptr<DataBaseType>
         mapRow[columns[i].name] = row[i];
     }
     try {
-        shared_ptr<DataBaseType> res = checkExpr(expr, mapRow);
+        shared_ptr<DataBaseType> res = parseExpr(expr, mapRow);
         if (dynamic_pointer_cast<Bool>(res)) {
             return *(static_cast<bool*>(res.get()->type));
         }
-       if (dynamic_pointer_cast<Int>(res)) {
-           int q = *(static_cast<int*>(res.get()->type));
-           return static_cast<bool>(q);
-       }
+        if (dynamic_pointer_cast<Int>(res)) {
+            int q = *(static_cast<int*>(res.get()->type));
+            return static_cast<bool>(q);
+        }
        throw invalid_argument("result is not bool and not int");
     } catch (const std::exception& e) {
         std::cout << "Error: " << e.what() << std::endl;

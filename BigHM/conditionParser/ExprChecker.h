@@ -25,6 +25,9 @@ shared_ptr<DataBaseType> getVal(vector<string>& v, int idx, map<string, shared_p
 shared_ptr<DataBaseType> doSimpleOp(string op, const shared_ptr<DataBaseType>& leftVal, const shared_ptr<DataBaseType>& rightVal);
 shared_ptr<DataBaseType> doOp(string op, const shared_ptr<DataBaseType>& leftVal, const shared_ptr<DataBaseType>& rightVal);
 shared_ptr<DataBaseType> getByString(string val, map<string, shared_ptr<DataBaseType>>& row);
+string getStringByType(shared_ptr<DataBaseType> val);
+shared_ptr<DataBaseType> parseExpr(const string& s, map<string, shared_ptr<DataBaseType>>& row);
+
 bool isNumber(string& s);
 bool isCompareOp(string& s);
 bool isBoolOp(string& s);

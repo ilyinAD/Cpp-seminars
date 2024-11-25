@@ -2,8 +2,6 @@
 #include "dataBase/DataBase.h"
 using namespace std;
 
-
-
 int main() {
     //    while (true) {
 //        string s;
@@ -37,7 +35,7 @@ int main() {
         database.insert("insert (,\"nissan\",,1) to cars");
         database.insert("insert (,\"toyota\",,0) to cars");
         database.tables["cars"].print();
-        Table newtable  = database.update("update users join cars on true set cars.car_name = cars.car_name + CAR, cars.is_truck = true where true");
+        Table newtable  = database.update("update users join cars on true set cars.car_name = cars.car_name + CAR, cars.is_truck = true where (cars.id) * (1 + 2) < 3 && users.id = 1)");
         newtable.print();
         //Table table = database.tables["users"].join(database.tables["users"], database.tables["cars"], "users.id = cars.person_id", "new table");
         //table.print();
@@ -49,8 +47,8 @@ int main() {
 //        }
 //        cout << endl;
 //    }
-       // database.tables["users"].update({{"password_hash", "0x12000000"}, {"login", "login + xyz + z"}, {"is_admin", "true"}, {"id", "id * 2 + 111"}}, "id + 1");
-        //database.tables["users"].print();
+//        database.tables["users"].update({{"password_hash", "0x12000000"}, {"login", "login + xyz + z"}, {"is_admin", "true"}, {"id", "(id + 2) * (111 - 100) + 10"}}, "id + 1");
+//        database.tables["users"].print();
         //database.tables["my table"]->deleteRows("id * 2 < 150");
         //database.tables["my table"]->print();
         //Table newTable = database.tables["my table"]->select({"id", "login"}, "is_admin", "me new table");
@@ -68,5 +66,4 @@ int main() {
         database.tables["users"].print();
         cout << "Error: " << e.what() << endl;
     }
-
 }

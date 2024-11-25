@@ -17,6 +17,7 @@
 #include "../domain/ColTable.h"
 #include "../domain/DataBaseType.h"
 #include "../domain/Element.h"
+#include "../conditionParser/ExprChecker.h"
 using namespace std;
 
 class Table {

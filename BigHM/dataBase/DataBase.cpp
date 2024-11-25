@@ -102,10 +102,6 @@ void DataBase::insert(string s) {
     pair<string, vector<string>> p = parseInsert(s);
     vector<string> v = p.second;
     string table_name = p.first;
-    //cout << p.first << endl;
-//    for (auto i : p.second) {
-//        cout << i << endl;
-//    }
     map<string, string> m;
     if (s.find('=') < s.size()) {
         for (int i = 0; i < v.size(); ++i) {

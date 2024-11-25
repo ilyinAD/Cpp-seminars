@@ -3,7 +3,7 @@
 //
 
 #include "Table.h"
-#include "../conditionParser/ExprChecker.h"
+
 using namespace std;
 
 Table::Table(string name, vector<Element> m): name(name) {

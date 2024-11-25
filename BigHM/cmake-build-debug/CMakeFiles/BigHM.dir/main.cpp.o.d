@@ -360,4 +360,7 @@ CMakeFiles/BigHM.dir/main.cpp.o: \
  /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/dataBase/../table/../domain/ColTable.h \
  /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/dataBase/../table/../domain/DataBaseType.h \
  /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/dataBase/../table/../domain/Element.h \
- /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/dataBase/../table/../domain/ColTable.h
+ /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/dataBase/../table/../domain/ColTable.h \
+ /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/dataBase/../table/../conditionParser/ExprChecker.h \
+ /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/dataBase/../table/../conditionParser/../domain/DataBaseType.h \
+ /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/dataBase/../table/../conditionParser/../domain/ColTable.h

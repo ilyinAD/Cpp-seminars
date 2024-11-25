@@ -258,4 +258,22 @@ CMakeFiles/BigHM.dir/dataBase/DataBase.cpp.o: \
  /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/dataBase/../table/../domain/ColTable.h \
  /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/dataBase/../table/../domain/DataBaseType.h \
  /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/dataBase/../table/../domain/Element.h \
- /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/dataBase/../table/../domain/ColTable.h
+ /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/dataBase/../table/../domain/ColTable.h \
+ /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/dataBase/../table/../conditionParser/ExprChecker.h \
+ /usr/include/c++/11/regex /usr/include/c++/11/bitset \
+ /usr/include/c++/11/stack /usr/include/c++/11/deque \
+ /usr/include/c++/11/bits/stl_deque.h /usr/include/c++/11/bits/deque.tcc \
+ /usr/include/c++/11/bits/stl_stack.h /usr/include/c++/11/cstring \
+ /usr/include/c++/11/bits/regex_constants.h \
+ /usr/include/c++/11/bits/regex_error.h \
+ /usr/include/c++/11/bits/regex_automaton.h \
+ /usr/include/c++/11/bits/regex_automaton.tcc \
+ /usr/include/c++/11/bits/regex_scanner.h \
+ /usr/include/c++/11/bits/regex_scanner.tcc \
+ /usr/include/c++/11/bits/regex_compiler.h \
+ /usr/include/c++/11/bits/regex_compiler.tcc \
+ /usr/include/c++/11/bits/regex.h /usr/include/c++/11/bits/regex.tcc \
+ /usr/include/c++/11/bits/regex_executor.h \
+ /usr/include/c++/11/bits/regex_executor.tcc \
+ /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/dataBase/../table/../conditionParser/../domain/DataBaseType.h \
+ /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/dataBase/../table/../conditionParser/../domain/ColTable.h

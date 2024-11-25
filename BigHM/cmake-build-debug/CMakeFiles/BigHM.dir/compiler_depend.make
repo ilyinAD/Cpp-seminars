@@ -651,6 +651,29 @@ CMakeFiles/BigHM.dir/dataBase/DataBase.cpp.o: ../dataBase/DataBase.cpp \
   ../domain/ColTable.h \
   ../domain/DataBaseType.h \
   ../domain/Element.h \
+  ../domain/ColTable.h \
+  ../conditionParser/ExprChecker.h \
+  /usr/include/c++/11/regex \
+  /usr/include/c++/11/bitset \
+  /usr/include/c++/11/stack \
+  /usr/include/c++/11/deque \
+  /usr/include/c++/11/bits/stl_deque.h \
+  /usr/include/c++/11/bits/deque.tcc \
+  /usr/include/c++/11/bits/stl_stack.h \
+  /usr/include/c++/11/cstring \
+  /usr/include/c++/11/bits/regex_constants.h \
+  /usr/include/c++/11/bits/regex_error.h \
+  /usr/include/c++/11/bits/regex_automaton.h \
+  /usr/include/c++/11/bits/regex_automaton.tcc \
+  /usr/include/c++/11/bits/regex_scanner.h \
+  /usr/include/c++/11/bits/regex_scanner.tcc \
+  /usr/include/c++/11/bits/regex_compiler.h \
+  /usr/include/c++/11/bits/regex_compiler.tcc \
+  /usr/include/c++/11/bits/regex.h \
+  /usr/include/c++/11/bits/regex.tcc \
+  /usr/include/c++/11/bits/regex_executor.h \
+  /usr/include/c++/11/bits/regex_executor.tcc \
+  ../domain/DataBaseType.h \
   ../domain/ColTable.h
 
 CMakeFiles/BigHM.dir/domain/DataBaseType.cpp.o: ../domain/DataBaseType.cpp \
@@ -1331,6 +1354,9 @@ CMakeFiles/BigHM.dir/main.cpp.o: ../main.cpp \
   ../domain/ColTable.h \
   ../domain/DataBaseType.h \
   ../domain/Element.h \
+  ../domain/ColTable.h \
+  ../conditionParser/ExprChecker.h \
+  ../domain/DataBaseType.h \
   ../domain/ColTable.h
 
 CMakeFiles/BigHM.dir/table/Table.cpp.o: ../table/Table.cpp \
