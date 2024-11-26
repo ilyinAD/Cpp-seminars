@@ -303,7 +303,7 @@ CMakeFiles/my_tests.dir/test/conditionParser_test.cpp.o: \
  /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/googletest/googletest/include/gtest/gtest-typed-test.h \
  /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/googletest/googletest/include/gtest/gtest_pred_impl.h \
  /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/googletest/googletest/include/gtest/gtest_prod.h \
- /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/test/../conditionParser/ExprChecker.h \
+ /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/MyDataBase/conditionParser/ExprChecker.h \
  /usr/include/c++/11/regex /usr/include/c++/11/algorithm \
  /usr/include/c++/11/bits/ranges_algo.h \
  /usr/include/c++/11/bits/ranges_util.h \
@@ -344,5 +344,5 @@ CMakeFiles/my_tests.dir/test/conditionParser_test.cpp.o: \
  /usr/include/c++/11/tr1/poly_hermite.tcc \
  /usr/include/c++/11/tr1/poly_laguerre.tcc \
  /usr/include/c++/11/tr1/riemann_zeta.tcc \
- /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/test/../conditionParser/../domain/DataBaseType.h \
- /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/test/../conditionParser/../domain/ColTable.h
+ /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/MyDataBase/conditionParser/../domain/DataBaseType.h \
+ /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/MyDataBase/conditionParser/../domain/ColTable.h

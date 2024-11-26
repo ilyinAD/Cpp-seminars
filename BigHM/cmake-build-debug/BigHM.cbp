@@ -5,13 +5,59 @@
 		<Option title="BigHM"/>
 		<Option makefile_is_custom="1"/>
 		<Option compiler="gcc"/>
-		<Option virtualFolders="CMake Files\;CMake Files\googletest\;CMake Files\googletest\googlemock\;CMake Files\googletest\googlemock\cmake\;CMake Files\googletest\googletest\;CMake Files\googletest\googletest\cmake\;"/>
+		<Option virtualFolders="CMake Files\;CMake Files\MyDataBase\;CMake Files\googletest\;CMake Files\googletest\googlemock\;CMake Files\googletest\googlemock\cmake\;CMake Files\googletest\googletest\;CMake Files\googletest\googletest\cmake\;"/>
 		<Build>
 			<Target title="all">
 				<Option working_dir="/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
 					<Build command="/usr/bin/gmake -j20 -f &quot;/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/gmake -j20 -f &quot;/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j20 -f &quot;/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j20 -f &quot;/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="BigHM">
+				<Option output="/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/BigHM" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/MyDataBase"/>
+					<Add directory="/usr/include/c++/11"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/11"/>
+					<Add directory="/usr/include/c++/11/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/11/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j20 -f &quot;/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/Makefile&quot;  VERBOSE=1 BigHM"/>
+					<CompileFile command="/usr/bin/gmake -j20 -f &quot;/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j20 -f &quot;/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j20 -f &quot;/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="BigHM/fast">
+				<Option output="/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/BigHM" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/MyDataBase"/>
+					<Add directory="/usr/include/c++/11"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/11"/>
+					<Add directory="/usr/include/c++/11/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/11/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j20 -f &quot;/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/Makefile&quot;  VERBOSE=1 BigHM/fast"/>
 					<CompileFile command="/usr/bin/gmake -j20 -f &quot;/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
 					<Clean command="/usr/bin/gmake -j20 -f &quot;/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 					<DistClean command="/usr/bin/gmake -j20 -f &quot;/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
@@ -25,6 +71,7 @@
 				<Option compiler="gcc"/>
 				<Compiler>
 					<Add directory="/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM"/>
+					<Add directory="/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/MyDataBase"/>
 					<Add directory="/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/googletest/googletest/include"/>
 					<Add directory="/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/googletest/googletest"/>
 					<Add directory="/usr/include/c++/11"/>
@@ -50,6 +97,7 @@
 				<Option compiler="gcc"/>
 				<Compiler>
 					<Add directory="/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM"/>
+					<Add directory="/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/MyDataBase"/>
 					<Add directory="/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/googletest/googletest/include"/>
 					<Add directory="/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/googletest/googletest"/>
 					<Add directory="/usr/include/c++/11"/>
@@ -62,50 +110,6 @@
 				</Compiler>
 				<MakeCommands>
 					<Build command="/usr/bin/gmake -j20 -f &quot;/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/Makefile&quot;  VERBOSE=1 my_tests/fast"/>
-					<CompileFile command="/usr/bin/gmake -j20 -f &quot;/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/gmake -j20 -f &quot;/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/gmake -j20 -f &quot;/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-				</MakeCommands>
-			</Target>
-			<Target title="BigHM">
-				<Option output="/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/BigHM" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug"/>
-				<Option object_output="./"/>
-				<Option type="1"/>
-				<Option compiler="gcc"/>
-				<Compiler>
-					<Add directory="/usr/include/c++/11"/>
-					<Add directory="/usr/include/x86_64-linux-gnu/c++/11"/>
-					<Add directory="/usr/include/c++/11/backward"/>
-					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/11/include"/>
-					<Add directory="/usr/local/include"/>
-					<Add directory="/usr/include/x86_64-linux-gnu"/>
-					<Add directory="/usr/include"/>
-				</Compiler>
-				<MakeCommands>
-					<Build command="/usr/bin/gmake -j20 -f &quot;/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/Makefile&quot;  VERBOSE=1 BigHM"/>
-					<CompileFile command="/usr/bin/gmake -j20 -f &quot;/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/gmake -j20 -f &quot;/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/gmake -j20 -f &quot;/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-				</MakeCommands>
-			</Target>
-			<Target title="BigHM/fast">
-				<Option output="/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/BigHM" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug"/>
-				<Option object_output="./"/>
-				<Option type="1"/>
-				<Option compiler="gcc"/>
-				<Compiler>
-					<Add directory="/usr/include/c++/11"/>
-					<Add directory="/usr/include/x86_64-linux-gnu/c++/11"/>
-					<Add directory="/usr/include/c++/11/backward"/>
-					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/11/include"/>
-					<Add directory="/usr/local/include"/>
-					<Add directory="/usr/include/x86_64-linux-gnu"/>
-					<Add directory="/usr/include"/>
-				</Compiler>
-				<MakeCommands>
-					<Build command="/usr/bin/gmake -j20 -f &quot;/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/Makefile&quot;  VERBOSE=1 BigHM/fast"/>
 					<CompileFile command="/usr/bin/gmake -j20 -f &quot;/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
 					<Clean command="/usr/bin/gmake -j20 -f &quot;/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 					<DistClean command="/usr/bin/gmake -j20 -f &quot;/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
@@ -179,6 +183,50 @@
 					<CompileFile command="/usr/bin/gmake -j20 -f &quot;/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
 					<Clean command="/usr/bin/gmake -j20 -f &quot;/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 					<DistClean command="/usr/bin/gmake -j20 -f &quot;/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="MyDataBase">
+				<Option output="/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/MyDataBase/libMyDataBase.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/MyDataBase"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/c++/11"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/11"/>
+					<Add directory="/usr/include/c++/11/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/11/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j20 -f &quot;/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/MyDataBase/Makefile&quot;  VERBOSE=1 MyDataBase"/>
+					<CompileFile command="/usr/bin/gmake -j20 -f &quot;/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/MyDataBase/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j20 -f &quot;/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/MyDataBase/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j20 -f &quot;/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/MyDataBase/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="MyDataBase/fast">
+				<Option output="/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/MyDataBase/libMyDataBase.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/MyDataBase"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/c++/11"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/11"/>
+					<Add directory="/usr/include/c++/11/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/11/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j20 -f &quot;/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/MyDataBase/Makefile&quot;  VERBOSE=1 MyDataBase/fast"/>
+					<CompileFile command="/usr/bin/gmake -j20 -f &quot;/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/MyDataBase/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j20 -f &quot;/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/MyDataBase/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j20 -f &quot;/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/MyDataBase/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="gmock">
@@ -382,30 +430,59 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/conditionParser/ExprChecker.cpp">
-			<Option target="my_tests"/>
+		<Unit filename="/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/MyDataBase/conditionParser/ExprChecker.cpp">
 			<Option target="BigHM"/>
+			<Option target="MyDataBase"/>
 		</Unit>
-		<Unit filename="/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/conditionParser/ExprChecker.h">
+		<Unit filename="/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/MyDataBase/conditionParser/ExprChecker.h">
 			<Option target="BigHM"/>
+			<Option target="MyDataBase"/>
 		</Unit>
-		<Unit filename="/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/dataBase/DataBase.cpp">
+		<Unit filename="/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/MyDataBase/dataBase/DataBase.cpp">
 			<Option target="BigHM"/>
+			<Option target="MyDataBase"/>
 		</Unit>
-		<Unit filename="/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/dataBase/DataBase.h">
+		<Unit filename="/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/MyDataBase/dataBase/DataBase.h">
 			<Option target="BigHM"/>
+			<Option target="MyDataBase"/>
 		</Unit>
-		<Unit filename="/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/domain/ColTable.h">
-			<Option target="BigHM"/>
+		<Unit filename="/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/MyDataBase/domain/ColTable.cpp">
+			<Option target="MyDataBase"/>
 		</Unit>
-		<Unit filename="/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/domain/DataBaseType.cpp">
+		<Unit filename="/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/MyDataBase/domain/ColTable.h">
 			<Option target="BigHM"/>
+			<Option target="MyDataBase"/>
 		</Unit>
-		<Unit filename="/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/domain/DataBaseType.h">
+		<Unit filename="/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/MyDataBase/domain/DataBaseType.cpp">
 			<Option target="BigHM"/>
+			<Option target="MyDataBase"/>
 		</Unit>
-		<Unit filename="/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/domain/Element.h">
+		<Unit filename="/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/MyDataBase/domain/DataBaseType.h">
 			<Option target="BigHM"/>
+			<Option target="MyDataBase"/>
+		</Unit>
+		<Unit filename="/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/MyDataBase/domain/Element.cpp">
+			<Option target="MyDataBase"/>
+		</Unit>
+		<Unit filename="/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/MyDataBase/domain/Element.h">
+			<Option target="BigHM"/>
+			<Option target="MyDataBase"/>
+		</Unit>
+		<Unit filename="/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/MyDataBase/table/Table.cpp">
+			<Option target="BigHM"/>
+			<Option target="MyDataBase"/>
+		</Unit>
+		<Unit filename="/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/MyDataBase/table/Table.h">
+			<Option target="BigHM"/>
+			<Option target="MyDataBase"/>
+		</Unit>
+		<Unit filename="/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/MyDataBase/utils/utils.cpp">
+			<Option target="BigHM"/>
+			<Option target="MyDataBase"/>
+		</Unit>
+		<Unit filename="/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/MyDataBase/utils/utils.h">
+			<Option target="BigHM"/>
+			<Option target="MyDataBase"/>
 		</Unit>
 		<Unit filename="/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/googletest/googlemock/src/gmock-all.cc">
 			<Option target="gmock"/>
@@ -422,24 +499,17 @@
 		<Unit filename="/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/main.cpp">
 			<Option target="BigHM"/>
 		</Unit>
-		<Unit filename="/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/table/Table.cpp">
-			<Option target="BigHM"/>
-		</Unit>
-		<Unit filename="/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/table/Table.h">
-			<Option target="BigHM"/>
+		<Unit filename="/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/test/DataBase_test.cpp">
+			<Option target="my_tests"/>
 		</Unit>
 		<Unit filename="/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/test/conditionParser_test.cpp">
 			<Option target="my_tests"/>
 		</Unit>
-		<Unit filename="/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/utils/utils.cpp">
-			<Option target="my_tests"/>
-			<Option target="BigHM"/>
-		</Unit>
-		<Unit filename="/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/utils/utils.h">
-			<Option target="BigHM"/>
-		</Unit>
 		<Unit filename="/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/MyDataBase/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\MyDataBase\"/>
 		</Unit>
 		<Unit filename="/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/googletest/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\googletest\"/>

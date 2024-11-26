@@ -2,7 +2,7 @@
 // Created by artem on 25.11.2024.
 //
 #include "gtest/gtest.h"
-#include "../conditionParser/ExprChecker.h"
+#include "conditionParser/ExprChecker.h"
 #include <map>
 
 TEST(conditionParser, parseExpr1) {

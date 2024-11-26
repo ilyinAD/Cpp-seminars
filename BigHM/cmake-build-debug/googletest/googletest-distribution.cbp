@@ -5,7 +5,7 @@
 		<Option title="googletest-distribution"/>
 		<Option makefile_is_custom="1"/>
 		<Option compiler="gcc"/>
-		<Option virtualFolders="CMake Files\;CMake Files\googletest\;CMake Files\googletest\googlemock\;CMake Files\googletest\googlemock\cmake\;CMake Files\googletest\googletest\;CMake Files\googletest\googletest\cmake\;"/>
+		<Option virtualFolders="CMake Files\;CMake Files\MyDataBase\;CMake Files\googletest\;CMake Files\googletest\googlemock\;CMake Files\googletest\googlemock\cmake\;CMake Files\googletest\googletest\;CMake Files\googletest\googletest\cmake\;"/>
 		<Build>
 			<Target title="all">
 				<Option working_dir="/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/googletest"/>
@@ -232,6 +232,9 @@
 		</Unit>
 		<Unit filename="/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/MyDataBase/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\MyDataBase\"/>
 		</Unit>
 		<Unit filename="/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/googletest/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\googletest\"/>

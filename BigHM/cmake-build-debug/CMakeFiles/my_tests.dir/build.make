@@ -83,52 +83,37 @@ CMakeFiles/my_tests.dir/test/conditionParser_test.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/my_tests.dir/test/conditionParser_test.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/test/conditionParser_test.cpp -o CMakeFiles/my_tests.dir/test/conditionParser_test.cpp.s
 
-CMakeFiles/my_tests.dir/conditionParser/ExprChecker.cpp.o: CMakeFiles/my_tests.dir/flags.make
-CMakeFiles/my_tests.dir/conditionParser/ExprChecker.cpp.o: ../conditionParser/ExprChecker.cpp
-CMakeFiles/my_tests.dir/conditionParser/ExprChecker.cpp.o: CMakeFiles/my_tests.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/my_tests.dir/conditionParser/ExprChecker.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/my_tests.dir/conditionParser/ExprChecker.cpp.o -MF CMakeFiles/my_tests.dir/conditionParser/ExprChecker.cpp.o.d -o CMakeFiles/my_tests.dir/conditionParser/ExprChecker.cpp.o -c /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/conditionParser/ExprChecker.cpp
+CMakeFiles/my_tests.dir/test/DataBase_test.cpp.o: CMakeFiles/my_tests.dir/flags.make
+CMakeFiles/my_tests.dir/test/DataBase_test.cpp.o: ../test/DataBase_test.cpp
+CMakeFiles/my_tests.dir/test/DataBase_test.cpp.o: CMakeFiles/my_tests.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/my_tests.dir/test/DataBase_test.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/my_tests.dir/test/DataBase_test.cpp.o -MF CMakeFiles/my_tests.dir/test/DataBase_test.cpp.o.d -o CMakeFiles/my_tests.dir/test/DataBase_test.cpp.o -c /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/test/DataBase_test.cpp
 
-CMakeFiles/my_tests.dir/conditionParser/ExprChecker.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/my_tests.dir/conditionParser/ExprChecker.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/conditionParser/ExprChecker.cpp > CMakeFiles/my_tests.dir/conditionParser/ExprChecker.cpp.i
+CMakeFiles/my_tests.dir/test/DataBase_test.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/my_tests.dir/test/DataBase_test.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/test/DataBase_test.cpp > CMakeFiles/my_tests.dir/test/DataBase_test.cpp.i
 
-CMakeFiles/my_tests.dir/conditionParser/ExprChecker.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/my_tests.dir/conditionParser/ExprChecker.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/conditionParser/ExprChecker.cpp -o CMakeFiles/my_tests.dir/conditionParser/ExprChecker.cpp.s
-
-CMakeFiles/my_tests.dir/utils/utils.cpp.o: CMakeFiles/my_tests.dir/flags.make
-CMakeFiles/my_tests.dir/utils/utils.cpp.o: ../utils/utils.cpp
-CMakeFiles/my_tests.dir/utils/utils.cpp.o: CMakeFiles/my_tests.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/my_tests.dir/utils/utils.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/my_tests.dir/utils/utils.cpp.o -MF CMakeFiles/my_tests.dir/utils/utils.cpp.o.d -o CMakeFiles/my_tests.dir/utils/utils.cpp.o -c /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/utils/utils.cpp
-
-CMakeFiles/my_tests.dir/utils/utils.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/my_tests.dir/utils/utils.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/utils/utils.cpp > CMakeFiles/my_tests.dir/utils/utils.cpp.i
-
-CMakeFiles/my_tests.dir/utils/utils.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/my_tests.dir/utils/utils.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/utils/utils.cpp -o CMakeFiles/my_tests.dir/utils/utils.cpp.s
+CMakeFiles/my_tests.dir/test/DataBase_test.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/my_tests.dir/test/DataBase_test.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/test/DataBase_test.cpp -o CMakeFiles/my_tests.dir/test/DataBase_test.cpp.s
 
 # Object files for target my_tests
 my_tests_OBJECTS = \
 "CMakeFiles/my_tests.dir/test/conditionParser_test.cpp.o" \
-"CMakeFiles/my_tests.dir/conditionParser/ExprChecker.cpp.o" \
-"CMakeFiles/my_tests.dir/utils/utils.cpp.o"
+"CMakeFiles/my_tests.dir/test/DataBase_test.cpp.o"
 
 # External object files for target my_tests
 my_tests_EXTERNAL_OBJECTS =
 
 my_tests: CMakeFiles/my_tests.dir/test/conditionParser_test.cpp.o
-my_tests: CMakeFiles/my_tests.dir/conditionParser/ExprChecker.cpp.o
-my_tests: CMakeFiles/my_tests.dir/utils/utils.cpp.o
+my_tests: CMakeFiles/my_tests.dir/test/DataBase_test.cpp.o
 my_tests: CMakeFiles/my_tests.dir/build.make
 my_tests: lib/libgtest.a
 my_tests: lib/libgtest_main.a
+my_tests: MyDataBase/libMyDataBase.a
 my_tests: lib/libgtest.a
 my_tests: CMakeFiles/my_tests.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable my_tests"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable my_tests"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/my_tests.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

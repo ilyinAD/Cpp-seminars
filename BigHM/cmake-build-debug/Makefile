@@ -172,6 +172,19 @@ depend:
 .PHONY : depend
 
 #=============================================================================
+# Target rules for targets named BigHM
+
+# Build rule for target.
+BigHM: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 BigHM
+.PHONY : BigHM
+
+# fast build rule for target.
+BigHM/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/BigHM.dir/build.make CMakeFiles/BigHM.dir/build
+.PHONY : BigHM/fast
+
+#=============================================================================
 # Target rules for targets named my_tests
 
 # Build rule for target.
@@ -185,17 +198,17 @@ my_tests/fast:
 .PHONY : my_tests/fast
 
 #=============================================================================
-# Target rules for targets named BigHM
+# Target rules for targets named MyDataBase
 
 # Build rule for target.
-BigHM: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 BigHM
-.PHONY : BigHM
+MyDataBase: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 MyDataBase
+.PHONY : MyDataBase
 
 # fast build rule for target.
-BigHM/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/BigHM.dir/build.make CMakeFiles/BigHM.dir/build
-.PHONY : BigHM/fast
+MyDataBase/fast:
+	$(MAKE) $(MAKESILENT) -f MyDataBase/CMakeFiles/MyDataBase.dir/build.make MyDataBase/CMakeFiles/MyDataBase.dir/build
+.PHONY : MyDataBase/fast
 
 #=============================================================================
 # Target rules for targets named gmock
@@ -249,80 +262,125 @@ gtest_main/fast:
 	$(MAKE) $(MAKESILENT) -f googletest/googletest/CMakeFiles/gtest_main.dir/build.make googletest/googletest/CMakeFiles/gtest_main.dir/build
 .PHONY : gtest_main/fast
 
-conditionParser/ExprChecker.o: conditionParser/ExprChecker.cpp.o
-.PHONY : conditionParser/ExprChecker.o
+MyDataBase/conditionParser/ExprChecker.o: MyDataBase/conditionParser/ExprChecker.cpp.o
+.PHONY : MyDataBase/conditionParser/ExprChecker.o
 
 # target to build an object file
-conditionParser/ExprChecker.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_tests.dir/build.make CMakeFiles/my_tests.dir/conditionParser/ExprChecker.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/BigHM.dir/build.make CMakeFiles/BigHM.dir/conditionParser/ExprChecker.cpp.o
-.PHONY : conditionParser/ExprChecker.cpp.o
+MyDataBase/conditionParser/ExprChecker.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/BigHM.dir/build.make CMakeFiles/BigHM.dir/MyDataBase/conditionParser/ExprChecker.cpp.o
+.PHONY : MyDataBase/conditionParser/ExprChecker.cpp.o
 
-conditionParser/ExprChecker.i: conditionParser/ExprChecker.cpp.i
-.PHONY : conditionParser/ExprChecker.i
+MyDataBase/conditionParser/ExprChecker.i: MyDataBase/conditionParser/ExprChecker.cpp.i
+.PHONY : MyDataBase/conditionParser/ExprChecker.i
 
 # target to preprocess a source file
-conditionParser/ExprChecker.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_tests.dir/build.make CMakeFiles/my_tests.dir/conditionParser/ExprChecker.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/BigHM.dir/build.make CMakeFiles/BigHM.dir/conditionParser/ExprChecker.cpp.i
-.PHONY : conditionParser/ExprChecker.cpp.i
+MyDataBase/conditionParser/ExprChecker.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/BigHM.dir/build.make CMakeFiles/BigHM.dir/MyDataBase/conditionParser/ExprChecker.cpp.i
+.PHONY : MyDataBase/conditionParser/ExprChecker.cpp.i
 
-conditionParser/ExprChecker.s: conditionParser/ExprChecker.cpp.s
-.PHONY : conditionParser/ExprChecker.s
+MyDataBase/conditionParser/ExprChecker.s: MyDataBase/conditionParser/ExprChecker.cpp.s
+.PHONY : MyDataBase/conditionParser/ExprChecker.s
 
 # target to generate assembly for a file
-conditionParser/ExprChecker.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_tests.dir/build.make CMakeFiles/my_tests.dir/conditionParser/ExprChecker.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/BigHM.dir/build.make CMakeFiles/BigHM.dir/conditionParser/ExprChecker.cpp.s
-.PHONY : conditionParser/ExprChecker.cpp.s
+MyDataBase/conditionParser/ExprChecker.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/BigHM.dir/build.make CMakeFiles/BigHM.dir/MyDataBase/conditionParser/ExprChecker.cpp.s
+.PHONY : MyDataBase/conditionParser/ExprChecker.cpp.s
 
-dataBase/DataBase.o: dataBase/DataBase.cpp.o
-.PHONY : dataBase/DataBase.o
+MyDataBase/dataBase/DataBase.o: MyDataBase/dataBase/DataBase.cpp.o
+.PHONY : MyDataBase/dataBase/DataBase.o
 
 # target to build an object file
-dataBase/DataBase.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/BigHM.dir/build.make CMakeFiles/BigHM.dir/dataBase/DataBase.cpp.o
-.PHONY : dataBase/DataBase.cpp.o
+MyDataBase/dataBase/DataBase.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/BigHM.dir/build.make CMakeFiles/BigHM.dir/MyDataBase/dataBase/DataBase.cpp.o
+.PHONY : MyDataBase/dataBase/DataBase.cpp.o
 
-dataBase/DataBase.i: dataBase/DataBase.cpp.i
-.PHONY : dataBase/DataBase.i
+MyDataBase/dataBase/DataBase.i: MyDataBase/dataBase/DataBase.cpp.i
+.PHONY : MyDataBase/dataBase/DataBase.i
 
 # target to preprocess a source file
-dataBase/DataBase.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/BigHM.dir/build.make CMakeFiles/BigHM.dir/dataBase/DataBase.cpp.i
-.PHONY : dataBase/DataBase.cpp.i
+MyDataBase/dataBase/DataBase.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/BigHM.dir/build.make CMakeFiles/BigHM.dir/MyDataBase/dataBase/DataBase.cpp.i
+.PHONY : MyDataBase/dataBase/DataBase.cpp.i
 
-dataBase/DataBase.s: dataBase/DataBase.cpp.s
-.PHONY : dataBase/DataBase.s
+MyDataBase/dataBase/DataBase.s: MyDataBase/dataBase/DataBase.cpp.s
+.PHONY : MyDataBase/dataBase/DataBase.s
 
 # target to generate assembly for a file
-dataBase/DataBase.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/BigHM.dir/build.make CMakeFiles/BigHM.dir/dataBase/DataBase.cpp.s
-.PHONY : dataBase/DataBase.cpp.s
+MyDataBase/dataBase/DataBase.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/BigHM.dir/build.make CMakeFiles/BigHM.dir/MyDataBase/dataBase/DataBase.cpp.s
+.PHONY : MyDataBase/dataBase/DataBase.cpp.s
 
-domain/DataBaseType.o: domain/DataBaseType.cpp.o
-.PHONY : domain/DataBaseType.o
+MyDataBase/domain/DataBaseType.o: MyDataBase/domain/DataBaseType.cpp.o
+.PHONY : MyDataBase/domain/DataBaseType.o
 
 # target to build an object file
-domain/DataBaseType.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/BigHM.dir/build.make CMakeFiles/BigHM.dir/domain/DataBaseType.cpp.o
-.PHONY : domain/DataBaseType.cpp.o
+MyDataBase/domain/DataBaseType.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/BigHM.dir/build.make CMakeFiles/BigHM.dir/MyDataBase/domain/DataBaseType.cpp.o
+.PHONY : MyDataBase/domain/DataBaseType.cpp.o
 
-domain/DataBaseType.i: domain/DataBaseType.cpp.i
-.PHONY : domain/DataBaseType.i
+MyDataBase/domain/DataBaseType.i: MyDataBase/domain/DataBaseType.cpp.i
+.PHONY : MyDataBase/domain/DataBaseType.i
 
 # target to preprocess a source file
-domain/DataBaseType.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/BigHM.dir/build.make CMakeFiles/BigHM.dir/domain/DataBaseType.cpp.i
-.PHONY : domain/DataBaseType.cpp.i
+MyDataBase/domain/DataBaseType.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/BigHM.dir/build.make CMakeFiles/BigHM.dir/MyDataBase/domain/DataBaseType.cpp.i
+.PHONY : MyDataBase/domain/DataBaseType.cpp.i
 
-domain/DataBaseType.s: domain/DataBaseType.cpp.s
-.PHONY : domain/DataBaseType.s
+MyDataBase/domain/DataBaseType.s: MyDataBase/domain/DataBaseType.cpp.s
+.PHONY : MyDataBase/domain/DataBaseType.s
 
 # target to generate assembly for a file
-domain/DataBaseType.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/BigHM.dir/build.make CMakeFiles/BigHM.dir/domain/DataBaseType.cpp.s
-.PHONY : domain/DataBaseType.cpp.s
+MyDataBase/domain/DataBaseType.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/BigHM.dir/build.make CMakeFiles/BigHM.dir/MyDataBase/domain/DataBaseType.cpp.s
+.PHONY : MyDataBase/domain/DataBaseType.cpp.s
+
+MyDataBase/table/Table.o: MyDataBase/table/Table.cpp.o
+.PHONY : MyDataBase/table/Table.o
+
+# target to build an object file
+MyDataBase/table/Table.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/BigHM.dir/build.make CMakeFiles/BigHM.dir/MyDataBase/table/Table.cpp.o
+.PHONY : MyDataBase/table/Table.cpp.o
+
+MyDataBase/table/Table.i: MyDataBase/table/Table.cpp.i
+.PHONY : MyDataBase/table/Table.i
+
+# target to preprocess a source file
+MyDataBase/table/Table.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/BigHM.dir/build.make CMakeFiles/BigHM.dir/MyDataBase/table/Table.cpp.i
+.PHONY : MyDataBase/table/Table.cpp.i
+
+MyDataBase/table/Table.s: MyDataBase/table/Table.cpp.s
+.PHONY : MyDataBase/table/Table.s
+
+# target to generate assembly for a file
+MyDataBase/table/Table.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/BigHM.dir/build.make CMakeFiles/BigHM.dir/MyDataBase/table/Table.cpp.s
+.PHONY : MyDataBase/table/Table.cpp.s
+
+MyDataBase/utils/utils.o: MyDataBase/utils/utils.cpp.o
+.PHONY : MyDataBase/utils/utils.o
+
+# target to build an object file
+MyDataBase/utils/utils.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/BigHM.dir/build.make CMakeFiles/BigHM.dir/MyDataBase/utils/utils.cpp.o
+.PHONY : MyDataBase/utils/utils.cpp.o
+
+MyDataBase/utils/utils.i: MyDataBase/utils/utils.cpp.i
+.PHONY : MyDataBase/utils/utils.i
+
+# target to preprocess a source file
+MyDataBase/utils/utils.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/BigHM.dir/build.make CMakeFiles/BigHM.dir/MyDataBase/utils/utils.cpp.i
+.PHONY : MyDataBase/utils/utils.cpp.i
+
+MyDataBase/utils/utils.s: MyDataBase/utils/utils.cpp.s
+.PHONY : MyDataBase/utils/utils.s
+
+# target to generate assembly for a file
+MyDataBase/utils/utils.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/BigHM.dir/build.make CMakeFiles/BigHM.dir/MyDataBase/utils/utils.cpp.s
+.PHONY : MyDataBase/utils/utils.cpp.s
 
 main.o: main.cpp.o
 .PHONY : main.o
@@ -348,29 +406,29 @@ main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/BigHM.dir/build.make CMakeFiles/BigHM.dir/main.cpp.s
 .PHONY : main.cpp.s
 
-table/Table.o: table/Table.cpp.o
-.PHONY : table/Table.o
+test/DataBase_test.o: test/DataBase_test.cpp.o
+.PHONY : test/DataBase_test.o
 
 # target to build an object file
-table/Table.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/BigHM.dir/build.make CMakeFiles/BigHM.dir/table/Table.cpp.o
-.PHONY : table/Table.cpp.o
+test/DataBase_test.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_tests.dir/build.make CMakeFiles/my_tests.dir/test/DataBase_test.cpp.o
+.PHONY : test/DataBase_test.cpp.o
 
-table/Table.i: table/Table.cpp.i
-.PHONY : table/Table.i
+test/DataBase_test.i: test/DataBase_test.cpp.i
+.PHONY : test/DataBase_test.i
 
 # target to preprocess a source file
-table/Table.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/BigHM.dir/build.make CMakeFiles/BigHM.dir/table/Table.cpp.i
-.PHONY : table/Table.cpp.i
+test/DataBase_test.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_tests.dir/build.make CMakeFiles/my_tests.dir/test/DataBase_test.cpp.i
+.PHONY : test/DataBase_test.cpp.i
 
-table/Table.s: table/Table.cpp.s
-.PHONY : table/Table.s
+test/DataBase_test.s: test/DataBase_test.cpp.s
+.PHONY : test/DataBase_test.s
 
 # target to generate assembly for a file
-table/Table.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/BigHM.dir/build.make CMakeFiles/BigHM.dir/table/Table.cpp.s
-.PHONY : table/Table.cpp.s
+test/DataBase_test.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_tests.dir/build.make CMakeFiles/my_tests.dir/test/DataBase_test.cpp.s
+.PHONY : test/DataBase_test.cpp.s
 
 test/conditionParser_test.o: test/conditionParser_test.cpp.o
 .PHONY : test/conditionParser_test.o
@@ -396,33 +454,6 @@ test/conditionParser_test.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_tests.dir/build.make CMakeFiles/my_tests.dir/test/conditionParser_test.cpp.s
 .PHONY : test/conditionParser_test.cpp.s
 
-utils/utils.o: utils/utils.cpp.o
-.PHONY : utils/utils.o
-
-# target to build an object file
-utils/utils.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_tests.dir/build.make CMakeFiles/my_tests.dir/utils/utils.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/BigHM.dir/build.make CMakeFiles/BigHM.dir/utils/utils.cpp.o
-.PHONY : utils/utils.cpp.o
-
-utils/utils.i: utils/utils.cpp.i
-.PHONY : utils/utils.i
-
-# target to preprocess a source file
-utils/utils.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_tests.dir/build.make CMakeFiles/my_tests.dir/utils/utils.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/BigHM.dir/build.make CMakeFiles/BigHM.dir/utils/utils.cpp.i
-.PHONY : utils/utils.cpp.i
-
-utils/utils.s: utils/utils.cpp.s
-.PHONY : utils/utils.s
-
-# target to generate assembly for a file
-utils/utils.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_tests.dir/build.make CMakeFiles/my_tests.dir/utils/utils.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/BigHM.dir/build.make CMakeFiles/BigHM.dir/utils/utils.cpp.s
-.PHONY : utils/utils.cpp.s
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -437,32 +468,36 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... test"
 	@echo "... BigHM"
+	@echo "... MyDataBase"
 	@echo "... gmock"
 	@echo "... gmock_main"
 	@echo "... gtest"
 	@echo "... gtest_main"
 	@echo "... my_tests"
-	@echo "... conditionParser/ExprChecker.o"
-	@echo "... conditionParser/ExprChecker.i"
-	@echo "... conditionParser/ExprChecker.s"
-	@echo "... dataBase/DataBase.o"
-	@echo "... dataBase/DataBase.i"
-	@echo "... dataBase/DataBase.s"
-	@echo "... domain/DataBaseType.o"
-	@echo "... domain/DataBaseType.i"
-	@echo "... domain/DataBaseType.s"
+	@echo "... MyDataBase/conditionParser/ExprChecker.o"
+	@echo "... MyDataBase/conditionParser/ExprChecker.i"
+	@echo "... MyDataBase/conditionParser/ExprChecker.s"
+	@echo "... MyDataBase/dataBase/DataBase.o"
+	@echo "... MyDataBase/dataBase/DataBase.i"
+	@echo "... MyDataBase/dataBase/DataBase.s"
+	@echo "... MyDataBase/domain/DataBaseType.o"
+	@echo "... MyDataBase/domain/DataBaseType.i"
+	@echo "... MyDataBase/domain/DataBaseType.s"
+	@echo "... MyDataBase/table/Table.o"
+	@echo "... MyDataBase/table/Table.i"
+	@echo "... MyDataBase/table/Table.s"
+	@echo "... MyDataBase/utils/utils.o"
+	@echo "... MyDataBase/utils/utils.i"
+	@echo "... MyDataBase/utils/utils.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
-	@echo "... table/Table.o"
-	@echo "... table/Table.i"
-	@echo "... table/Table.s"
+	@echo "... test/DataBase_test.o"
+	@echo "... test/DataBase_test.i"
+	@echo "... test/DataBase_test.s"
 	@echo "... test/conditionParser_test.o"
 	@echo "... test/conditionParser_test.i"
 	@echo "... test/conditionParser_test.s"
-	@echo "... utils/utils.o"
-	@echo "... utils/utils.i"
-	@echo "... utils/utils.s"
 .PHONY : help
 
 

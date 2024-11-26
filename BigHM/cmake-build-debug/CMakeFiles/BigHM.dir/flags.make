@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = 
 
-CXX_INCLUDES = 
+CXX_INCLUDES = -I/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/MyDataBase
 
 CXX_FLAGS = -g -std=gnu++20
 

@@ -1,5 +1,5 @@
-/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/CMakeFiles/my_tests.dir
 /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/CMakeFiles/BigHM.dir
+/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/CMakeFiles/my_tests.dir
 /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/CMakeFiles/test.dir
 /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/CMakeFiles/edit_cache.dir
 /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/CMakeFiles/rebuild_cache.dir
@@ -7,6 +7,14 @@
 /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/CMakeFiles/install.dir
 /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/CMakeFiles/install/local.dir
 /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/CMakeFiles/install/strip.dir
+/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/MyDataBase/CMakeFiles/MyDataBase.dir
+/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/MyDataBase/CMakeFiles/test.dir
+/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/MyDataBase/CMakeFiles/edit_cache.dir
+/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/MyDataBase/CMakeFiles/rebuild_cache.dir
+/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/MyDataBase/CMakeFiles/list_install_components.dir
+/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/MyDataBase/CMakeFiles/install.dir
+/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/MyDataBase/CMakeFiles/install/local.dir
+/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/MyDataBase/CMakeFiles/install/strip.dir
 /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/googletest/CMakeFiles/test.dir
 /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/googletest/CMakeFiles/edit_cache.dir
 /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/googletest/CMakeFiles/rebuild_cache.dir

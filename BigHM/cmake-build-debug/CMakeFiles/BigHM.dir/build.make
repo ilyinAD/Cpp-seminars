@@ -83,95 +83,96 @@ CMakeFiles/BigHM.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/BigHM.dir/main.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/main.cpp -o CMakeFiles/BigHM.dir/main.cpp.s
 
-CMakeFiles/BigHM.dir/utils/utils.cpp.o: CMakeFiles/BigHM.dir/flags.make
-CMakeFiles/BigHM.dir/utils/utils.cpp.o: ../utils/utils.cpp
-CMakeFiles/BigHM.dir/utils/utils.cpp.o: CMakeFiles/BigHM.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/BigHM.dir/utils/utils.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/BigHM.dir/utils/utils.cpp.o -MF CMakeFiles/BigHM.dir/utils/utils.cpp.o.d -o CMakeFiles/BigHM.dir/utils/utils.cpp.o -c /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/utils/utils.cpp
+CMakeFiles/BigHM.dir/MyDataBase/utils/utils.cpp.o: CMakeFiles/BigHM.dir/flags.make
+CMakeFiles/BigHM.dir/MyDataBase/utils/utils.cpp.o: ../MyDataBase/utils/utils.cpp
+CMakeFiles/BigHM.dir/MyDataBase/utils/utils.cpp.o: CMakeFiles/BigHM.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/BigHM.dir/MyDataBase/utils/utils.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/BigHM.dir/MyDataBase/utils/utils.cpp.o -MF CMakeFiles/BigHM.dir/MyDataBase/utils/utils.cpp.o.d -o CMakeFiles/BigHM.dir/MyDataBase/utils/utils.cpp.o -c /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/MyDataBase/utils/utils.cpp
 
-CMakeFiles/BigHM.dir/utils/utils.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/BigHM.dir/utils/utils.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/utils/utils.cpp > CMakeFiles/BigHM.dir/utils/utils.cpp.i
+CMakeFiles/BigHM.dir/MyDataBase/utils/utils.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/BigHM.dir/MyDataBase/utils/utils.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/MyDataBase/utils/utils.cpp > CMakeFiles/BigHM.dir/MyDataBase/utils/utils.cpp.i
 
-CMakeFiles/BigHM.dir/utils/utils.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/BigHM.dir/utils/utils.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/utils/utils.cpp -o CMakeFiles/BigHM.dir/utils/utils.cpp.s
+CMakeFiles/BigHM.dir/MyDataBase/utils/utils.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/BigHM.dir/MyDataBase/utils/utils.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/MyDataBase/utils/utils.cpp -o CMakeFiles/BigHM.dir/MyDataBase/utils/utils.cpp.s
 
-CMakeFiles/BigHM.dir/dataBase/DataBase.cpp.o: CMakeFiles/BigHM.dir/flags.make
-CMakeFiles/BigHM.dir/dataBase/DataBase.cpp.o: ../dataBase/DataBase.cpp
-CMakeFiles/BigHM.dir/dataBase/DataBase.cpp.o: CMakeFiles/BigHM.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/BigHM.dir/dataBase/DataBase.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/BigHM.dir/dataBase/DataBase.cpp.o -MF CMakeFiles/BigHM.dir/dataBase/DataBase.cpp.o.d -o CMakeFiles/BigHM.dir/dataBase/DataBase.cpp.o -c /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/dataBase/DataBase.cpp
+CMakeFiles/BigHM.dir/MyDataBase/dataBase/DataBase.cpp.o: CMakeFiles/BigHM.dir/flags.make
+CMakeFiles/BigHM.dir/MyDataBase/dataBase/DataBase.cpp.o: ../MyDataBase/dataBase/DataBase.cpp
+CMakeFiles/BigHM.dir/MyDataBase/dataBase/DataBase.cpp.o: CMakeFiles/BigHM.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/BigHM.dir/MyDataBase/dataBase/DataBase.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/BigHM.dir/MyDataBase/dataBase/DataBase.cpp.o -MF CMakeFiles/BigHM.dir/MyDataBase/dataBase/DataBase.cpp.o.d -o CMakeFiles/BigHM.dir/MyDataBase/dataBase/DataBase.cpp.o -c /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/MyDataBase/dataBase/DataBase.cpp
 
-CMakeFiles/BigHM.dir/dataBase/DataBase.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/BigHM.dir/dataBase/DataBase.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/dataBase/DataBase.cpp > CMakeFiles/BigHM.dir/dataBase/DataBase.cpp.i
+CMakeFiles/BigHM.dir/MyDataBase/dataBase/DataBase.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/BigHM.dir/MyDataBase/dataBase/DataBase.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/MyDataBase/dataBase/DataBase.cpp > CMakeFiles/BigHM.dir/MyDataBase/dataBase/DataBase.cpp.i
 
-CMakeFiles/BigHM.dir/dataBase/DataBase.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/BigHM.dir/dataBase/DataBase.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/dataBase/DataBase.cpp -o CMakeFiles/BigHM.dir/dataBase/DataBase.cpp.s
+CMakeFiles/BigHM.dir/MyDataBase/dataBase/DataBase.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/BigHM.dir/MyDataBase/dataBase/DataBase.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/MyDataBase/dataBase/DataBase.cpp -o CMakeFiles/BigHM.dir/MyDataBase/dataBase/DataBase.cpp.s
 
-CMakeFiles/BigHM.dir/conditionParser/ExprChecker.cpp.o: CMakeFiles/BigHM.dir/flags.make
-CMakeFiles/BigHM.dir/conditionParser/ExprChecker.cpp.o: ../conditionParser/ExprChecker.cpp
-CMakeFiles/BigHM.dir/conditionParser/ExprChecker.cpp.o: CMakeFiles/BigHM.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/BigHM.dir/conditionParser/ExprChecker.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/BigHM.dir/conditionParser/ExprChecker.cpp.o -MF CMakeFiles/BigHM.dir/conditionParser/ExprChecker.cpp.o.d -o CMakeFiles/BigHM.dir/conditionParser/ExprChecker.cpp.o -c /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/conditionParser/ExprChecker.cpp
+CMakeFiles/BigHM.dir/MyDataBase/conditionParser/ExprChecker.cpp.o: CMakeFiles/BigHM.dir/flags.make
+CMakeFiles/BigHM.dir/MyDataBase/conditionParser/ExprChecker.cpp.o: ../MyDataBase/conditionParser/ExprChecker.cpp
+CMakeFiles/BigHM.dir/MyDataBase/conditionParser/ExprChecker.cpp.o: CMakeFiles/BigHM.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/BigHM.dir/MyDataBase/conditionParser/ExprChecker.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/BigHM.dir/MyDataBase/conditionParser/ExprChecker.cpp.o -MF CMakeFiles/BigHM.dir/MyDataBase/conditionParser/ExprChecker.cpp.o.d -o CMakeFiles/BigHM.dir/MyDataBase/conditionParser/ExprChecker.cpp.o -c /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/MyDataBase/conditionParser/ExprChecker.cpp
 
-CMakeFiles/BigHM.dir/conditionParser/ExprChecker.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/BigHM.dir/conditionParser/ExprChecker.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/conditionParser/ExprChecker.cpp > CMakeFiles/BigHM.dir/conditionParser/ExprChecker.cpp.i
+CMakeFiles/BigHM.dir/MyDataBase/conditionParser/ExprChecker.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/BigHM.dir/MyDataBase/conditionParser/ExprChecker.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/MyDataBase/conditionParser/ExprChecker.cpp > CMakeFiles/BigHM.dir/MyDataBase/conditionParser/ExprChecker.cpp.i
 
-CMakeFiles/BigHM.dir/conditionParser/ExprChecker.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/BigHM.dir/conditionParser/ExprChecker.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/conditionParser/ExprChecker.cpp -o CMakeFiles/BigHM.dir/conditionParser/ExprChecker.cpp.s
+CMakeFiles/BigHM.dir/MyDataBase/conditionParser/ExprChecker.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/BigHM.dir/MyDataBase/conditionParser/ExprChecker.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/MyDataBase/conditionParser/ExprChecker.cpp -o CMakeFiles/BigHM.dir/MyDataBase/conditionParser/ExprChecker.cpp.s
 
-CMakeFiles/BigHM.dir/domain/DataBaseType.cpp.o: CMakeFiles/BigHM.dir/flags.make
-CMakeFiles/BigHM.dir/domain/DataBaseType.cpp.o: ../domain/DataBaseType.cpp
-CMakeFiles/BigHM.dir/domain/DataBaseType.cpp.o: CMakeFiles/BigHM.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/BigHM.dir/domain/DataBaseType.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/BigHM.dir/domain/DataBaseType.cpp.o -MF CMakeFiles/BigHM.dir/domain/DataBaseType.cpp.o.d -o CMakeFiles/BigHM.dir/domain/DataBaseType.cpp.o -c /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/domain/DataBaseType.cpp
+CMakeFiles/BigHM.dir/MyDataBase/domain/DataBaseType.cpp.o: CMakeFiles/BigHM.dir/flags.make
+CMakeFiles/BigHM.dir/MyDataBase/domain/DataBaseType.cpp.o: ../MyDataBase/domain/DataBaseType.cpp
+CMakeFiles/BigHM.dir/MyDataBase/domain/DataBaseType.cpp.o: CMakeFiles/BigHM.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/BigHM.dir/MyDataBase/domain/DataBaseType.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/BigHM.dir/MyDataBase/domain/DataBaseType.cpp.o -MF CMakeFiles/BigHM.dir/MyDataBase/domain/DataBaseType.cpp.o.d -o CMakeFiles/BigHM.dir/MyDataBase/domain/DataBaseType.cpp.o -c /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/MyDataBase/domain/DataBaseType.cpp
 
-CMakeFiles/BigHM.dir/domain/DataBaseType.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/BigHM.dir/domain/DataBaseType.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/domain/DataBaseType.cpp > CMakeFiles/BigHM.dir/domain/DataBaseType.cpp.i
+CMakeFiles/BigHM.dir/MyDataBase/domain/DataBaseType.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/BigHM.dir/MyDataBase/domain/DataBaseType.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/MyDataBase/domain/DataBaseType.cpp > CMakeFiles/BigHM.dir/MyDataBase/domain/DataBaseType.cpp.i
 
-CMakeFiles/BigHM.dir/domain/DataBaseType.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/BigHM.dir/domain/DataBaseType.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/domain/DataBaseType.cpp -o CMakeFiles/BigHM.dir/domain/DataBaseType.cpp.s
+CMakeFiles/BigHM.dir/MyDataBase/domain/DataBaseType.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/BigHM.dir/MyDataBase/domain/DataBaseType.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/MyDataBase/domain/DataBaseType.cpp -o CMakeFiles/BigHM.dir/MyDataBase/domain/DataBaseType.cpp.s
 
-CMakeFiles/BigHM.dir/table/Table.cpp.o: CMakeFiles/BigHM.dir/flags.make
-CMakeFiles/BigHM.dir/table/Table.cpp.o: ../table/Table.cpp
-CMakeFiles/BigHM.dir/table/Table.cpp.o: CMakeFiles/BigHM.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/BigHM.dir/table/Table.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/BigHM.dir/table/Table.cpp.o -MF CMakeFiles/BigHM.dir/table/Table.cpp.o.d -o CMakeFiles/BigHM.dir/table/Table.cpp.o -c /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/table/Table.cpp
+CMakeFiles/BigHM.dir/MyDataBase/table/Table.cpp.o: CMakeFiles/BigHM.dir/flags.make
+CMakeFiles/BigHM.dir/MyDataBase/table/Table.cpp.o: ../MyDataBase/table/Table.cpp
+CMakeFiles/BigHM.dir/MyDataBase/table/Table.cpp.o: CMakeFiles/BigHM.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/BigHM.dir/MyDataBase/table/Table.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/BigHM.dir/MyDataBase/table/Table.cpp.o -MF CMakeFiles/BigHM.dir/MyDataBase/table/Table.cpp.o.d -o CMakeFiles/BigHM.dir/MyDataBase/table/Table.cpp.o -c /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/MyDataBase/table/Table.cpp
 
-CMakeFiles/BigHM.dir/table/Table.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/BigHM.dir/table/Table.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/table/Table.cpp > CMakeFiles/BigHM.dir/table/Table.cpp.i
+CMakeFiles/BigHM.dir/MyDataBase/table/Table.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/BigHM.dir/MyDataBase/table/Table.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/MyDataBase/table/Table.cpp > CMakeFiles/BigHM.dir/MyDataBase/table/Table.cpp.i
 
-CMakeFiles/BigHM.dir/table/Table.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/BigHM.dir/table/Table.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/table/Table.cpp -o CMakeFiles/BigHM.dir/table/Table.cpp.s
+CMakeFiles/BigHM.dir/MyDataBase/table/Table.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/BigHM.dir/MyDataBase/table/Table.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/MyDataBase/table/Table.cpp -o CMakeFiles/BigHM.dir/MyDataBase/table/Table.cpp.s
 
 # Object files for target BigHM
 BigHM_OBJECTS = \
 "CMakeFiles/BigHM.dir/main.cpp.o" \
-"CMakeFiles/BigHM.dir/utils/utils.cpp.o" \
-"CMakeFiles/BigHM.dir/dataBase/DataBase.cpp.o" \
-"CMakeFiles/BigHM.dir/conditionParser/ExprChecker.cpp.o" \
-"CMakeFiles/BigHM.dir/domain/DataBaseType.cpp.o" \
-"CMakeFiles/BigHM.dir/table/Table.cpp.o"
+"CMakeFiles/BigHM.dir/MyDataBase/utils/utils.cpp.o" \
+"CMakeFiles/BigHM.dir/MyDataBase/dataBase/DataBase.cpp.o" \
+"CMakeFiles/BigHM.dir/MyDataBase/conditionParser/ExprChecker.cpp.o" \
+"CMakeFiles/BigHM.dir/MyDataBase/domain/DataBaseType.cpp.o" \
+"CMakeFiles/BigHM.dir/MyDataBase/table/Table.cpp.o"
 
 # External object files for target BigHM
 BigHM_EXTERNAL_OBJECTS =
 
 BigHM: CMakeFiles/BigHM.dir/main.cpp.o
-BigHM: CMakeFiles/BigHM.dir/utils/utils.cpp.o
-BigHM: CMakeFiles/BigHM.dir/dataBase/DataBase.cpp.o
-BigHM: CMakeFiles/BigHM.dir/conditionParser/ExprChecker.cpp.o
-BigHM: CMakeFiles/BigHM.dir/domain/DataBaseType.cpp.o
-BigHM: CMakeFiles/BigHM.dir/table/Table.cpp.o
+BigHM: CMakeFiles/BigHM.dir/MyDataBase/utils/utils.cpp.o
+BigHM: CMakeFiles/BigHM.dir/MyDataBase/dataBase/DataBase.cpp.o
+BigHM: CMakeFiles/BigHM.dir/MyDataBase/conditionParser/ExprChecker.cpp.o
+BigHM: CMakeFiles/BigHM.dir/MyDataBase/domain/DataBaseType.cpp.o
+BigHM: CMakeFiles/BigHM.dir/MyDataBase/table/Table.cpp.o
 BigHM: CMakeFiles/BigHM.dir/build.make
+BigHM: MyDataBase/libMyDataBase.a
 BigHM: CMakeFiles/BigHM.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX executable BigHM"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/BigHM.dir/link.txt --verbose=$(VERBOSE)

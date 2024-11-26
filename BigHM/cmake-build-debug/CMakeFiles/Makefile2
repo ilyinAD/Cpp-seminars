@@ -63,20 +63,38 @@ CMAKE_BINARY_DIR = /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-de
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
-all: CMakeFiles/my_tests.dir/all
 all: CMakeFiles/BigHM.dir/all
+all: CMakeFiles/my_tests.dir/all
+all: MyDataBase/all
 all: googletest/all
 .PHONY : all
 
 # The main recursive "preinstall" target.
+preinstall: MyDataBase/preinstall
 preinstall: googletest/preinstall
 .PHONY : preinstall
 
 # The main recursive "clean" target.
-clean: CMakeFiles/my_tests.dir/clean
 clean: CMakeFiles/BigHM.dir/clean
+clean: CMakeFiles/my_tests.dir/clean
+clean: MyDataBase/clean
 clean: googletest/clean
 .PHONY : clean
+
+#=============================================================================
+# Directory level rules for directory MyDataBase
+
+# Recursive "all" directory target.
+MyDataBase/all: MyDataBase/CMakeFiles/MyDataBase.dir/all
+.PHONY : MyDataBase/all
+
+# Recursive "preinstall" directory target.
+MyDataBase/preinstall:
+.PHONY : MyDataBase/preinstall
+
+# Recursive "clean" directory target.
+MyDataBase/clean: MyDataBase/CMakeFiles/MyDataBase.dir/clean
+.PHONY : MyDataBase/clean
 
 #=============================================================================
 # Directory level rules for directory googletest
@@ -130,37 +148,10 @@ googletest/googletest/clean: googletest/googletest/CMakeFiles/gtest_main.dir/cle
 .PHONY : googletest/googletest/clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/my_tests.dir
-
-# All Build rule for target.
-CMakeFiles/my_tests.dir/all: googletest/googletest/CMakeFiles/gtest.dir/all
-CMakeFiles/my_tests.dir/all: googletest/googletest/CMakeFiles/gtest_main.dir/all
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_tests.dir/build.make CMakeFiles/my_tests.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_tests.dir/build.make CMakeFiles/my_tests.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/CMakeFiles --progress-num=16,17,18,19 "Built target my_tests"
-.PHONY : CMakeFiles/my_tests.dir/all
-
-# Build rule for subdir invocation for target.
-CMakeFiles/my_tests.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/CMakeFiles 8
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/my_tests.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/CMakeFiles 0
-.PHONY : CMakeFiles/my_tests.dir/rule
-
-# Convenience name for target.
-my_tests: CMakeFiles/my_tests.dir/rule
-.PHONY : my_tests
-
-# clean rule for target.
-CMakeFiles/my_tests.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_tests.dir/build.make CMakeFiles/my_tests.dir/clean
-.PHONY : CMakeFiles/my_tests.dir/clean
-
-#=============================================================================
 # Target rules for target CMakeFiles/BigHM.dir
 
 # All Build rule for target.
-CMakeFiles/BigHM.dir/all:
+CMakeFiles/BigHM.dir/all: MyDataBase/CMakeFiles/MyDataBase.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/BigHM.dir/build.make CMakeFiles/BigHM.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/BigHM.dir/build.make CMakeFiles/BigHM.dir/build
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/CMakeFiles --progress-num=1,2,3,4,5,6,7 "Built target BigHM"
@@ -168,7 +159,7 @@ CMakeFiles/BigHM.dir/all:
 
 # Build rule for subdir invocation for target.
 CMakeFiles/BigHM.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/CMakeFiles 7
+	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/CMakeFiles 15
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/BigHM.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/CMakeFiles 0
 .PHONY : CMakeFiles/BigHM.dir/rule
@@ -183,13 +174,67 @@ CMakeFiles/BigHM.dir/clean:
 .PHONY : CMakeFiles/BigHM.dir/clean
 
 #=============================================================================
+# Target rules for target CMakeFiles/my_tests.dir
+
+# All Build rule for target.
+CMakeFiles/my_tests.dir/all: MyDataBase/CMakeFiles/MyDataBase.dir/all
+CMakeFiles/my_tests.dir/all: googletest/googletest/CMakeFiles/gtest.dir/all
+CMakeFiles/my_tests.dir/all: googletest/googletest/CMakeFiles/gtest_main.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_tests.dir/build.make CMakeFiles/my_tests.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_tests.dir/build.make CMakeFiles/my_tests.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/CMakeFiles --progress-num=24,25,26 "Built target my_tests"
+.PHONY : CMakeFiles/my_tests.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/my_tests.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/CMakeFiles 15
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/my_tests.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/CMakeFiles 0
+.PHONY : CMakeFiles/my_tests.dir/rule
+
+# Convenience name for target.
+my_tests: CMakeFiles/my_tests.dir/rule
+.PHONY : my_tests
+
+# clean rule for target.
+CMakeFiles/my_tests.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_tests.dir/build.make CMakeFiles/my_tests.dir/clean
+.PHONY : CMakeFiles/my_tests.dir/clean
+
+#=============================================================================
+# Target rules for target MyDataBase/CMakeFiles/MyDataBase.dir
+
+# All Build rule for target.
+MyDataBase/CMakeFiles/MyDataBase.dir/all:
+	$(MAKE) $(MAKESILENT) -f MyDataBase/CMakeFiles/MyDataBase.dir/build.make MyDataBase/CMakeFiles/MyDataBase.dir/depend
+	$(MAKE) $(MAKESILENT) -f MyDataBase/CMakeFiles/MyDataBase.dir/build.make MyDataBase/CMakeFiles/MyDataBase.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/CMakeFiles --progress-num=8,9,10,11,12,13,14,15 "Built target MyDataBase"
+.PHONY : MyDataBase/CMakeFiles/MyDataBase.dir/all
+
+# Build rule for subdir invocation for target.
+MyDataBase/CMakeFiles/MyDataBase.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/CMakeFiles 8
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 MyDataBase/CMakeFiles/MyDataBase.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/CMakeFiles 0
+.PHONY : MyDataBase/CMakeFiles/MyDataBase.dir/rule
+
+# Convenience name for target.
+MyDataBase: MyDataBase/CMakeFiles/MyDataBase.dir/rule
+.PHONY : MyDataBase
+
+# clean rule for target.
+MyDataBase/CMakeFiles/MyDataBase.dir/clean:
+	$(MAKE) $(MAKESILENT) -f MyDataBase/CMakeFiles/MyDataBase.dir/build.make MyDataBase/CMakeFiles/MyDataBase.dir/clean
+.PHONY : MyDataBase/CMakeFiles/MyDataBase.dir/clean
+
+#=============================================================================
 # Target rules for target googletest/googlemock/CMakeFiles/gmock.dir
 
 # All Build rule for target.
 googletest/googlemock/CMakeFiles/gmock.dir/all: googletest/googletest/CMakeFiles/gtest.dir/all
 	$(MAKE) $(MAKESILENT) -f googletest/googlemock/CMakeFiles/gmock.dir/build.make googletest/googlemock/CMakeFiles/gmock.dir/depend
 	$(MAKE) $(MAKESILENT) -f googletest/googlemock/CMakeFiles/gmock.dir/build.make googletest/googlemock/CMakeFiles/gmock.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/CMakeFiles --progress-num=8,9 "Built target gmock"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/CMakeFiles --progress-num=16,17 "Built target gmock"
 .PHONY : googletest/googlemock/CMakeFiles/gmock.dir/all
 
 # Build rule for subdir invocation for target.
@@ -216,7 +261,7 @@ googletest/googlemock/CMakeFiles/gmock_main.dir/all: googletest/googlemock/CMake
 googletest/googlemock/CMakeFiles/gmock_main.dir/all: googletest/googletest/CMakeFiles/gtest.dir/all
 	$(MAKE) $(MAKESILENT) -f googletest/googlemock/CMakeFiles/gmock_main.dir/build.make googletest/googlemock/CMakeFiles/gmock_main.dir/depend
 	$(MAKE) $(MAKESILENT) -f googletest/googlemock/CMakeFiles/gmock_main.dir/build.make googletest/googlemock/CMakeFiles/gmock_main.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/CMakeFiles --progress-num=10,11 "Built target gmock_main"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/CMakeFiles --progress-num=18,19 "Built target gmock_main"
 .PHONY : googletest/googlemock/CMakeFiles/gmock_main.dir/all
 
 # Build rule for subdir invocation for target.
@@ -242,7 +287,7 @@ googletest/googlemock/CMakeFiles/gmock_main.dir/clean:
 googletest/googletest/CMakeFiles/gtest.dir/all:
 	$(MAKE) $(MAKESILENT) -f googletest/googletest/CMakeFiles/gtest.dir/build.make googletest/googletest/CMakeFiles/gtest.dir/depend
 	$(MAKE) $(MAKESILENT) -f googletest/googletest/CMakeFiles/gtest.dir/build.make googletest/googletest/CMakeFiles/gtest.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/CMakeFiles --progress-num=12,13 "Built target gtest"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/CMakeFiles --progress-num=20,21 "Built target gtest"
 .PHONY : googletest/googletest/CMakeFiles/gtest.dir/all
 
 # Build rule for subdir invocation for target.
@@ -268,7 +313,7 @@ googletest/googletest/CMakeFiles/gtest.dir/clean:
 googletest/googletest/CMakeFiles/gtest_main.dir/all: googletest/googletest/CMakeFiles/gtest.dir/all
 	$(MAKE) $(MAKESILENT) -f googletest/googletest/CMakeFiles/gtest_main.dir/build.make googletest/googletest/CMakeFiles/gtest_main.dir/depend
 	$(MAKE) $(MAKESILENT) -f googletest/googletest/CMakeFiles/gtest_main.dir/build.make googletest/googletest/CMakeFiles/gtest_main.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/CMakeFiles --progress-num=14,15 "Built target gtest_main"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/cmake-build-debug/CMakeFiles --progress-num=22,23 "Built target gtest_main"
 .PHONY : googletest/googletest/CMakeFiles/gtest_main.dir/all
 
 # Build rule for subdir invocation for target.
