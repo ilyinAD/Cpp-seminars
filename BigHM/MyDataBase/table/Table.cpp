@@ -84,7 +84,7 @@ void Table::insert(const map<string, string>& m) {
             }
         }
 
-        if (columns[i].attributes.is_unique && checkOnUnique(i, rows.size() - 1)) {
+        if ((columns[i].attributes.is_unique || columns[i].attributes.is_key) && checkOnUnique(i, rows.size() - 1)) {
             rows.pop_back();
             throw invalid_argument("not unique value");
         }
@@ -151,7 +151,7 @@ void Table::update(const map<string, string>& m, const string& condExpr) {
                 throw;
             }
             rows[i][col.idx] = res;
-            if (columns[i].attributes.is_unique && checkOnUnique(col.idx, i)) {
+            if ((columns[i].attributes.is_unique || columns[i].attributes.is_key) && checkOnUnique(col.idx, i)) {
                 throw invalid_argument("not unique value in update");
             }
         }
@@ -244,4 +244,46 @@ Table::Iterator Table::begin() {
 
 Table::Iterator Table::end() {
     return Iterator(rows.end());
+}
+
+void Table::to_json(json &j) {
+    j["name"] = name;
+    json row_json;
+    for (auto& i : rows) {
+        json vec_json;
+        for (auto& el : i) {
+            json el_json;
+            if (el) {
+                el->to_json(el_json);
+            } else {
+                el_json = nullptr;
+            }
+            vec_json.push_back(el_json);
+        }
+        row_json.push_back(vec_json);
+    }
+    j["row"] = row_json;
+    json columns_json;
+    for (auto& i : columns) {
+        json el_json;
+        i.to_json(el_json);
+        columns_json.push_back(el_json);
+    }
+    j["col"] = columns_json;
+}
+
+void from_json(json& j, Table& table) {
+    table.name = j["name"];
+    for (auto i : j["row"]) {
+        vector<shared_ptr<DataBaseType>> v;
+        for (auto el : i) {
+            v.push_back(DataBaseType::from_json(el));
+        }
+        table.rows.push_back(v);
+    }
+    for (auto i : j["col"]) {
+        Col col;
+        from_json(i, col);
+        table.columns.push_back(col);
+    }
 }

@@ -356,6 +356,7 @@ CMakeFiles/BigHM.dir/main.cpp.o: \
  /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/MyDataBase/dataBase/../table/Table.h \
  /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/MyDataBase/dataBase/../table/../utils/utils.h \
  /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/MyDataBase/dataBase/../table/../utils/../domain/ColTable.h \
+ /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/MyDataBase/dataBase/../table/../utils/../domain/../../json/single_include/nlohmann/json.hpp \
  /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/MyDataBase/dataBase/../table/../utils/../domain/DataBaseType.h \
  /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/MyDataBase/dataBase/../table/../domain/ColTable.h \
  /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/MyDataBase/dataBase/../table/../domain/DataBaseType.h \
@@ -363,4 +364,6 @@ CMakeFiles/BigHM.dir/main.cpp.o: \
  /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/MyDataBase/dataBase/../table/../domain/ColTable.h \
  /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/MyDataBase/dataBase/../table/../conditionParser/ExprChecker.h \
  /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/MyDataBase/dataBase/../table/../conditionParser/../domain/DataBaseType.h \
- /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/MyDataBase/dataBase/../table/../conditionParser/../domain/ColTable.h
+ /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/MyDataBase/dataBase/../table/../conditionParser/../domain/ColTable.h \
+ /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/MyDataBase/dataBase/../table/../../json/single_include/nlohmann/json.hpp \
+ /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/json/single_include/nlohmann/json.hpp

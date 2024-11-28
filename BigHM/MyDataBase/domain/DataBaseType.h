@@ -8,6 +8,8 @@
 #include <vector>
 #include <iostream>
 #include <iomanip>
+#include "../../json/single_include/nlohmann/json.hpp"
+using json = nlohmann::json;
 class DataBaseType {
 public:
     void *type;
@@ -31,30 +33,36 @@ public:
     virtual DataBaseType* operator||(const DataBaseType&) = 0;
     virtual DataBaseType* operator^(const DataBaseType&) = 0;
     virtual ~DataBaseType() = default;
+    virtual void to_json(json& j) const = 0;
+    static std::shared_ptr<DataBaseType> from_json(const json& j);
 };
+
+
 
 class Bool : public DataBaseType {
 public:
-//    Bool(const DataBaseType& other) {
-//        type = other.type;
-//    }
-    Bool(std::string strType) {
+    explicit Bool(const std::string& strType) {
         if (strType == "True" || strType == "true") {
             type = new bool(true);
         } else if (strType == "False" || strType == "false") {
             type = new bool(false);
+            bool b = *static_cast<bool*>(type);
         } else {
             throw("Invalid bool type");
         }
+        int ok = 1;
     }
 
-//    Bool& operator= (const DataBaseType& other) {
-//        this->type = other.type;
-//        return *this;
-//    }
-
-    Bool(bool val) {
+    explicit Bool(bool val) {
         type = new bool(val);
+    }
+
+    void to_json(json& j) const {
+        j = json{{"type", "Bool"}, {"DataBaseType", *static_cast<bool*>(type)}};
+    }
+
+    static std::shared_ptr<DataBaseType> from_json(const json& j) {
+        return std::make_shared<Bool>(Bool(j.at("DataBaseType").get<bool>()));
     }
 
     void print() const override {
@@ -120,10 +128,13 @@ public:
         type = new int(val);
     };
 
-//    Int& operator= (const DataBaseType& other) {
-//        this->type = other.type;
-//        return *this;
-//    }
+    void to_json(json& j) const {
+        j = json{{"type", "Int"}, {"DataBaseType", *static_cast<int*>(type)}};
+    }
+
+    static std::shared_ptr<DataBaseType> from_json(const json& j) {
+        return std::make_shared<Int>(Int(j.at("DataBaseType").get<int>()));
+    }
 
     void print() const override {
         std::cout << *(static_cast<int*>(type)) << ' ';
@@ -153,8 +164,6 @@ public:
         return new Bool( bool(*static_cast<int*>(type) == *static_cast<int*>(other.type)));
     }
     DataBaseType* operator!= (const DataBaseType& other) {
-        int i1 = *static_cast<int*>(type);
-        int i2 = *static_cast<int*>(other.type);
         return new Bool( bool(*static_cast<int*>(type) != *static_cast<int*>(other.type)));
     }
     DataBaseType* operator&& (const DataBaseType& other) {
@@ -185,11 +194,16 @@ public:
         type = new std::string(strType);
     };
     String(std::string strType) {
-//        if (strType.size() > sizeConstraint) {
-//            throw runtime_error("Invalid size");
-//        }
         type = new std::string(strType);
     };
+
+    void to_json(json& j) const {
+        j = json{{"type", "String"}, {"DataBaseType", *static_cast<std::string*>(type)}};
+    }
+
+    static std::shared_ptr<DataBaseType> from_json(const json& j) {
+        return std::make_shared<String>(String(j.at("DataBaseType").get<std::string>()));
+    }
 
     void print() const override {
         std::cout << *(static_cast<std::string*>(type)) << ' ';
@@ -268,6 +282,14 @@ public:
         }
     };
 
+    void to_json(json& j) const {
+        j = json{{"type", "Bytes"}, {"DataBaseType", *static_cast<std::string*>(type)}};
+    }
+
+    static std::shared_ptr<DataBaseType> from_json(const json& j) {
+        return std::make_shared<Bytes>(Bytes(j.at("DataBaseType").get<std::string>()));
+    }
+
     void print() const override {
         std::cout << *static_cast<std::string*>(type) << ' ';
     }
@@ -315,4 +337,5 @@ public:
         return new Bool( bool(*static_cast<std::string*>(type) <= *static_cast<std::string*>(other.type)));
     }
 };
+
 #endif //CPP_SEMINARS_DATABASETYPE_H

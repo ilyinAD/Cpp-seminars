@@ -1,3 +1,6 @@
 [submodule "BigHM/googletest"]
 	path = BigHM/googletest
 	url = https://github.com/google/googletest
+[submodule "BigHM/json"]
+	path = BigHM/json
+	url = https://github.com/nlohmann/json

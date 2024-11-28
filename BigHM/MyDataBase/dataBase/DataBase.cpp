@@ -93,19 +93,50 @@ std::pair<std::string, std::vector<std::string>> parseInsert(const std::string& 
     return {deleteCornerSpaces(tableName), arguments};
 }
 
+std::pair<std::string, std::vector<std::string>> changeQuote(std::string& s) {
+    std::string ans;
+    std::vector<std::string> v;
+    int i = 0;
+    while (i < s.size()) {
+        if (s[i] != '"') {
+            ans += s[i];
+            ++i;
+            continue;
+        }
+        ++i;
+        std::string cur = "";
+        while (i < s.size() && s[i] != '"') {
+            cur += s[i];
+            ++i;
+        }
+        ++i;
+        v.push_back(cur);
+        ans += '"';
+    }
+
+    return std::make_pair(ans, v);
+}
+
 void DataBase::insert(std::string s) {
     s = deleteDoubleSpaces(s);
     s = s.substr(7);
-    s.erase(std::remove(s.begin(), s.end(), '"'), s.end());
+    //s.erase(std::remove(s.begin(), s.end(), '"'), s.end());
+    std::pair<std::string, std::vector<std::string>> chngPair = changeQuote(s);
+    s = chngPair.first;
     std::pair<std::string, std::vector<std::string>> p = parseInsert(s);
     std::vector<std::string> v = p.second;
     std::string table_name = p.first;
     std::map<std::string, std::string> m;
+    int idx = 0;
     if (s.find('=') < s.size()) {
         for (int i = 0; i < v.size(); ++i) {
             size_t equals_pos = v[i].find('=');
             std::string colName = deleteCornerSpaces(v[i].substr(0, equals_pos));
             std::string val = deleteCornerSpaces(v[i].substr(equals_pos + 1));
+            if (val == "\"") {
+                val = chngPair.second[idx];
+                ++idx;
+            }
             m[colName] = val;
         }
     } else {
@@ -115,6 +146,10 @@ void DataBase::insert(std::string s) {
                 continue;
             }
             std::string colName = tables[table_name].columns[i].name;
+            if (s == "\"") {
+                s = chngPair.second[idx];
+                ++idx;
+            }
             m[colName] = s;
         }
     }
@@ -172,10 +207,23 @@ Table DataBase::select(std::string s) {
     return table.select(colNames, whereCond, "");
 }
 
+void replaceAll(std::string& str, const std::string& needChange, const std::string& onChange) {
+    if (needChange.empty()) {
+        return;
+    }
+    size_t start_pos = 0;
+    while ((start_pos = str.find(needChange, start_pos)) != std::string::npos) {
+        str.replace(start_pos, needChange.length(), onChange);
+        start_pos += onChange.length();
+    }
+}
+
 Table DataBase::update(std::string s) {
     s = s.substr(7);
     size_t set = s.find("set");
     std::string s1 = s.substr(0, set - 1);
+    std::pair<std::string, std::vector<std::string>> chngPair = changeQuote(s);
+    s = chngPair.first;
     Table table = handleJoin(s1);
     size_t where = s.find("where");
     std::string whereCond = s.substr(where + 6);
@@ -186,16 +234,81 @@ Table DataBase::update(std::string s) {
     while (getline(stream, row, ',')) {
         v.push_back(row);
     }
-
+    int idx = 0;
     std::map<std::string, std::string> m;
     for (int i = 0; i < v.size(); ++i) {
         size_t equals_pos = v[i].find('=');
         std::string colName = deleteCornerSpaces(v[i].substr(0, equals_pos));
         std::string val = deleteCornerSpaces(v[i].substr(equals_pos + 1));
+
+
+        if (val.find("\"") < val.size()) {
+            replaceAll(val, "\"", "\"" + chngPair.second[idx] + "\"");
+            ++idx;
+        }
+
         m[colName] = val;
     }
 
     table.update(m, whereCond);
 
     return table;
+}
+
+void DataBase::execute(std::string s) {
+    std::istringstream stream(s);
+    std::string query;
+    while (getline(stream, query, ';')) {
+        std::string typeQuery = query.substr(0, query.find(' '));
+        try {
+            if (typeQuery == "insert") {
+                insert(query);
+            } else if (typeQuery == "update") {
+                update(query);
+            } else if (typeQuery == "create") {
+                create(query);
+            } else if (typeQuery == "select") {
+                select(query);
+            } else if (typeQuery == "delete") {
+                deleteRows(query);
+            } else {
+                throw std::runtime_error("invalid query");
+            }
+        }
+        catch (const std::exception& e) {
+            std::cout << e.what();
+            throw;
+        }
+    }
+}
+
+void DataBase::print() {
+    for (auto& i : tables) {
+        i.second.print();
+    }
+}
+
+void DataBase::loadDataBaseFromFile(const std::string &path, DataBase& dataBase) {
+    std::ifstream input_file(path);
+    if (input_file.peek() != std::ifstream::traits_type::eof()) {
+        json input_j;
+        input_file >> input_j;
+        if (!input_j.empty()) {
+            from_json(input_j, dataBase);
+            //dataBase.print();
+        }
+    }
+
+    input_file.close();
+}
+
+void DataBase::storeDataBaseToFile(const std::string &path, DataBase& dataBase) {
+    json output_j;
+    dataBase.to_json(output_j);
+    std::ofstream output_file("../data.json");
+    if (output_file.is_open()) {
+        output_file << output_j.dump(4);
+    }
+    output_file.flush();
+    output_file.close();
 }

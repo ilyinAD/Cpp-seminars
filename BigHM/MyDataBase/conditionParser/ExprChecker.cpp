@@ -51,7 +51,7 @@ std::shared_ptr<DataBaseType> getByString(std::string val, std::map<std::string,
     } else if (val.size() > 2 && val[0] == '0' && val[1] == 'x') {
         return std::make_shared<Bytes>(Bytes(val));
     } else if (val[0] == '"' && val[val.size() - 1] == '"') {
-        return std::make_shared<String>(String(val.substr(1, val.size() - 1)));
+        return std::make_shared<String>(String(val.substr(1, val.size() - 2)));
     } else {
         if (val[0] != '|') {
             if (row.find(val) != row.end()) {

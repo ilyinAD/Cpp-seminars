@@ -18,7 +18,8 @@
 #include "../domain/DataBaseType.h"
 #include "../domain/Element.h"
 #include "../conditionParser/ExprChecker.h"
-
+#include "../../json/single_include/nlohmann/json.hpp"
+using json = nlohmann::json;
 class Table {
 public:
     std::string name;
@@ -90,6 +91,9 @@ public:
     Table join(const Table&, const Table&, std::string, std::string);
 
     bool checkOnUnique(int, int);
+
+    void to_json(json& j);
+    friend void from_json(json& j, Table& table);
 };
 
 
