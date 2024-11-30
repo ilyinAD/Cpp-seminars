@@ -27,9 +27,9 @@ std::shared_ptr<DataBaseType> getTypeByCol(Type col, std::string value) {
     } else if (col.name == TypeName::Bytes) {
         return std::make_shared<Bytes>(Bytes(value, col.size));
     } else {
-        if (value.size() > col.size) {
-            throw std::invalid_argument("Invalid size of string");
-        }
+//        if (value.size() > col.size) {
+//            throw std::invalid_argument("Invalid size of string");
+//        }
         return std::make_shared<String>(String(value, col.size));
     }
 }

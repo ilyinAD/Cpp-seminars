@@ -26,8 +26,8 @@ int main() {
         //shared_ptr<Table> table = database.tables["my table"];
         //database.tables["users"].insert({{"login", "vasya"}, {"is_admin", "False"}, {"id", "9"}, {"password_hash", "0x10000000"}});
         //database.tables["users"].insert({{"login", "max"}, {"is_admin", "True"}, {"id", "12"}, {"password_hash", "0x00000000"}});
-        database.insert("insert (login = \"vasya\", password_hash = 0xdeadbeef) to users");
-        database.insert("insert (,\"max\", 0x00000000, false) to users");
+        database.insert("insert (login = \"vasya\", password_hash = 0xdeadbeefdeadbeef) to users");
+        database.insert("insert (,\"max\", 0x0000000000000000, false) to users");
 
 
 

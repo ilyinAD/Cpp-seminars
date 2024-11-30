@@ -262,15 +262,18 @@ class Bytes: public DataBaseType {
 public:
 
     Bytes (std::string strType, int constraint) {
+        if (strType.size() % 2 != 0) {
+            throw std::runtime_error("invalid bytes");
+        }
         if (strType[0] == '0' && strType[1] == 'x') {
-            if (strType.size() - 2 != constraint) {
+            if (((strType.size() - 2) / 2) != constraint) {
                 throw std::runtime_error("invalid size");
             }
 
             type = new std::string(strType.substr(2));
             //cout << *static_cast<string*>(type) << endl;
         } else {
-            if (strType.size() != constraint) {
+            if ((strType.size() / 2) != constraint) {
                 throw std::runtime_error("invalid size");
             }
             type = new std::string(strType);

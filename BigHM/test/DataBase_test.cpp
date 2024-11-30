@@ -18,9 +18,9 @@ TEST(DataBase, Queries) {
                                 Col("is_admin", Type(TypeName::Bool, 1), 3, Attributes(0, 0, 0, "true"))};
     ASSERT_EQ(columns, database.tables["users"].columns);
 
-    database.insert("insert (login = \"vasya\", password_hash = 0xdeadbeef) to users");
-    database.insert("insert (,\"max\", 0x00000000, false) to users");
-    std::vector<std::vector<std::string>> rows = {{"0", "vasya", "0xdeadbeef", "true"}, {"1", "max", "0x00000000", "false"}};
+    database.insert("insert (login = \"vasya\", password_hash = 0xdeadbeefdeadbeef) to users");
+    database.insert("insert (,\"max\", 0x0000000000000000, false) to users");
+    std::vector<std::vector<std::string>> rows = {{"0", "vasya", "0xdeadbeefdeadbeef", "true"}, {"1", "max", "0x0000000000000000", "false"}};
     ASSERT_EQ(std::make_pair(rows.size(), rows[0].size()), std::make_pair(database.tables["users"].rows.size(), database.tables["users"].rows[0].size()));
     for (int i = 0; i < rows.size(); ++i) {
         for (int j = 0; j < rows[i].size(); ++j) {
@@ -61,8 +61,8 @@ TEST(DataBase, Queries) {
 
     ASSERT_EQ(columns, newtable.columns);
 
-    rows = {{"0", "vasya", "0xdeadbeef", "true", "0", "nissan", "false", "1"}, {"0", "vasya", "0xdeadbeef", "true", "1", "toyota", "false", "0"},
-                   {"1", "max", "0x00000000", "false", "0", "nissanCAR", "true", "1"}, {"1", "max", "0x00000000", "false", "1", "toyota", "false", "0"}};
+    rows = {{"0", "vasya", "0xdeadbeefdeadbeef", "true", "0", "nissan", "false", "1"}, {"0", "vasya", "0xdeadbeefdeadbeef", "true", "1", "toyota", "false", "0"},
+                   {"1", "max", "0x0000000000000000", "false", "0", "nissanCAR", "true", "1"}, {"1", "max", "0x0000000000000000", "false", "1", "toyota", "false", "0"}};
     ASSERT_EQ(std::make_pair(rows.size(), rows[0].size()), std::make_pair(newtable.rows.size(), newtable.rows[0].size()));
     for (int i = 0; i < rows.size(); ++i) {
         for (int j = 0; j < rows[i].size(); ++j) {
@@ -95,7 +95,7 @@ TEST(DataBase, Queries) {
                                 Col("is_admin", Type(TypeName::Bool, 1), 3, Attributes(0, 0, 0, "true"))};
     ASSERT_EQ(columns, database.tables["users"].columns);
 
-    rows = {{"0", "vasya", "0xdeadbeef", "true"}};
+    rows = {{"0", "vasya", "0xdeadbeefdeadbeef", "true"}};
     ASSERT_EQ(std::make_pair(rows.size(), rows[0].size()), std::make_pair(database.tables["users"].rows.size(), database.tables["users"].rows[0].size()));
     for (int i = 0; i < rows.size(); ++i) {
         for (int j = 0; j < rows[i].size(); ++j) {
