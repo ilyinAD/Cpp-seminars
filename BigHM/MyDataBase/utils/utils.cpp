@@ -10,6 +10,9 @@ std::vector<std::string> splitString(const std::string &str, char delimiter) {
     std::istringstream tokenStream(str);
 
     while (getline(tokenStream, token, delimiter)) {
+        if (token.size() == 0) {
+            continue;
+        }
         tokens.push_back(token);
     }
 

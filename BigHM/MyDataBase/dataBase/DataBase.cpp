@@ -169,11 +169,11 @@ Table DataBase::handleJoin(std::string s) {
     name1 = deleteCornerSpaces(name1);
     Table table = tables[name1];
     while (s.find("join") < s.size()) {
-        size_t firstJoin = s.find("join");
-        size_t onCond = s.find("on");
-        std::string name2 = s.substr(firstJoin + 4, onCond - firstJoin - 4);
+        size_t firstJoin = s.find(" join ");
+        size_t onCond = s.find(" on ");
+        std::string name2 = s.substr(firstJoin + 6, onCond - firstJoin - 6);
         name2 = deleteCornerSpaces(name2);
-        s = s.substr(onCond + 3);
+        s = s.substr(onCond + 4);
         size_t secondJoin = s.find("join");
         std::string onExpr = s.substr(0, secondJoin  - 1);
         Table table2 = tables[name2];
@@ -214,6 +214,7 @@ void replaceAll(std::string& str, const std::string& needChange, const std::stri
     while ((start_pos = str.find(needChange, start_pos)) != std::string::npos) {
         str.replace(start_pos, needChange.length(), onChange);
         start_pos += onChange.length();
+        break;
     }
 }
 

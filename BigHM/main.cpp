@@ -28,16 +28,27 @@ int main() {
         //database.tables["users"].insert({{"login", "max"}, {"is_admin", "True"}, {"id", "12"}, {"password_hash", "0x00000000"}});
         database.insert("insert (login = \"vasya\", password_hash = 0xdeadbeef) to users");
         database.insert("insert (,\"max\", 0x00000000, false) to users");
-        database.update("update users set login = login + Y where is_admin = true");
+
+
+
+
+        //database.update("update users set login = login + Y where is_admin = true");
         database.tables["users"].print();
-//        database.create("create table cars ({key, autoincrement} id :\n"
-//                        "int32, car_name: string[32], is_truck:\n"
-//                        "bool = false, person_id: int32)");
-//        database.insert("insert (,\"nissan\",,1) to cars");
-//        database.insert("insert (,\"toyota\",,0) to cars");
-//        database.tables["cars"].print();
-//        Table newtable  = database.update("update users join cars on true set cars.car_name = cars.car_name + CAR, cars.is_truck = true where (cars.id) * (1 + 2) < 3 && users.id = 1");
-//        newtable.print();
+        database.create("create table cars ({key, autoincrement} id :\n"
+                        "int32, car_name: string[32], is_truck:\n"
+                        "bool = false, person_id: int32)");
+        database.insert("insert (,\"nissan\",,1) to cars");
+        database.insert("insert (,\"toyota\",,0) to cars");
+        database.tables["cars"].print();
+
+        database.create("create table phones ({key, autoincrement} id :\n"
+                        "int32, name: string[32], is_new:\n"
+                        "bool = false)");
+        database.insert("insert (,\"apple\",true) to phones");
+        database.insert("insert (,\"android\",) to phones");
+        database.tables["phones"].print();
+        Table newtable  = database.update("update users join cars on users.id = cars.id join phones on users.id = phones.id set cars.car_name = cars.car_name + CAR where true");
+        newtable.print();
 //        //Table table = database.tables["users"].join(database.tables["users"], database.tables["cars"], "users.id = cars.person_id", "new table");
 //        //table.print();
 //        //database.deleteRows("delete users where is_admin");

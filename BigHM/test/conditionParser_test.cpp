@@ -12,7 +12,7 @@ TEST(conditionParser, parseExpr1) {
                                                  {"is_cool", std::make_shared<Bool>(Bool("true"))},
                                                  {"salary", std::make_shared<Int>(Int("5"))},
                                                  {"name", std::make_shared<String>(String("artem"))}};
-    std::string val = "1 + val - (-val * 10) = -131";
+    std::string val = " 1  + val - ( -val *  10 )  = -131";
     ASSERT_EQ(*static_cast<bool*>(parseExpr(val, row)->type), true);
     val = "log + (login + log)";
     ASSERT_EQ(*static_cast<std::string*>(parseExpr(val, row)->type), "logmaximlog");

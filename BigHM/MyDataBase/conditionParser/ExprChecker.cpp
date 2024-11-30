@@ -263,6 +263,7 @@ std::shared_ptr<DataBaseType> checkExpr(const std::string& expr, std::map<std::s
 
 
 std::shared_ptr<DataBaseType> parseExpr(const std::string& s, std::map<std::string, std::shared_ptr<DataBaseType>>& row) {
+    deleteDoubleSpaces(s);
     std::string ans = "";
     int i = 0;
     while (i < s.size()) {

@@ -196,7 +196,10 @@ Table Table::join(const Table& left, const Table& right, string cond, string tab
     vector<Col> joinColumns;
     for (auto i : left.columns) {
         Col col = i;
-        col.name = left.name + '.' + col.name;
+        if (col.name.find('.') >= col.name.size()) {
+            col.name = left.name + '.' + col.name;
+        }
+        //col.name = left.name + '.' + col.name;
         joinColumns.push_back(col);
     }
 
