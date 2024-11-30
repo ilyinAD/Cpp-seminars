@@ -206,15 +206,12 @@ Table DataBase::select(std::string s) {
     return table.select(colNames, whereCond, "");
 }
 
-void replaceAll(std::string& str, const std::string& needChange, const std::string& onChange) {
+void replaceAll(std::string& str, const std::string& needChange, const std::string& onChange, size_t pos) {
     if (needChange.empty()) {
         return;
     }
-    size_t start_pos = 0;
-    while ((start_pos = str.find(needChange, start_pos)) != std::string::npos) {
-        str.replace(start_pos, needChange.length(), onChange);
-        start_pos += onChange.length();
-        break;
+    if ((pos = str.find(needChange, pos)) != std::string::npos) {
+        str.replace(pos, needChange.length(), onChange);
     }
 }
 
@@ -241,10 +238,12 @@ Table DataBase::update(std::string s) {
         std::string colName = deleteCornerSpaces(v[i].substr(0, equals_pos));
         std::string val = deleteCornerSpaces(v[i].substr(equals_pos + 1));
 
-
-        if (val.find("\"") < val.size()) {
-            replaceAll(val, "\"", "\"" + chngPair.second[idx] + "\"");
+        size_t pos = 0;
+        while ((pos = val.find("\"", pos)) < val.size()) {
+            replaceAll(val, "\"", "\"" + chngPair.second[idx] + "\"", pos);
+            pos += chngPair.second[idx].size() + 2;
             ++idx;
+
         }
 
         m[colName] = val;

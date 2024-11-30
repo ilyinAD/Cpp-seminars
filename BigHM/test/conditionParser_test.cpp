@@ -24,4 +24,6 @@ TEST(conditionParser, parseExpr1) {
     ASSERT_EQ(*static_cast<std::string*>(parseExpr(val, row)->type), "artembyemaxim");
     val = "-val * (salary - 2) % 3";
     ASSERT_EQ(*static_cast<int*>(parseExpr(val, row)->type), 0);
+    val = "name + \"||\"";
+    ASSERT_EQ(*static_cast<std::string*>(parseExpr(val, row)->type), "artem||");
 }

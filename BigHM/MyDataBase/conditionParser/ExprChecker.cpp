@@ -232,22 +232,35 @@ std::shared_ptr<DataBaseType> doSDNF(const std::string& s, std::map<std::string,
 std::shared_ptr<DataBaseType> checkExpr(const std::string& expr, std::map<std::string, std::shared_ptr<DataBaseType>>& row) {
     size_t cur_idx = 0;
     size_t idx = expr.find("||");
+    std::vector<std::string> v = splitString(expr, ' ');
     std::shared_ptr<DataBaseType> ans = nullptr;
-    while (idx < expr.size()) {
-        std::string s = expr.substr(cur_idx, idx - cur_idx - 1);
-
-        std::shared_ptr<DataBaseType> res = doSDNF(s, row);
-
-        if (ans == nullptr) {
-            ans = res;
+    int i = 0;
+    std::string s;
+    while (i < v.size()) {
+        if (v[i] != "||") {
+            s += v[i] + " ";
         } else {
-            ans = doBoolOp( "||", ans, res);
+            std::shared_ptr<DataBaseType> res = doSDNF(s, row);
+            if (ans == nullptr) {
+                ans = res;
+            } else {
+                ans = doBoolOp( "||", ans, res);
+            }
+            s = "";
         }
-        cur_idx += idx + 3;
-        idx = expr.find("||", cur_idx);
+        ++i;
+//        std::string s = expr.substr(cur_idx, idx - cur_idx - 1);
+//
+//        std::shared_ptr<DataBaseType> res = doSDNF(s, row);
+//
+//        if (ans == nullptr) {
+//            ans = res;
+//        } else {
+//            ans = doBoolOp( "||", ans, res);
+//        }
+//        cur_idx += idx + 3;
+//        idx = expr.find("||", cur_idx);
     }
-
-    std::string s = expr.substr(cur_idx);
     if (s != "") {
         std::shared_ptr<DataBaseType> res = doSDNF(s, row);
         if (ans == nullptr) {
@@ -266,8 +279,13 @@ std::shared_ptr<DataBaseType> parseExpr(const std::string& s, std::map<std::stri
     deleteDoubleSpaces(s);
     std::string ans = "";
     int i = 0;
+    int quoteCnt = 0;
     while (i < s.size()) {
-        if (s[i] != '(') {
+        if (s[i] == '\"') {
+            quoteCnt++;
+            quoteCnt %= 2;
+        }
+        if (s[i] != '(' || quoteCnt == 1) {
             ans += s[i];
             ++i;
             continue;

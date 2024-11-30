@@ -47,7 +47,7 @@ int main() {
         database.insert("insert (,\"apple\",true) to phones");
         database.insert("insert (,\"android\",) to phones");
         database.tables["phones"].print();
-        Table newtable  = database.update("update users join cars on users.id = cars.id join phones on users.id = phones.id set cars.car_name = cars.car_name + CAR where true");
+        Table newtable  = database.update("update users join cars on users.id = cars.id join phones on users.id = phones.id set cars.car_name = cars.car_name + \"CAR\" + \"CAR\" where true");
         newtable.print();
 //        //Table table = database.tables["users"].join(database.tables["users"], database.tables["cars"], "users.id = cars.person_id", "new table");
 //        //table.print();
