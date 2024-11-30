@@ -120,7 +120,6 @@ std::pair<std::string, std::vector<std::string>> changeQuote(std::string& s) {
 void DataBase::insert(std::string s) {
     s = deleteDoubleSpaces(s);
     s = s.substr(7);
-    //s.erase(std::remove(s.begin(), s.end(), '"'), s.end());
     std::pair<std::string, std::vector<std::string>> chngPair = changeQuote(s);
     s = chngPair.first;
     std::pair<std::string, std::vector<std::string>> p = parseInsert(s);
@@ -256,6 +255,7 @@ Table DataBase::update(std::string s) {
 }
 
 void DataBase::execute(std::string s) {
+    my_mutex.lock();
     std::istringstream stream(s);
     std::string query;
     while (getline(stream, query, ';')) {
@@ -280,6 +280,7 @@ void DataBase::execute(std::string s) {
             throw;
         }
     }
+    my_mutex.unlock();
 }
 
 void DataBase::print() {

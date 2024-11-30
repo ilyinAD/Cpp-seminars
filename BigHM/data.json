@@ -1,0 +1,203 @@
+{
+    "name": "my database",
+    "tables": [
+        {
+            "col": [
+                {
+                    "attributes": {
+                        "default_value": "",
+                        "is_autoincrement": true,
+                        "is_key": true,
+                        "is_unique": false
+                    },
+                    "idx": 0,
+                    "name": "id",
+                    "type": {
+                        "name": 0,
+                        "size": 1
+                    }
+                },
+                {
+                    "attributes": {
+                        "default_value": "",
+                        "is_autoincrement": false,
+                        "is_key": false,
+                        "is_unique": false
+                    },
+                    "idx": 1,
+                    "name": "car_name",
+                    "type": {
+                        "name": 2,
+                        "size": 32
+                    }
+                },
+                {
+                    "attributes": {
+                        "default_value": "false",
+                        "is_autoincrement": false,
+                        "is_key": false,
+                        "is_unique": false
+                    },
+                    "idx": 2,
+                    "name": "is_truck",
+                    "type": {
+                        "name": 1,
+                        "size": 1
+                    }
+                },
+                {
+                    "attributes": {
+                        "default_value": "",
+                        "is_autoincrement": false,
+                        "is_key": false,
+                        "is_unique": false
+                    },
+                    "idx": 3,
+                    "name": "person_id",
+                    "type": {
+                        "name": 0,
+                        "size": 1
+                    }
+                }
+            ],
+            "name": "cars",
+            "row": [
+                [
+                    {
+                        "DataBaseType": 0,
+                        "type": "Int"
+                    },
+                    {
+                        "DataBaseType": "nissan",
+                        "type": "String"
+                    },
+                    {
+                        "DataBaseType": false,
+                        "type": "Bool"
+                    },
+                    {
+                        "DataBaseType": 1,
+                        "type": "Int"
+                    }
+                ],
+                [
+                    {
+                        "DataBaseType": 1,
+                        "type": "Int"
+                    },
+                    {
+                        "DataBaseType": "toyota",
+                        "type": "String"
+                    },
+                    {
+                        "DataBaseType": false,
+                        "type": "Bool"
+                    },
+                    {
+                        "DataBaseType": 0,
+                        "type": "Int"
+                    }
+                ]
+            ]
+        },
+        {
+            "col": [
+                {
+                    "attributes": {
+                        "default_value": "",
+                        "is_autoincrement": true,
+                        "is_key": true,
+                        "is_unique": false
+                    },
+                    "idx": 0,
+                    "name": "id",
+                    "type": {
+                        "name": 0,
+                        "size": 1
+                    }
+                },
+                {
+                    "attributes": {
+                        "default_value": "",
+                        "is_autoincrement": false,
+                        "is_key": false,
+                        "is_unique": true
+                    },
+                    "idx": 1,
+                    "name": "login",
+                    "type": {
+                        "name": 2,
+                        "size": 32
+                    }
+                },
+                {
+                    "attributes": {
+                        "default_value": "",
+                        "is_autoincrement": false,
+                        "is_key": false,
+                        "is_unique": false
+                    },
+                    "idx": 2,
+                    "name": "password_hash",
+                    "type": {
+                        "name": 3,
+                        "size": 8
+                    }
+                },
+                {
+                    "attributes": {
+                        "default_value": "true",
+                        "is_autoincrement": false,
+                        "is_key": false,
+                        "is_unique": false
+                    },
+                    "idx": 3,
+                    "name": "is_admin",
+                    "type": {
+                        "name": 1,
+                        "size": 1
+                    }
+                }
+            ],
+            "name": "users",
+            "row": [
+                [
+                    {
+                        "DataBaseType": 0,
+                        "type": "Int"
+                    },
+                    {
+                        "DataBaseType": "vasya",
+                        "type": "String"
+                    },
+                    {
+                        "DataBaseType": "deadbeef",
+                        "type": "Bytes"
+                    },
+                    {
+                        "DataBaseType": true,
+                        "type": "Bool"
+                    }
+                ],
+                [
+                    {
+                        "DataBaseType": 1,
+                        "type": "Int"
+                    },
+                    {
+                        "DataBaseType": "max",
+                        "type": "String"
+                    },
+                    {
+                        "DataBaseType": "00000000",
+                        "type": "Bytes"
+                    },
+                    {
+                        "DataBaseType": false,
+                        "type": "Bool"
+                    }
+                ]
+            ]
+        }
+    ]
+}

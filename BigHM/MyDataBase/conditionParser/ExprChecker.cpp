@@ -55,6 +55,9 @@ std::shared_ptr<DataBaseType> getByString(std::string val, std::map<std::string,
     } else {
         if (val[0] != '|') {
             if (row.find(val) != row.end()) {
+                if (row[val] == nullptr) {
+                    throw std::runtime_error("this value is null");
+                }
                 return row[val];
             }
         } else {
@@ -257,21 +260,7 @@ std::shared_ptr<DataBaseType> checkExpr(const std::string& expr, std::map<std::s
     return ans;
 }
 
-std::string getStringByType(std::shared_ptr<DataBaseType> val) {
-    if (dynamic_pointer_cast<String>(val)) {
-        return *static_cast<std::string*>(val->type);
-    } else if (dynamic_pointer_cast<Bytes>(val)) {
-        return "0x" + *static_cast<std::string*>(val->type);
-    } else if (dynamic_pointer_cast<Bool>(val)) {
-        if (*static_cast<bool*>(val->type)) {
-            return "true";
-        } else {
-            return "false";
-        }
-    } else {
-        return std::to_string(*static_cast<int*>(val->type));
-    }
-}
+
 
 std::shared_ptr<DataBaseType> parseExpr(const std::string& s, std::map<std::string, std::shared_ptr<DataBaseType>>& row) {
     std::string ans = "";

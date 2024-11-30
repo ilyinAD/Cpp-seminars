@@ -14,6 +14,7 @@
 
 class DataBase {
 public:
+    std::mutex my_mutex;
     std::string name;
     std::map<std::string, Table> tables;
     DataBase(std::string name) : name(name) {};

@@ -66,7 +66,12 @@ public:
     }
 
     void print() const override {
-        std::cout << *(static_cast<bool*>(type)) << ' ';
+        if (*(static_cast<bool*>(type))) {
+            std::cout << "true ";
+        } else {
+            std::cout << "false ";
+        }
+        //std::cout <<  << ' ';
     }
     DataBaseType* operator+ (const DataBaseType& other) {
         throw std::invalid_argument("wrong operation with bool");

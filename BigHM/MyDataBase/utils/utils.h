@@ -20,5 +20,6 @@ std::string deleteDoubleSpaces(const std::string& s);
 std::string getCommand(const std::string& s, int idx);
 std::string deleteSpaces(const std::string& s);
 std::string deleteCornerSpaces(const std::string& s);
+std::string getStringByType(std::shared_ptr<DataBaseType> val);
 
 #endif //CPP_SEMINARS_UTILS_H

@@ -88,3 +88,19 @@ std::string deleteCornerSpaces(const std::string& s) {
     }
     return ans;
 }
+
+std::string getStringByType(std::shared_ptr<DataBaseType> val) {
+    if (dynamic_pointer_cast<String>(val)) {
+        return *static_cast<std::string*>(val->type);
+    } else if (dynamic_pointer_cast<Bytes>(val)) {
+        return "0x" + *static_cast<std::string*>(val->type);
+    } else if (dynamic_pointer_cast<Bool>(val)) {
+        if (*static_cast<bool*>(val->type)) {
+            return "true";
+        } else {
+            return "false";
+        }
+    } else {
+        return std::to_string(*static_cast<int*>(val->type));
+    }
+}

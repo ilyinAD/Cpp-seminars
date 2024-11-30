@@ -374,4 +374,8 @@ CMakeFiles/my_tests.dir/test/DataBase_test.cpp.o: \
  /usr/include/c++/11/bits/regex_executor.tcc \
  /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/MyDataBase/dataBase/../table/../conditionParser/../domain/DataBaseType.h \
  /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/MyDataBase/dataBase/../table/../conditionParser/../domain/ColTable.h \
- /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/MyDataBase/dataBase/../table/../../json/single_include/nlohmann/json.hpp
+ /mnt/c/MyDoc/HSEprogramming/Cpp-seminars/BigHM/MyDataBase/dataBase/../table/../../json/single_include/nlohmann/json.hpp \
+ /usr/include/c++/11/fstream \
+ /usr/include/x86_64-linux-gnu/c++/11/bits/basic_file.h \
+ /usr/include/x86_64-linux-gnu/c++/11/bits/c++io.h \
+ /usr/include/c++/11/bits/fstream.tcc

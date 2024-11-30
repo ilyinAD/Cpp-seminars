@@ -20,27 +20,11 @@ TEST(DataBase, Queries) {
 
     database.insert("insert (login = \"vasya\", password_hash = 0xdeadbeef) to users");
     database.insert("insert (,\"max\", 0x00000000, false) to users");
-    std::vector<std::vector<std::shared_ptr<DataBaseType>>> rows;
-    rows.push_back({});
-    rows[0].emplace_back(
-            std::make_shared<Int>(Int("0")));
-    rows[0].emplace_back(
-            std::make_shared<String>(String("vasya")));
-    rows[0].emplace_back(
-            std::make_shared<Bytes>(Bytes("0xdeadbeef")));
-    rows[0].emplace_back(
-            std::make_shared<Bool>(Bool(True)));
-    rows.push_back({});
-    rows[1].emplace_back(
-            std::make_shared<Int>(Int("1")));
-    rows[1].emplace_back(
-            std::make_shared<String>(String("max")));
-    rows[1].emplace_back(
-            std::make_shared<Bytes>(Bytes("0x00000000")));
-    rows[1].emplace_back(std::make_shared<Bool>(Bool(False)));
+    std::vector<std::vector<std::string>> rows = {{"0", "vasya", "0xdeadbeef", "true"}, {"1", "max", "0x00000000", "false"}};
+    ASSERT_EQ(std::make_pair(rows.size(), rows[0].size()), std::make_pair(database.tables["users"].rows.size(), database.tables["users"].rows[0].size()));
     for (int i = 0; i < rows.size(); ++i) {
         for (int j = 0; j < rows[i].size(); ++j) {
-            if (*static_cast<bool*>(((*rows[i][j]) != (*database.tables["users"].rows[i][j]))->type)) {
+            if (rows[i][j] != getStringByType(database.tables["users"].rows[i][j])) {
                 FAIL() << i << j << std::endl;
             }
         }
@@ -56,28 +40,11 @@ TEST(DataBase, Queries) {
     ASSERT_EQ(columns, database.tables["cars"].columns);
     database.insert("insert (,\"nissan\",,1) to cars");
     database.insert("insert (,\"toyota\",,0) to cars");
-    rows.clear();
-    rows.push_back({});
-    rows[0].emplace_back(
-            std::make_shared<Int>(Int("0")));
-    rows[0].emplace_back(
-            std::make_shared<String>(String("nissan")));
-    rows[0].emplace_back(
-            std::make_shared<Bool>(Bool(False)));
-    rows[0].emplace_back(
-            std::make_shared<Bool>(Bool(True)));
-    rows.push_back({});
-    rows[1].emplace_back(
-            std::make_shared<Int>(Int("1")));
-    rows[1].emplace_back(
-            std::make_shared<String>(String("toyota")));
-    rows[1].emplace_back(
-            std::make_shared<Bool>(Bool(False)));
-    rows[1].emplace_back(
-            std::make_shared<Bool>(Bool(False)));
+    rows = {{"0", "nissan", "false", "1"}, {"1", "toyota", "false", "0"}};
+    ASSERT_EQ(std::make_pair(rows.size(), rows[0].size()), std::make_pair(database.tables["cars"].rows.size(), database.tables["cars"].rows[0].size()));
     for (int i = 0; i < rows.size(); ++i) {
         for (int j = 0; j < rows[i].size(); ++j) {
-            if (*static_cast<bool*>(((*rows[i][j]) != (*database.tables["cars"].rows[i][j]))->type)) {
+            if (rows[i][j] != getStringByType(database.tables["cars"].rows[i][j])) {
                 FAIL() << i << j << std::endl;
             }
         }
@@ -94,4 +61,47 @@ TEST(DataBase, Queries) {
 
     ASSERT_EQ(columns, newtable.columns);
 
+    rows = {{"0", "vasya", "0xdeadbeef", "true", "0", "nissan", "false", "1"}, {"0", "vasya", "0xdeadbeef", "true", "1", "toyota", "false", "0"},
+                   {"1", "max", "0x00000000", "false", "0", "nissanCAR", "true", "1"}, {"1", "max", "0x00000000", "false", "1", "toyota", "false", "0"}};
+    ASSERT_EQ(std::make_pair(rows.size(), rows[0].size()), std::make_pair(newtable.rows.size(), newtable.rows[0].size()));
+    for (int i = 0; i < rows.size(); ++i) {
+        for (int j = 0; j < rows[i].size(); ++j) {
+            if (rows[i][j] != getStringByType(newtable.rows[i][j])) {
+                FAIL() << i << ' ' << j << ' ' << rows[i][j] << ' ' << getStringByType(newtable.rows[i][j]) << std::endl;
+            }
+        }
+    }
+
+    Table selectTable = database.select("select cars.car_name, users.login, users.id, cars.person_id from cars join users on users.id = cars.person_id where true");
+    columns = {Col("cars.car_name", Type(TypeName::String, 32), 0, Attributes(0, 0, 0)),
+               Col("users.login", Type(TypeName::String, 32), 1, Attributes(1, 0, 0)),
+               Col("users.id", Type(TypeName::Int, 1), 2, Attributes(0, 1, 1)),
+               Col("cars.person_id", Type(TypeName::Int, 1), 3, Attributes(0, 0, 0))};
+    ASSERT_EQ(columns, selectTable.columns);
+
+    rows = {{"nissan", "max", "1", "1"}, {"toyota", "vasya", "0", "0"}};
+    ASSERT_EQ(std::make_pair(rows.size(), rows[0].size()), std::make_pair(selectTable.rows.size(), selectTable.rows[0].size()));
+    for (int i = 0; i < rows.size(); ++i) {
+        for (int j = 0; j < rows[i].size(); ++j) {
+            if (rows[i][j] != getStringByType(selectTable.rows[i][j])) {
+                FAIL() << i << ' ' << j << ' ' << rows[i][j] << ' ' << getStringByType(selectTable.rows[i][j]) << std::endl;
+            }
+        }
+    }
+    database.deleteRows("delete users where (id + 1) / 3 + id < 1");
+    columns = {Col("id", Type(TypeName::Int, 1), 0, Attributes(0, 1, 1)),
+                                Col("login", Type(TypeName::String, 32), 1, Attributes(1, 0, 0)),
+                                Col("password_hash", Type(TypeName::Bytes, 8), 2, Attributes(0, 0, 0)),
+                                Col("is_admin", Type(TypeName::Bool, 1), 3, Attributes(0, 0, 0, "true"))};
+    ASSERT_EQ(columns, database.tables["users"].columns);
+
+    rows = {{"0", "vasya", "0xdeadbeef", "true"}};
+    ASSERT_EQ(std::make_pair(rows.size(), rows[0].size()), std::make_pair(database.tables["users"].rows.size(), database.tables["users"].rows[0].size()));
+    for (int i = 0; i < rows.size(); ++i) {
+        for (int j = 0; j < rows[i].size(); ++j) {
+            if (rows[i][j] != getStringByType(newtable.rows[i][j])) {
+                FAIL() << i << ' ' << j << ' ' << rows[i][j] << ' ' << getStringByType(newtable.rows[i][j]) << std::endl;
+            }
+        }
+    }
 }

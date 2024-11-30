@@ -33,6 +33,9 @@ Table::Table(string name, vector<Element> m): name(name) {
 
 //проверяет только что нужная строка имеет неуникальные значения в колонке с индексом idx
 bool Table::checkOnUnique(int colIdx, int rowIdx) {
+    if (rows[rowIdx][colIdx] == nullptr) {
+        return false;
+    }
     for (int i = 0; i < rows.size(); ++i) {
         if (i == rowIdx) {
             continue;
@@ -231,7 +234,11 @@ void Table::print() {
     }
     for (const auto& i : rows) {
         for (const auto& j : i) {
-            j->print();
+            if (j == nullptr) {
+                cout << "null ";
+            } else {
+                j->print();
+            }
         }
         cout << endl;
     }
