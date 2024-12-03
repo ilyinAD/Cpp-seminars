@@ -46,11 +46,9 @@ public:
             type = new bool(true);
         } else if (strType == "False" || strType == "false") {
             type = new bool(false);
-            bool b = *static_cast<bool*>(type);
         } else {
             throw("Invalid bool type");
         }
-        int ok = 1;
     }
 
     explicit Bool(bool val) {

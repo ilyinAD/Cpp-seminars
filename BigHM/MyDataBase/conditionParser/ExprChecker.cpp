@@ -31,57 +31,52 @@ bool isNumber(std::string& s) {
     return true;
 }
 
+std::shared_ptr<DataBaseType> getPureVal(std::string val, std::map<std::string, std::shared_ptr<DataBaseType>> &row) {
+    if (row.find(val) != row.end()) {
+        return row[val];
+    }
+
+    if (isNumber(val)) {
+        return std::make_shared<Int>(Int(stoi(val)));
+    }
+
+    if (val.size() > 2 && val[0] == '0' && val[1] == 'x') {
+        return std::make_shared<Bytes>(Bytes(val));
+    }
+
+    if (val == "true" || val == "false") {
+        return std::make_shared<Bool>(Bool(val));
+    }
+
+    return std::make_shared<String>(String(val));
+}
+
 std::shared_ptr<DataBaseType> getByString(std::string val, std::map<std::string, std::shared_ptr<DataBaseType>> &row) {
     if (val[0] == '-') {
-        std::string num = val.substr(1);
-        if (isNumber(num)) {
-            return std::make_shared<Int>(Int(stoi(val)));
-        } else {
-            if (row.find(num) != row.end()) {
-                Int* d1 = static_cast<Int*>(row[num].get());
-                DataBaseType* d = *d1 * (*std::make_shared<Int>(Int("-1")));
-                std::shared_ptr<DataBaseType> sharedPtr(d);
-                return sharedPtr;
-            }
-        }
-    } else if (isNumber(val)) {
-        return std::make_shared<Int>(Int(val));
-    } else if (val == "true" || val == "false") {
-        return std::make_shared<Bool>(Bool(val));
-    } else if (val.size() > 2 && val[0] == '0' && val[1] == 'x') {
-        return std::make_shared<Bytes>(Bytes(val));
-    } else if (val[0] == '"' && val[val.size() - 1] == '"') {
-        return std::make_shared<String>(String(val.substr(1, val.size() - 2)));
-    } else {
-        if (val[0] != '|') {
-            if (row.find(val) != row.end()) {
-                if (row[val] == nullptr) {
-                    throw std::runtime_error("this value is null");
-                }
-                return row[val];
-            }
-        } else {
-            if (val.size() < 2) {
-                return std::make_shared<String>(String(val));
-            }
-
-            std::string val1 = val.substr(1, val.size() - 2);
-            if (row.find(val1) != row.end()) {
-                if (dynamic_pointer_cast<String>(row[val1])) {
-                    auto s = static_cast<std::string*>((*row[val1]).type);
-                    return std::make_shared<Int>(Int(static_cast<int>(s->size())));
-                }
-                if (dynamic_pointer_cast<Bytes>(row[val1])) {
-                    auto s = static_cast<std::string*>((*row[val1]).type);
-                    return std::make_shared<Int>(Int(static_cast<int>(s->size())));
-                }
-            }
-
-            return std::make_shared<Int>(Int(static_cast<int>(val1.size())));
-        }
-
-        return std::make_shared<String>(String(val));
+        int ans = *static_cast<int*>(getPureVal(val.substr(1), row)->type);
+        return std::make_shared<Int>(Int(-ans));
     }
+
+    if (val[0] == '\"') {
+        return getPureVal(val.substr(1, val.size() - 2), row);
+    }
+
+    if (val[0] == '!') {
+        bool ans = *static_cast<bool*>(getPureVal(val.substr(1), row)->type);
+        if (ans) {
+            return std::make_shared<Bool>(Bool(static_cast<std::string>("false")));
+        } else {
+            return std::make_shared<Bool>(Bool(static_cast<std::string>("true")));
+        }
+    }
+
+    if (val.size() >= 2 && val[0] == '|' && val[val.size() - 1] == '|') {
+        std::shared_ptr<DataBaseType> ans = getPureVal(val.substr(1, val.size() - 2), row);
+        std::string res = *static_cast<std::string*>(ans->type);
+        return std::make_shared<Int>(Int(res.size()));
+    }
+
+    return getPureVal(val, row);
 }
 
 std::shared_ptr<DataBaseType> doOp(std::string op, const std::shared_ptr<DataBaseType>& leftVal, const std::shared_ptr<DataBaseType>& rightVal) {

@@ -21,11 +21,18 @@ public:
     std::pair<std::vector<Element>, std::string> parseCreate(const std::string&);
 
     void create(std::string s);
+
     void insert(std::string s);
+    std::pair<std::string, std::map<std::string, std::string>> parseInsert(std::string s);
+
     void deleteRows(std::string s);
+
     Table select(std::string s);
-    Table handleJoin(std::string s);
+
+    Table handleJoin(std::string s, std::vector<std::string>& v, int& idx);
+
     Table update(std::string s);
+
     void execute(std::string s);
 
     void to_json(json& j) {

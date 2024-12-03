@@ -57,7 +57,7 @@ std::string deleteDoubleSpaces(const std::string& s) {
 std::string getCommand(const std::string& s, int idx) {
     std::string ans;
     for (int i = idx; i < s.size(); ++i) {
-        if (s[idx] == ' ') {
+        if (s[i] == ' ') {
             break;
         }
         ans += s[i];
@@ -98,7 +98,8 @@ std::string getStringByType(std::shared_ptr<DataBaseType> val) {
     } else if (dynamic_pointer_cast<Bytes>(val)) {
         return "0x" + *static_cast<std::string*>(val->type);
     } else if (dynamic_pointer_cast<Bool>(val)) {
-        if (*static_cast<bool*>(val->type)) {
+        bool b = (*static_cast<bool*>(val->type));
+        if ((*static_cast<bool*>(val->type))) {
             return "true";
         } else {
             return "false";

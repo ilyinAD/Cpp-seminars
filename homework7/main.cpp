@@ -1,245 +1,426 @@
-#include <atomic>
-#include <memory>
-#include <algorithm>
-#include <type_traits>
-#include <functional>
-#include <limits>
-#include <iterator>
-#include <cassert>
-#include <mutex>
+#include <bits/stdc++.h>
 
-namespace detail {
+using namespace std;
 
-    template<bool store_hash>
-    using StateType = std::conditional_t<store_hash, size_t, unsigned char>;
+constexpr size_t N = 36, M = 84;
+// constexpr size_t N = 14, M = 5;
+constexpr size_t T = 1'000'000;
+constexpr std::array<pair<int, int>, 4> deltas{{{-1, 0}, {1, 0}, {0, -1}, {0, 1}}};
 
-    template<bool store_hash>
-    struct StateGen {
-        enum class type: StateType<store_hash> {
-            MAX_EMPLACED = std::numeric_limits<StateType<store_hash>>::max() - 2,
-            EMPTY,
-            REMOVED,
-        };
-    };
+// char field[N][M + 1] = {
+//     "#####",
+//     "#.  #",
+//     "#.# #",
+//     "#.# #",
+//     "#.# #",
+//     "#.# #",
+//     "#.# #",
+//     "#.# #",
+//     "#...#",
+//     "#####",
+//     "#   #",
+//     "#   #",
+//     "#   #",
+//     "#####",
+// };
 
-    template<bool store_hash>
-    using State = StateGen<store_hash>::type;
+char field[N][M + 1] = {
+        "####################################################################################",
+        "#                                                                                  #",
+        "#                                                                                  #",
+        "#                                                                                  #",
+        "#                                                                                  #",
+        "#                                                                                  #",
+        "#                                       .........                                  #",
+        "#..............#            #           .........                                  #",
+        "#..............#            #           .........                                  #",
+        "#..............#            #           .........                                  #",
+        "#..............#            #                                                      #",
+        "#..............#            #                                                      #",
+        "#..............#            #                                                      #",
+        "#..............#            #                                                      #",
+        "#..............#............#                                                      #",
+        "#..............#............#                                                      #",
+        "#..............#............#                                                      #",
+        "#..............#............#                                                      #",
+        "#..............#............#                                                      #",
+        "#..............#............#                                                      #",
+        "#..............#............#                                                      #",
+        "#..............#............#                                                      #",
+        "#..............#............################                     #                 #",
+        "#...........................#....................................#                 #",
+        "#...........................#....................................#                 #",
+        "#...........................#....................................#                 #",
+        "##################################################################                 #",
+        "#                                                                                  #",
+        "#                                                                                  #",
+        "#                                                                                  #",
+        "#                                                                                  #",
+        "#                                                                                  #",
+        "#                                                                                  #",
+        "#                                                                                  #",
+        "#                                                                                  #",
+        "####################################################################################",
+};
 
-    template<bool store_hash>
-    auto operator<=>(State<store_hash> lhs, State<store_hash> rhs) {
-        using U = std::underlying_type_t<State<store_hash>>;
-        return (U) lhs <=> (U) rhs;
-    }
+struct Fixed {
+    constexpr Fixed(int v): v(v << 16) {}
+    constexpr Fixed(float f): v(f * (1 << 16)) {}
+    constexpr Fixed(double f): v(f * (1 << 16)) {}
+    constexpr Fixed(): v(0) {}
 
-    template<class T, bool store_hash>
-    struct HashTableCell {
-        std::atomic<State<store_hash>> state{State<store_hash>::EMPTY};
-        union {
-            char dummy;
-            T data;
-        };
-
-        HashTableCell() {}
-        ~HashTableCell() {}
-    };
-
-}
-
-// If store_hash is true, hash of each element must be calculated only once
-template<class T, bool store_hash = (sizeof(T) > sizeof(size_t)), class Hasher = std::hash<T>, class Comparator = std::equal_to<T>, class AllocBase = std::allocator<void>>
-requires(std::is_nothrow_move_constructible_v<T> && std::is_nothrow_destructible_v<T>)
-class HashMultiset: private Hasher, private Comparator, private std::allocator_traits<AllocBase>::rebind_alloc<detail::HashTableCell<T, store_hash>> {
-private:
-    using State = detail::State<store_hash>;
-    using CellType = detail::HashTableCell<T, store_hash>;
-    using Allocator = typename std::allocator_traits<AllocBase>::rebind_alloc<CellType>;
-    using AllocatorTraits = std::allocator_traits<Allocator>;
-    using CellPtr = typename AllocatorTraits::pointer;
-
-public:
-    using value_type = T;
-    using size_type = typename AllocatorTraits::size_type;
-    using difference_type = typename AllocatorTraits::difference_type;
-
-private:
-    std::atomic<uint8_t> active_threads{0};
-    CellPtr data;
-    std::atomic<size_type> sz{0};
-    std::atomic<size_type> dirty{0};
-    size_type capacity = 4;
-    std::atomic_flag reallocation{}; // flag for reallocation
-    mutable std::mutex resize_mutex;  // Mutex to protect resizing
-
-    template<class Fn>
-    void try_cells(size_type hash, Fn &&fn) const {
-        size_type pos = hash & (capacity - 1);
-        State cur;
-        while (!fn(data[pos])) {
-            pos = (pos * 5 + 3 + hash) & (capacity - 1);
-            hash >>= 5;
-        }
-    }
-
-    // Ensure proper locking during resizing and reallocation
-    CellPtr realloc() {
-        std::lock_guard<std::mutex> lock(resize_mutex);  // Mutex to ensure single thread performs the reallocation
-        if (sz.load() * 4 > capacity) // When capacity is full, expand the table
-            capacity *= 2;
-
-        auto old_data = data;
-        data = AllocatorTraits::allocate(get_allocator(), capacity);
-        for (size_type i = 0; i < capacity; ++i) {
-            AllocatorTraits::construct(get_allocator(), data + i);
-        }
-        return old_data;
-    }
-
-    // Try to place the element in the appropriate location (using hashing and atomic operations)
-    void emplace_hash(size_t hash, T &&elem) {
-        State final_state;
-        if constexpr (store_hash) {
-            final_state = (State) hash;
-        } else {
-            final_state = State::MAX_EMPLACED;
-        }
-
-        try_cells(hash, [&, this](CellType &cell) {
-            State old_state = cell.state.load();
-            bool found;
-            while ((found = (old_state == State::EMPTY || old_state == State::REMOVED)) && cell.state.compare_exchange_weak(old_state, final_state)) {}
-            if (!found)
-                return false;
-            AllocatorTraits::construct(get_allocator(), &cell.data, std::move(elem));
-            return true;
-        });
-    }
-
-    // Calculate hash value
-    size_t calc_hash(const T &x) const {
-        size_t ret = get_hasher()(x);
-        if constexpr (store_hash) {
-            return ret <= (size_t) State::MAX_EMPLACED ? ret : (size_t) State::MAX_EMPLACED;
-        } else {
-            return ret;
-        }
-    }
-
-    // Find a specific element in the table
-    template<bool rem>
-    bool find(const T &key) const {
-        size_t hash = calc_hash(key);
-        bool ret = false;
-        State target;
-        if constexpr (store_hash) {
-            target = (State) hash;
-        } else {
-            target = State::MAX_EMPLACED;
-        }
-        try_cells(hash, [&](CellType &cell) {
-            State old_state = cell.state.load();
-            if (old_state == State::EMPTY) {
-                return true;
-            } else if (old_state == target) {
-                if (get_comparator()(cell.data, key)) {
-                    if constexpr (rem) {
-                        cell.state = State::REMOVED;
-                        cell.data.~T();
-                        const_cast<std::atomic<size_type> &>(sz).fetch_sub(1);
-                    }
-                    ret = true;
-                    return true;
-                }
-            }
-            return false;
-        });
+    static constexpr Fixed from_raw(int32_t x) {
+        Fixed ret;
+        ret.v = x;
         return ret;
     }
 
-public:
-    HashMultiset() {
-        data = AllocatorTraits::allocate(get_allocator(), capacity);
-        for (size_type i = 0; i < capacity; ++i) {
-            AllocatorTraits::construct(get_allocator(), data + i);
-        }
+    int32_t v;
+
+    auto operator<=>(const Fixed&) const = default;
+    bool operator==(const Fixed&) const = default;
+};
+
+static constexpr Fixed inf = Fixed::from_raw(std::numeric_limits<int32_t>::max());
+static constexpr Fixed eps = Fixed::from_raw(deltas.size());
+
+Fixed operator+(Fixed a, Fixed b) {
+    return Fixed::from_raw(a.v + b.v);
+}
+
+Fixed operator-(Fixed a, Fixed b) {
+    return Fixed::from_raw(a.v - b.v);
+}
+
+Fixed operator*(Fixed a, Fixed b) {
+    return Fixed::from_raw(((int64_t) a.v * b.v) >> 16);
+}
+
+Fixed operator/(Fixed a, Fixed b) {
+    return Fixed::from_raw(((int64_t) a.v << 16) / b.v);
+}
+
+Fixed &operator+=(Fixed &a, Fixed b) {
+    return a = a + b;
+}
+
+Fixed &operator-=(Fixed &a, Fixed b) {
+    return a = a - b;
+}
+
+Fixed &operator*=(Fixed &a, Fixed b) {
+    return a = a * b;
+}
+
+Fixed &operator/=(Fixed &a, Fixed b) {
+    return a = a / b;
+}
+
+Fixed operator-(Fixed x) {
+    return Fixed::from_raw(-x.v);
+}
+
+Fixed abs(Fixed x) {
+    if (x.v < 0) {
+        x.v = -x.v;
+    }
+    return x;
+}
+
+ostream &operator<<(ostream &out, Fixed x) {
+    return out << x.v / (double) (1 << 16);
+}
+
+Fixed rho[256];
+
+Fixed p[N][M]{}, old_p[N][M];
+
+struct VectorField {
+    array<Fixed, deltas.size()> v[N][M];
+    Fixed &add(int x, int y, int dx, int dy, Fixed dv) {
+        return get(x, y, dx, dy) += dv;
     }
 
-    ~HashMultiset() {
-        for (size_type i = 0; i < capacity; ++i) {
-            if (data[i].state.load() <= State::MAX_EMPLACED) {
-                data[i].data.~T();
-            }
-            AllocatorTraits::destroy(get_allocator(), data + i);
-        }
-        AllocatorTraits::deallocate(get_allocator(), data, capacity);
-    }
-
-    const Hasher &get_hasher() const {
-        return *static_cast<const Hasher*>(this);
-    }
-
-    Allocator &get_allocator() {
-        return *static_cast<Allocator*>(this);
-    }
-
-    const Comparator &get_comparator() const {
-        return *static_cast<const Comparator*>(this);
-    }
-
-    size_type size() const {
-        return sz.load();
-    }
-
-    // Emplace new element in multiset
-    template<class... Args>
-    requires(std::is_nothrow_constructible_v<T, Args&&...>)
-    void emplace(Args&&... args) {
-        while (reallocation.test())
-            reallocation.wait(true);
-        active_threads.fetch_add(1);
-        sz.fetch_add(1);
-        auto d = dirty.fetch_add(1);
-        while (d * 2 >= capacity) {
-            if (reallocation.test_and_set()) {
-                reallocation.wait(true);
-                d = dirty.load();
-                continue;
-            }
-            auto active = active_threads.fetch_sub(1) - 1;
-            while (active > 0) {
-                active = active_threads.load();
-            }
-            size_type old_capacity = capacity;
-            dirty.store(d = sz.load());
-            auto old_data = realloc();
-            for (size_type i = 0; i < old_capacity; ++i) {
-                if (old_data[i].state.load() <= State::MAX_EMPLACED) {
-                    size_t hash;
-                    if constexpr (store_hash) {
-                        hash = (size_t) old_data[i].state.load();
-                    } else {
-                        hash = calc_hash(old_data[i].data);
-                    }
-                    emplace_hash(hash, std::move(old_data[i].data));
-                    old_data[i].data.~T();
-                }
-                AllocatorTraits::destroy(get_allocator(), old_data + i);
-            }
-            active_threads.store(1);
-            reallocation.clear();
-            reallocation.notify_all();
-            AllocatorTraits::deallocate(get_allocator(), old_data, old_capacity);
-        }
-        T elem(std::forward<Args>(args)...);
-        auto hash = calc_hash(elem);
-        emplace_hash(hash, std::move(elem));
-        active_threads.fetch_sub(1);
-    }
-
-    bool contains(const T &key) const {
-        return find<false>(key);
-    }
-
-    bool erase(const T &key) const {
-        return find<true>(key);
+    Fixed &get(int x, int y, int dx, int dy) {
+        size_t i = ranges::find(deltas, pair(dx, dy)) - deltas.begin();
+        assert(i < deltas.size());
+        return v[x][y][i];
     }
 };
+
+VectorField velocity{}, velocity_flow{};
+int last_use[N][M]{};
+int UT = 0;
+
+
+mt19937 rnd(1337);
+
+tuple<Fixed, bool, pair<int, int>> propagate_flow(int x, int y, Fixed lim) {
+    last_use[x][y] = UT - 1;
+    Fixed ret = 0;
+    for (auto [dx, dy] : deltas) {
+        int nx = x + dx, ny = y + dy;
+        if (field[nx][ny] != '#' && last_use[nx][ny] < UT) {
+            auto cap = velocity.get(x, y, dx, dy);
+            auto flow = velocity_flow.get(x, y, dx, dy);
+            if (flow == cap) {
+                continue;
+            }
+            // assert(v >= velocity_flow.get(x, y, dx, dy));
+            auto vp = min(lim, cap - flow);
+            if (last_use[nx][ny] == UT - 1) {
+                velocity_flow.add(x, y, dx, dy, vp);
+                last_use[x][y] = UT;
+                // cerr << x << " " << y << " -> " << nx << " " << ny << " " << vp << " / " << lim << "\n";
+                return {vp, 1, {nx, ny}};
+            }
+            auto [t, prop, end] = propagate_flow(nx, ny, vp);
+            ret += t;
+            if (prop) {
+                velocity_flow.add(x, y, dx, dy, t);
+                last_use[x][y] = UT;
+                // cerr << x << " " << y << " -> " << nx << " " << ny << " " << t << " / " << lim << "\n";
+                return {t, prop && end != pair(x, y), end};
+            }
+        }
+    }
+    last_use[x][y] = UT;
+    return {ret, 0, {0, 0}};
+}
+
+Fixed random01() {
+    return Fixed::from_raw((rnd() & ((1 << 16) - 1)));
+}
+
+void propagate_stop(int x, int y, bool force = false) {
+    if (!force) {
+        bool stop = true;
+        for (auto [dx, dy] : deltas) {
+            int nx = x + dx, ny = y + dy;
+            if (field[nx][ny] != '#' && last_use[nx][ny] < UT - 1 && velocity.get(x, y, dx, dy) > 0) {
+                stop = false;
+                break;
+            }
+        }
+        if (!stop) {
+            return;
+        }
+    }
+    last_use[x][y] = UT;
+    for (auto [dx, dy] : deltas) {
+        int nx = x + dx, ny = y + dy;
+        if (field[nx][ny] == '#' || last_use[nx][ny] == UT || velocity.get(x, y, dx, dy) > 0) {
+            continue;
+        }
+        propagate_stop(nx, ny);
+    }
+}
+
+Fixed move_prob(int x, int y) {
+    Fixed sum = 0;
+    for (size_t i = 0; i < deltas.size(); ++i) {
+        auto [dx, dy] = deltas[i];
+        int nx = x + dx, ny = y + dy;
+        if (field[nx][ny] == '#' || last_use[nx][ny] == UT) {
+            continue;
+        }
+        auto v = velocity.get(x, y, dx, dy);
+        if (v < 0) {
+            continue;
+        }
+        sum += v;
+    }
+    return sum;
+}
+
+struct ParticleParams {
+    char type;
+    Fixed cur_p;
+    array<Fixed, deltas.size()> v;
+
+    void swap_with(int x, int y) {
+        swap(field[x][y], type);
+        swap(p[x][y], cur_p);
+        swap(velocity.v[x][y], v);
+    }
+};
+
+bool propagate_move(int x, int y, bool is_first) {
+    last_use[x][y] = UT - is_first;
+    bool ret = false;
+    int nx = -1, ny = -1;
+    do {
+        std::array<Fixed, deltas.size()> tres;
+        Fixed sum = 0;
+        for (size_t i = 0; i < deltas.size(); ++i) {
+            auto [dx, dy] = deltas[i];
+            int nx = x + dx, ny = y + dy;
+            if (field[nx][ny] == '#' || last_use[nx][ny] == UT) {
+                tres[i] = sum;
+                continue;
+            }
+            auto v = velocity.get(x, y, dx, dy);
+            if (v < 0) {
+                tres[i] = sum;
+                continue;
+            }
+            sum += v;
+            tres[i] = sum;
+        }
+
+        if (sum == 0) {
+            break;
+        }
+
+        Fixed p = random01() * sum;
+        size_t d = std::ranges::upper_bound(tres, p) - tres.begin();
+
+        auto [dx, dy] = deltas[d];
+        nx = x + dx;
+        ny = y + dy;
+        assert(velocity.get(x, y, dx, dy) > 0 && field[nx][ny] != '#' && last_use[nx][ny] < UT);
+
+        ret = (last_use[nx][ny] == UT - 1 || propagate_move(nx, ny, false));
+    } while (!ret);
+    last_use[x][y] = UT;
+    for (size_t i = 0; i < deltas.size(); ++i) {
+        auto [dx, dy] = deltas[i];
+        int nx = x + dx, ny = y + dy;
+        if (field[nx][ny] != '#' && last_use[nx][ny] < UT - 1 && velocity.get(x, y, dx, dy) < 0) {
+            propagate_stop(nx, ny);
+        }
+    }
+    if (ret) {
+        if (!is_first) {
+            ParticleParams pp{};
+            pp.swap_with(x, y);
+            pp.swap_with(nx, ny);
+            pp.swap_with(x, y);
+        }
+    }
+    return ret;
+}
+
+int dirs[N][M]{};
+
+int main() {
+    rho[' '] = 0.01;
+    rho['.'] = 1000;
+    Fixed g = 0.1;
+
+    for (size_t x = 0; x < N; ++x) {
+        for (size_t y = 0; y < M; ++y) {
+            if (field[x][y] == '#')
+                continue;
+            for (auto [dx, dy] : deltas) {
+                dirs[x][y] += (field[x + dx][y + dy] != '#');
+            }
+        }
+    }
+
+    for (size_t i = 0; i < T; ++i) {
+
+        Fixed total_delta_p = 0;
+        // Apply external forces
+        for (size_t x = 0; x < N; ++x) {
+            for (size_t y = 0; y < M; ++y) {
+                if (field[x][y] == '#')
+                    continue;
+                if (field[x + 1][y] != '#')
+                    velocity.add(x, y, 1, 0, g);
+            }
+        }
+
+        // Apply forces from p
+        memcpy(old_p, p, sizeof(p));
+        for (size_t x = 0; x < N; ++x) {
+            for (size_t y = 0; y < M; ++y) {
+                if (field[x][y] == '#')
+                    continue;
+                for (auto [dx, dy] : deltas) {
+                    int nx = x + dx, ny = y + dy;
+                    if (field[nx][ny] != '#' && old_p[nx][ny] < old_p[x][y]) {
+                        auto delta_p = old_p[x][y] - old_p[nx][ny];
+                        auto force = delta_p;
+                        auto &contr = velocity.get(nx, ny, -dx, -dy);
+                        if (contr * rho[(int) field[nx][ny]] >= force) {
+                            contr -= force / rho[(int) field[nx][ny]];
+                            continue;
+                        }
+                        force -= contr * rho[(int) field[nx][ny]];
+                        contr = 0;
+                        velocity.add(x, y, dx, dy, force / rho[(int) field[x][y]]);
+                        p[x][y] -= force / dirs[x][y];
+                        total_delta_p -= force / dirs[x][y];
+                    }
+                }
+            }
+        }
+
+        // Make flow from velocities
+        velocity_flow = {};
+        bool prop = false;
+        do {
+            UT += 2;
+            prop = 0;
+            for (size_t x = 0; x < N; ++x) {
+                for (size_t y = 0; y < M; ++y) {
+                    if (field[x][y] != '#' && last_use[x][y] != UT) {
+                        auto [t, local_prop, _] = propagate_flow(x, y, 1);
+                        if (t > 0) {
+                            prop = 1;
+                        }
+                    }
+                }
+            }
+        } while (prop);
+
+        // Recalculate p with kinetic energy
+        for (size_t x = 0; x < N; ++x) {
+            for (size_t y = 0; y < M; ++y) {
+                if (field[x][y] == '#')
+                    continue;
+                for (auto [dx, dy] : deltas) {
+                    auto old_v = velocity.get(x, y, dx, dy);
+                    auto new_v = velocity_flow.get(x, y, dx, dy);
+                    if (old_v > 0) {
+                        assert(new_v <= old_v);
+                        velocity.get(x, y, dx, dy) = new_v;
+                        auto force = (old_v - new_v) * rho[(int) field[x][y]];
+                        if (field[x][y] == '.')
+                            force *= 0.8;
+                        if (field[x + dx][y + dy] == '#') {
+                            p[x][y] += force / dirs[x][y];
+                            total_delta_p += force / dirs[x][y];
+                        } else {
+                            p[x + dx][y + dy] += force / dirs[x + dx][y + dy];
+                            total_delta_p += force / dirs[x + dx][y + dy];
+                        }
+                    }
+                }
+            }
+        }
+
+        UT += 2;
+        prop = false;
+        for (size_t x = 0; x < N; ++x) {
+            for (size_t y = 0; y < M; ++y) {
+                if (field[x][y] != '#' && last_use[x][y] != UT) {
+                    if (random01() < move_prob(x, y)) {
+                        prop = true;
+                        propagate_move(x, y, true);
+                    } else {
+                        propagate_stop(x, y, true);
+                    }
+                }
+            }
+        }
+
+        if (prop) {
+            cout << "Tick " << i << ":\n";
+            for (size_t x = 0; x < N; ++x) {
+                cout << field[x] << "\n";
+            }
+        }
+    }
+}

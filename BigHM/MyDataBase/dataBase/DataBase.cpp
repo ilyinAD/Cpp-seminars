@@ -72,7 +72,7 @@ void DataBase::create(std::string s) {
     tables[p.second] = Table(p.second, p.first);
 }
 
-std::pair<std::string, std::vector<std::string>> parseInsert(const std::string& expression) {
+std::pair<std::string, std::vector<std::string>> parseStringInsert(const std::string& expression) {
     std::string tableName;
     std::vector<std::string> arguments;
 
@@ -117,12 +117,33 @@ std::pair<std::string, std::vector<std::string>> changeQuote(std::string& s) {
     return std::make_pair(ans, v);
 }
 
-void DataBase::insert(std::string s) {
+std::string getWhereCond(std::string& s) {
+    std::string res;
+    int cnt = 0;
+    for (int i = 0; i < s.size(); ++i) {
+        if (s[i] == '\"') {
+            cnt++;
+            cnt %= 2;
+        }
+        if (s[i] == 'w') {
+            std::string q = getCommand(s, i);
+            if (q == "where" && cnt == 0) {
+                res = s.substr(i + 6);
+                s = s.substr(0, i);
+                deleteCornerSpaces(res);
+                return res;
+            }
+        }
+    }
+    throw std::runtime_error("wrong query");
+}
+
+std::pair<std::string, std::map<std::string, std::string>> DataBase::parseInsert(std::string s) {
     s = deleteDoubleSpaces(s);
     s = s.substr(7);
     std::pair<std::string, std::vector<std::string>> chngPair = changeQuote(s);
     s = chngPair.first;
-    std::pair<std::string, std::vector<std::string>> p = parseInsert(s);
+    std::pair<std::string, std::vector<std::string>> p = parseStringInsert(s);
     std::vector<std::string> v = p.second;
     std::string table_name = p.first;
     std::map<std::string, std::string> m;
@@ -152,7 +173,13 @@ void DataBase::insert(std::string s) {
             m[colName] = s;
         }
     }
-    tables[table_name].insert(m);
+
+    return {table_name, m};
+}
+
+void DataBase::insert(std::string s) {
+    std::pair<std::string, std::map<std::string, std::string>> p = parseInsert(s);
+    tables[p.first].insert(p.second);
 }
 
 void DataBase::deleteRows(std::string s) {
@@ -164,8 +191,19 @@ void DataBase::deleteRows(std::string s) {
     tables[table_name].deleteRows(deleteCornerSpaces(s));
 }
 
-Table DataBase::handleJoin(std::string s) {
+void replaceAll(std::string& str, const std::string& needChange, const std::string& onChange, size_t pos) {
+    if (needChange.empty()) {
+        return;
+    }
+    if ((pos = str.find(needChange, pos)) != std::string::npos) {
+        str.replace(pos, needChange.length(), onChange);
+    }
+}
+
+Table DataBase::handleJoin(std::string s, std::vector<std::string>& v, int& idx) {
     std::string name1 = s.substr(0, s.find(' '));
+//    std::pair<std::string, std::vector<std::string>> p = changeQuote(s);
+//    s = p.first;
     name1 = deleteCornerSpaces(name1);
     Table table = tables[name1];
     while (s.find("join") < s.size()) {
@@ -176,6 +214,15 @@ Table DataBase::handleJoin(std::string s) {
         s = s.substr(onCond + 4);
         size_t secondJoin = s.find("join");
         std::string onExpr = s.substr(0, secondJoin  - 1);
+
+        size_t pos = 0;
+        while ((pos = onExpr.find("\"", pos)) < onExpr.size()) {
+            replaceAll(onExpr, "\"", "\"" + v[idx] + "\"", pos);
+            pos += v[idx].size() + 2;
+            ++idx;
+
+        }
+
         Table table2 = tables[name2];
         table = table.join(table, table2, onExpr, name1 + name2);
         name1 = table.name;
@@ -185,7 +232,13 @@ Table DataBase::handleJoin(std::string s) {
 
 Table DataBase::select(std::string s) {
     s = s.substr(7);
+    std::string whereCond = getWhereCond(s);
+    std::pair<std::string, std::vector<std::string>> chngPair = changeQuote(s);
+    s = chngPair.first;
     size_t from = s.find("from");
+    std::string s1 = s.substr(from + 5);
+    int idx = 0;
+    Table table = handleJoin(s1, chngPair.second, idx);
     std::vector<std::string> colNames;
     std::string curName = "";
     std::string names = s.substr(0, from);
@@ -199,39 +252,28 @@ Table DataBase::select(std::string s) {
     }
     if (curName != "")
         colNames.push_back(deleteCornerSpaces(curName));
-    size_t where = s.find("where");
-    std::string whereCond = deleteCornerSpaces(s.substr(where + 6));
-    s = s.substr(from + 5, where - 1 - from - 5);
-    Table table = handleJoin(s);
+
     return table.select(colNames, whereCond, "");
 }
 
-void replaceAll(std::string& str, const std::string& needChange, const std::string& onChange, size_t pos) {
-    if (needChange.empty()) {
-        return;
-    }
-    if ((pos = str.find(needChange, pos)) != std::string::npos) {
-        str.replace(pos, needChange.length(), onChange);
-    }
-}
 
 Table DataBase::update(std::string s) {
     s = s.substr(7);
-    size_t set = s.find("set");
-    std::string s1 = s.substr(0, set - 1);
+    std::string whereCond = getWhereCond(s);
+
     std::pair<std::string, std::vector<std::string>> chngPair = changeQuote(s);
     s = chngPair.first;
-    Table table = handleJoin(s1);
-    size_t where = s.find("where");
-    std::string whereCond = s.substr(where + 6);
-    s = s.substr(set + 4, where - 1 - set - 4);
+    size_t set = s.find("set");
+    std::string s1 = s.substr(0, set - 1);
+    int idx = 0;
+    Table table = handleJoin(s1, chngPair.second, idx);
+    s = s.substr(set + 4);
     std::istringstream stream(s);
     std::string row;
     std::vector<std::string> v;
     while (getline(stream, row, ',')) {
         v.push_back(row);
     }
-    int idx = 0;
     std::map<std::string, std::string> m;
     for (int i = 0; i < v.size(); ++i) {
         size_t equals_pos = v[i].find('=');
@@ -256,6 +298,7 @@ Table DataBase::update(std::string s) {
 
 void DataBase::execute(std::string s) {
     my_mutex.lock();
+    s = deleteDoubleSpaces(s);
     std::istringstream stream(s);
     std::string query;
     while (getline(stream, query, ';')) {

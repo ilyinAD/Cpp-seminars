@@ -49,7 +49,7 @@ TEST(DataBase, Queries) {
             }
         }
     }
-    Table newtable  = database.update("update users join cars on true set cars.car_name = cars.car_name + \"CAR\", cars.is_truck = true where (cars.id) * (1 + 2) < 3 && users.id = 1 ");
+    Table newtable  = database.update("update users join cars on \"Carjoin\" = \"Carjoin\" set cars.car_name = cars.car_name + \"CAR\", cars.is_truck = true where (cars.id) * (1 + 2) < 3 && users.id = 1 && \"Car\" = \"Car\"");
     columns = {Col("users.id", Type(TypeName::Int, 1), 0, Attributes(0, 1, 1)),
                Col("users.login", Type(TypeName::String, 32), 1, Attributes(1, 0, 0)),
                Col("users.password_hash", Type(TypeName::Bytes, 8), 2, Attributes(0, 0, 0)),
@@ -72,7 +72,7 @@ TEST(DataBase, Queries) {
         }
     }
 
-    Table selectTable = database.select("select cars.car_name, users.login, users.id, cars.person_id from cars join users on users.id = cars.person_id where true");
+    Table selectTable = database.select("select cars.car_name, users.login, users.id, cars.person_id from cars join users on users.id = cars.person_id && \"Carjoin\" = \"Carjoin\" where true");
     columns = {Col("cars.car_name", Type(TypeName::String, 32), 0, Attributes(0, 0, 0)),
                Col("users.login", Type(TypeName::String, 32), 1, Attributes(1, 0, 0)),
                Col("users.id", Type(TypeName::Int, 1), 2, Attributes(0, 1, 1)),
